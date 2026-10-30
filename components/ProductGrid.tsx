@@ -4,7 +4,13 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { products } from "@/lib/products";
+import { isExternal, products, type Product } from "@/lib/products";
+
+// The home carousel highlights products; website templates live on /products.
+const featured = products.filter((p) => p.type !== "website");
+
+const siteUrlFor = (p: Product) =>
+  isExternal(p.detailsUrl) ? p.detailsUrl : p.demoUrl;
 
 export default function ProductGrid() {
   const sectionRef = useRef(null);
@@ -89,7 +95,7 @@ export default function ProductGrid() {
         ref={scrollRef}
         className="flex gap-6 overflow-x-auto px-6 pb-4 scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-[calc((100vw-72rem)/2+1.5rem)]"
       >
-        {products.map((p, i) => (
+        {featured.map((p, i) => (
           <motion.div
             key={p.slug}
             data-card
@@ -102,12 +108,12 @@ export default function ProductGrid() {
             }}
             className="liquid-glass w-[85vw] max-w-[340px] flex-shrink-0 snap-start rounded-2xl bg-[#0b0f16]/60 backdrop-blur-md p-8 transition-all duration-300 hover:bg-[#0b0f16]/80"
           >
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-4 gap-3">
               <span className="font-mono text-xs uppercase tracking-widest text-[#4d8dff]">
-                {p.category}
+                {p.categoryLabel}
               </span>
-              <span className="font-mono text-xs uppercase tracking-widest text-[#7f93b8]">
-                {p.status}
+              <span className="font-mono text-xs uppercase tracking-widest text-[#7f93b8] shrink-0">
+                {p.status === "live" ? "Live" : "Coming soon"}
               </span>
             </div>
 
@@ -125,9 +131,9 @@ export default function ProductGrid() {
               >
                 Learn more
               </Link>
-              {p.url && (
-                 <a 
-                  href={p.url}
+              {p.status === "live" && siteUrlFor(p) && (
+                <a
+                  href={siteUrlFor(p)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-mono text-xs uppercase tracking-widest text-[#7f93b8] hover:text-[#eef1f6] transition-colors"
@@ -138,6 +144,15 @@ export default function ProductGrid() {
             </div>
           </motion.div>
         ))}
+      </div>
+
+      <div className="mx-auto max-w-6xl px-6 pt-8">
+        <Link
+          href="/products"
+          className="font-mono text-xs uppercase tracking-widest text-[#7f93b8] hover:text-[#eef1f6] transition-colors"
+        >
+          View all products &rarr;
+        </Link>
       </div>
     </section>
   );

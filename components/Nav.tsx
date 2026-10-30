@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
 const LINKS = [
   { label: "Company", href: "/#about" },
   { label: "Services", href: "/templates" },
-  { label: "Products", href: "/#products" },
+  { label: "Products", href: "/products" },
   { label: "Innovation", href: "/eznob" },
   { label: "About", href: "/#about" },
 ];
@@ -16,6 +17,12 @@ const LINKS = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Hash links (/#about) point at sections of the home page, so only
+  // path-only links can be "active".
+  const isActive = (href: string) =>
+    !href.includes("#") && (pathname === href || pathname.startsWith(`${href}/`));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -56,16 +63,24 @@ export default function Nav() {
           </Link>
 
           <ul className="hidden items-center gap-9 md:flex">
-            {LINKS.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="font-mono text-xs uppercase tracking-widest text-[#a2adc4] transition-colors hover:text-[#eef1f6]"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {LINKS.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`border-b-2 py-1.5 font-mono text-xs uppercase tracking-widest transition-colors hover:text-[#eef1f6] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4d8dff] ${
+                      active
+                        ? "border-[#4d8dff] text-[#4d8dff]"
+                        : "border-transparent text-[#a2adc4]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <Link
@@ -125,7 +140,10 @@ export default function Nav() {
                   <Link
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="font-display text-4xl font-bold text-[#eef1f6]"
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                    className={`font-display text-4xl font-bold ${
+                      isActive(link.href) ? "text-[#4d8dff]" : "text-[#eef1f6]"
+                    }`}
                   >
                     {link.label}
                   </Link>
