@@ -1,6 +1,11 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Pin the project root so Next ignores lockfiles outside this repo.
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
   transpilePackages: [
     "three",
     "three-stdlib",
