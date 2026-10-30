@@ -13,7 +13,7 @@
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
 }
 
 html {

@@ -1,0 +1,65 @@
+{
+  "business-consultation": {
+    "photographer": "Vitaly Gariev",
+    "photographerUrl": "https://unsplash.com/@silverkblack?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/a-woman-sitting-at-a-desk-in-front-of-a-laptop-GD4jccM_K_E?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "GD4jccM_K_E",
+    "query": "business consultation video call woman laptop"
+  },
+  "shopify-store-setup": {
+    "photographer": "Oberon Copeland @veryinformed.com",
+    "photographerUrl": "https://unsplash.com/@veryinformed?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/a-screenshot-of-a-computer-XtjLk9TRlE0?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "XtjLk9TRlE0",
+    "query": "online store skincare products ecommerce"
+  },
+  "dropshipping-website": {
+    "photographer": "Claudio Schwarz",
+    "photographerUrl": "https://unsplash.com/@purzlbaum?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/cardboard-shipping-boxes-in-delivery-van-q8kR_ie6WnI?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "q8kR_ie6WnI",
+    "query": "ecommerce shipping packages parcel"
+  },
+  "business-website": {
+    "photographer": "Alisa Bright",
+    "photographerUrl": "https://unsplash.com/@brightdesigns?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/laptop-phone-plant-and-a-rustic-pencil-348RpoWfGW4?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "348RpoWfGW4",
+    "query": "business website laptop office desk"
+  },
+  "website-redesign": {
+    "photographer": "Tirza van Dijk",
+    "photographerUrl": "https://unsplash.com/@tirzavandijk?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/macbook-pro-displaying-computer-icons-o1SKqmgSDbg?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "o1SKqmgSDbg",
+    "query": "web designer wireframe redesign laptop"
+  },
+  "app-ai-development": {
+    "photographer": "Numan Ali",
+    "photographerUrl": "https://unsplash.com/@king_designer99?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/ai-letters-on-circuit-board-llNtovr7ctk?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "llNtovr7ctk",
+    "query": "artificial intelligence smartphone app"
+  },
+  "website-maintenance": {
+    "photographer": "James Harrison",
+    "photographerUrl": "https://unsplash.com/@jstrippa?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/black-laptop-computer-turned-on-on-table-vpOeXr5wmR4?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "vpOeXr5wmR4",
+    "query": "software developer laptop code screen"
+  },
+  "private-training": {
+    "photographer": "Dylan Ferreira",
+    "photographerUrl": "https://unsplash.com/@dylanferreira?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/person-in-red-and-black-plaid-long-sleeve-shirt-using-black-laptop-computer-HJmxky8Fvmo?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "HJmxky8Fvmo",
+    "query": "online tutor training video call laptop"
+  },
+  "hero": {
+    "photographer": "Elsa Olofsson",
+    "photographerUrl": "https://unsplash.com/@elsaolofsson?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/skincare-products-with-stones-and-greenery-Pm0K9Y3EPUc?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "Pm0K9Y3EPUc",
+    "query": "natural skincare beauty products"
+  }
+}

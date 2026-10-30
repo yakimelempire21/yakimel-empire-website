@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { faqs } from "@/lib/faqs";
-import { products } from "@/lib/products";
+import { isExternal, products } from "@/lib/products";
 
 type Message = {
   role: "bot" | "user";
@@ -27,10 +27,13 @@ function findAnswer(question: string): string | null {
     const nameWords = product.name.toLowerCase().split(" ");
     const mentioned = nameWords.some((w) => w.length > 2 && q.includes(w));
     if (mentioned) {
+      const liveUrl = isExternal(product.detailsUrl) ? product.detailsUrl : product.demoUrl;
       const statusLine =
-        product.status === "Live" && product.url
-          ? " It's live now at " + product.url + "."
-          : " It's currently in development.";
+        product.status === "live"
+          ? liveUrl
+            ? " It's live now at " + liveUrl + "."
+            : " It's available now."
+          : " It's coming soon.";
       return product.description + statusLine;
     }
   }
