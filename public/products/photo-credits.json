@@ -1,0 +1,44 @@
+{
+  "maison": {
+    "photographer": "Ярослав Алексеенко",
+    "photographerUrl": "https://unsplash.com/@webaliser?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/white-and-brown-concrete-building-under-blue-sky-during-daytime-_TPTXZd9mOo?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "_TPTXZd9mOo",
+    "query": "luxury modern house pool architecture"
+  },
+  "bloom": {
+    "photographer": "Wco Global",
+    "photographerUrl": "https://unsplash.com/@wcoglobal?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/woman-wrapped-in-towels-in-a-sauna-SlpmIhUd860?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "SlpmIhUd860",
+    "query": "spa salon relaxation woman towel"
+  },
+  "savory": {
+    "photographer": "Mae Mu",
+    "photographerUrl": "https://unsplash.com/@picoftasty?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/two-brown-croissants-m9pzwmxm2rk?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "m9pzwmxm2rk",
+    "query": "bakery croissants coffee"
+  },
+  "forma": {
+    "photographer": "John Arano",
+    "photographerUrl": "https://unsplash.com/@johnarano?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/woman-doing-weight-lifting-h4i9G-de7Po?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "h4i9G-de7Po",
+    "query": "gym woman workout strength training"
+  },
+  "atelier": {
+    "photographer": "Joel Muniz",
+    "photographerUrl": "https://unsplash.com/@jmuniz?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/woman-in-white-t-shirt-and-blue-denim-shorts-sitting-on-brown-wooden-seat-E6ExxeQNiN4?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "E6ExxeQNiN4",
+    "query": "minimalist creative studio designer portrait"
+  },
+  "nexora": {
+    "photographer": "Campaign Creators",
+    "photographerUrl": "https://unsplash.com/@campaign_creators?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/man-standing-in-front-of-people-sitting-beside-table-with-laptop-computers-gMsnXqILjp4?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "gMsnXqILjp4",
+    "query": "business team office meeting modern"
+  }
+}

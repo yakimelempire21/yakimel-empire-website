@@ -9,6 +9,14 @@ export const metadata: Metadata = {
     "Explore website designs, apps and digital solutions built around your goals.",
 };
 
+const CREDIT = {
+  text: "Photos by Unsplash photographers",
+  href: "https://unsplash.com/?utm_source=yakimel_empire&utm_medium=referral",
+};
+
+const focus =
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
+
 export default function ProductsPage() {
   return (
     <main className="min-h-screen bg-bg-dark text-ink-invert">
@@ -58,11 +66,23 @@ export default function ProductsPage() {
           </div>
           <Link
             href="/consultation"
-            className="inline-flex items-center justify-center rounded-lg bg-brand px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            className={`inline-flex items-center justify-center rounded-lg bg-brand px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-dark ${focus}`}
           >
             Start a Project <span aria-hidden="true">&nbsp;→</span>
           </Link>
         </div>
+
+        <p className="mt-8 text-center text-xs text-dim-invert">
+          <a
+            href={CREDIT.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`underline underline-offset-2 transition-colors hover:text-ink-invert ${focus}`}
+          >
+            {CREDIT.text}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </p>
       </section>
     </main>
   );

@@ -48,14 +48,14 @@ export function parseTab(value: string | null | undefined): TabId {
   return TABS.find((t) => t.id === value)?.id ?? "all";
 }
 
-// Swap a placeholder for a real screenshot by dropping the file in /public
-// and updating the `image` path (e.g. "/products/templates/atelier.jpg").
+// Template card images are built by scripts/make-product-images.mjs
+// (aurum, velora and ironstone use their own screenshots).
 const template = (
   slug: string,
   name: string,
   industry: string,
   description: string,
-  image = `/products/templates/${slug}.svg`,
+  image = `/products/templates/${slug}.jpg`,
 ): Product => ({
   slug,
   name,
