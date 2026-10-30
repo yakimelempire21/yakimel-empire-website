@@ -1,9 +1,17 @@
+import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getProduct, products } from "@/lib/products";
+import { hasDemo, type DemoSlug } from "@/lib/demos";
+import AurumDemo from "@/components/demos/AurumDemo";
 
 type Params = { params: Promise<{ slug: string }> };
+
+// Keep in sync with DEMO_SLUGS in lib/demos.ts (the type enforces it).
+const DEMOS: Record<DemoSlug, ComponentType> = {
+  aurum: AurumDemo,
+};
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -27,6 +35,11 @@ export default async function DemoPage({ params }: Params) {
 
   if (!product) {
     notFound();
+  }
+
+  if (hasDemo(product.slug)) {
+    const Demo = DEMOS[product.slug];
+    return <Demo />;
   }
 
   if (product.demoUrl) {

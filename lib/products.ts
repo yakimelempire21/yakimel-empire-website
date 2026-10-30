@@ -18,6 +18,12 @@ export type Product = {
   detailsUrl: string;
   /** Replaces the "View Demo" button (e.g. "Get a Quote"). */
   primaryCta?: { label: string; href: string };
+  /**
+   * Whether the product is listed on /products (default true). Hidden
+   * products stay in the data: the home carousel, /products/<slug> and
+   * /demo/<slug> keep working.
+   */
+  showOnProductsPage?: boolean;
 };
 
 export type TabId = "all" | "websites" | "apps" | "ai-apps" | "software";
@@ -134,6 +140,7 @@ export const products: Product[] = [
     status: "live",
     demoUrl: "https://digimarketapp.com",
     detailsUrl: "https://digimarketapp.com",
+    showOnProductsPage: false,
   },
   {
     slug: "whatsapp-ai-assistant",
@@ -151,6 +158,7 @@ export const products: Product[] = [
       label: "Get a Quote",
       href: "/consultation?service=WhatsApp%20AI%20Assistant",
     },
+    showOnProductsPage: false,
   },
   {
     slug: "health-hyr",
@@ -164,6 +172,7 @@ export const products: Product[] = [
     image: "/healthhyr-hero.png",
     status: "coming-soon",
     detailsUrl: "/products/health-hyr",
+    showOnProductsPage: false,
   },
   {
     slug: "yakimel-design-studio",
@@ -199,6 +208,11 @@ export function getProduct(slug: string): Product | undefined {
 
 export function isExternal(href: string): boolean {
   return /^https?:\/\//.test(href);
+}
+
+/** True when the product should be listed on /products. */
+export function isListed(product: Product): boolean {
+  return product.showOnProductsPage !== false;
 }
 
 export function productsForTab(tab: TabId): Product[] {

@@ -4,6 +4,7 @@ import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import ChromeGate from "@/components/ChromeGate";
 
 const display = Archivo({
   subsets: ["latin"],
@@ -30,9 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body className="font-body bg-bg text-ink antialiased min-h-full" suppressHydrationWarning>
-        <Nav />
+        <ChromeGate>
+          <Nav />
+        </ChromeGate>
         {children}
-        <Footer />
+        <ChromeGate>
+          <Footer />
+        </ChromeGate>
       </body>
     </html>
   );

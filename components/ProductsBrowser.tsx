@@ -6,6 +6,7 @@ import { Search, ChevronDown } from "lucide-react";
 import {
   TABS,
   industriesFor,
+  isListed,
   parseTab,
   productsForTab,
   type Product,
@@ -17,18 +18,26 @@ import { ContactModal } from "@/components/ContactWidget";
 const focus =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 
+// "All Products" and "Websites" are always shown; other tabs only when they
+// have at least one product listed on this page.
+const VISIBLE_TABS = TABS.filter(
+  (t) => t.id === "all" || t.id === "websites" || productsForTab(t.id).some(isListed),
+);
+
 export default function ProductsBrowser() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const tab = parseTab(searchParams.get("type"));
+  const requestedTab = parseTab(searchParams.get("type"));
+  // A hidden tab in the URL (?type=apps) falls back to All Products.
+  const tab: TabId = VISIBLE_TABS.some((t) => t.id === requestedTab) ? requestedTab : "all";
 
   const [query, setQuery] = useState("");
   const [industryChoice, setIndustryChoice] = useState("all");
   const [notify, setNotify] = useState<Product | null>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
-  const tabProducts = useMemo(() => productsForTab(tab), [tab]);
+  const tabProducts = useMemo(() => productsForTab(tab).filter(isListed), [tab]);
   const industries = useMemo(() => industriesFor(tabProducts), [tabProducts]);
   // A previously chosen industry may not exist under the newly selected tab.
   const industry = industries.includes(industryChoice) ? industryChoice : "all";
@@ -56,15 +65,16 @@ export default function ProductsBrowser() {
   );
 
   function onTabKeyDown(e: React.KeyboardEvent, index: number) {
+    const last = VISIBLE_TABS.length - 1;
     let next = index;
-    if (e.key === "ArrowRight") next = (index + 1) % TABS.length;
-    else if (e.key === "ArrowLeft") next = (index - 1 + TABS.length) % TABS.length;
+    if (e.key === "ArrowRight") next = index === last ? 0 : index + 1;
+    else if (e.key === "ArrowLeft") next = index === 0 ? last : index - 1;
     else if (e.key === "Home") next = 0;
-    else if (e.key === "End") next = TABS.length - 1;
+    else if (e.key === "End") next = last;
     else return;
     e.preventDefault();
-    selectTab(TABS[next].id);
-    tabRefs.current[TABS[next].id]?.focus();
+    selectTab(VISIBLE_TABS[next].id);
+    tabRefs.current[VISIBLE_TABS[next].id]?.focus();
   }
 
   function clearFilters() {
@@ -82,7 +92,7 @@ export default function ProductsBrowser() {
           aria-label="Product categories"
           className="flex w-full gap-1 overflow-x-auto rounded-full border border-white/10 bg-surface/60 p-1.5 lg:w-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {TABS.map((t, i) => {
+          {VISIBLE_TABS.map((t, i) => {
             const selected = t.id === tab;
             return (
               <button
