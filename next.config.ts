@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
     "@react-three/drei",
     "@react-three/postprocessing",
   ],
+  async redirects() {
+    return [
+      {
+        // Old spelling of the Advertwize overview page.
+        source: "/innovation/advertwise",
+        destination: "/innovation/advertwize",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

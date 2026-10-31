@@ -5,7 +5,7 @@ const LINKS = [
   { label: "Company", href: "/#about" },
   { label: "Services", href: "/services" },
   { label: "Products", href: "/products" },
-  { label: "Innovation", href: "/eznob" },
+  { label: "Innovation", href: "/innovation" },
   { label: "About", href: "/#about" },
 ];
 
@@ -33,6 +33,8 @@ const focus =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand";
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="bg-bg-dark text-dim-invert py-14 px-6 border-t border-white/10">
       <div className="mx-auto max-w-7xl flex flex-col gap-8 md:flex-row md:items-center md:justify-between md:px-4">
@@ -84,7 +86,7 @@ export default function Footer() {
 
       <div className="mx-auto mt-10 max-w-7xl flex flex-col gap-2 border-t border-white/10 pt-6 font-mono text-xs md:flex-row md:justify-between md:px-4">
         <div>USA, New York</div>
-        <div>Yakimel Empire LLC. All rights reserved.</div>
+        <div>© {year} Yakimel Empire LLC. All rights reserved.</div>
       </div>
     </footer>
   );
