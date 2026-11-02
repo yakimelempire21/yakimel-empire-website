@@ -1,0 +1,37 @@
+{
+  "advertwize": {
+    "photographer": "Per Lööv",
+    "photographerUrl": "https://unsplash.com/@perloov?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/person-looking-at-sticky-note-wall-oXqn2CXC_9Q?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "oXqn2CXC_9Q",
+    "query": "marketing team brainstorming whiteboard sticky notes"
+  },
+  "service-business-platform": {
+    "photographer": "Lindsay Cash",
+    "photographerUrl": "https://unsplash.com/@lindsayrc81?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/a-woman-getting-her-hair-cut-by-a-hair-stylist-Md_DhaFsnCQ?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "Md_DhaFsnCQ",
+    "query": "salon hairstylist appointment client"
+  },
+  "pickup-marketplace": {
+    "photographer": "Bas Peperzak",
+    "photographerUrl": "https://unsplash.com/@bastroloog?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/brown-bread-on-brown-paper-bag-XNNurImW1xM?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "XNNurImW1xM",
+    "query": "fresh bread bakery paper bag"
+  },
+  "hero": {
+    "photographer": "Sebastian Frederik Jacobsen",
+    "photographerUrl": "https://unsplash.com/@hejsfj?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/modern-city-buildings-with-illuminated-windows-at-night-r9_K9PYnG9g?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "r9_K9PYnG9g",
+    "query": "modern glass skyscrapers night city blue"
+  },
+  "brandforge-ai": {
+    "photographer": "laura adai",
+    "photographerUrl": "https://unsplash.com/@lauraadaiphoto?utm_source=yakimel_empire&utm_medium=referral",
+    "photoUrl": "https://unsplash.com/photos/white-table-lamp-on-white-table-5H2ketFL1LE?utm_source=yakimel_empire&utm_medium=referral",
+    "unsplashId": "5H2ketFL1LE",
+    "query": "colorful paint swatches design studio desk"
+  }
+}

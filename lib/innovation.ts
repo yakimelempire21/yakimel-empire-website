@@ -6,6 +6,14 @@ export type InnovationMedia =
   | { type: "image"; src: string; alt: string }
   | { type: "concept"; kind: ConceptKind };
 
+export type PhotoAsset = {
+  src: string;
+  alt: string;
+  /** Intrinsic size of the file, for layout. */
+  width: number;
+  height: number;
+};
+
 export type LogoAsset = {
   src: string;
   alt: string;
@@ -22,6 +30,8 @@ export type InnovationProject = {
   /** e.g. "Working title". */
   badge?: string;
   media: InnovationMedia;
+  /** Illustrative stock photo shown instead of the CSS mock-up (which stays as the fallback). */
+  photo?: PhotoAsset;
   /** Compact app logo (monogram), shown on a light tile next to the name on the card. */
   logo?: LogoAsset;
   /** Full wordmark, shown on a light panel on the overview page. */
@@ -49,6 +59,17 @@ export const INNOVATION_PAGE = {
   gridSubtitle: "Discover the ideas shaping our digital future.",
   discover: "Discover Project",
   conceptLabel: "Concept preview",
+  photoLabel: "Illustrative image",
+  hero: {
+    src: "/innovation/hero.png",
+    width: 1600,
+    height: 1000,
+    alt: "A laptop showing a city skyline at night next to a phone with a simple app screen",
+  },
+  photoCredit: {
+    label: "Photos by Unsplash photographers",
+    href: "https://unsplash.com/?utm_source=yakimel_empire&utm_medium=referral",
+  },
   closing: {
     title: "Building what comes next.",
     description: "Interested in our vision? Let's connect.",
@@ -106,6 +127,12 @@ export const innovationProjects: InnovationProject[] = [
     description:
       "AI-powered tools to help entrepreneurs develop their brand identity and content.",
     media: { type: "concept", kind: "brand" },
+    photo: {
+      src: "/innovation/brandforge-ai.jpg",
+      alt: "Artist's studio table with paintbrushes and patterned fabric swatches on the wall. Illustrative stock photo.",
+      width: 1200,
+      height: 750,
+    },
     detailsHref: "/innovation/brandforge-ai",
     audience: ["Entrepreneurs building a brand"],
     capabilities: ["AI-powered brand identity development", "AI-powered content development"],
@@ -117,6 +144,12 @@ export const innovationProjects: InnovationProject[] = [
     category: "Advertising Platform",
     description: "Plan campaigns, manage advertising and understand performance in one place.",
     media: { type: "concept", kind: "ads" },
+    photo: {
+      src: "/innovation/advertwize.jpg",
+      alt: "Person facing a wall covered in sticky notes during a brainstorm. Illustrative stock photo.",
+      width: 1200,
+      height: 750,
+    },
     logo: {
       src: "/logos/advertwize-mark.trim.png",
       alt: "Advertwize logo",
@@ -141,6 +174,12 @@ export const innovationProjects: InnovationProject[] = [
     description:
       "Create a business page, showcase services, manage appointments and accept payments. This concept supports professionals such as hairstylists, nail technicians, cleaners, plumbers, tutors and consultants.",
     media: { type: "concept", kind: "services" },
+    photo: {
+      src: "/innovation/service-business-platform.jpg",
+      alt: "Hairstylist washing a client's hair at a salon basin. Illustrative stock photo.",
+      width: 1200,
+      height: 750,
+    },
     detailsHref: "/innovation/service-business-platform",
     audience: [
       "Hairstylists",
@@ -165,6 +204,12 @@ export const innovationProjects: InnovationProject[] = [
     description:
       "A platform for ordering from restaurants, shops and local businesses, with pickup on location.",
     media: { type: "concept", kind: "pickup" },
+    photo: {
+      src: "/innovation/pickup-marketplace.jpg",
+      alt: "Fresh bread in a brown paper bag. Illustrative stock photo.",
+      width: 1200,
+      height: 750,
+    },
     detailsHref: "/innovation/pickup-marketplace",
     audience: ["Restaurants, shops and local businesses", "Customers who want to order and pick up locally"],
     capabilities: ["Ordering from local businesses", "Pickup on location"],
