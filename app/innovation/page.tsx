@@ -75,6 +75,16 @@ export default function InnovationPage() {
             {INNOVATION_PAGE.closing.button}
           </Link>
         </div>
+        <p className="mt-12 text-center text-xs text-dim-invert">
+          <a
+            href={INNOVATION_PAGE.photoCredit.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`underline underline-offset-2 transition-opacity hover:opacity-80 ${focus}`}
+          >
+            {INNOVATION_PAGE.photoCredit.label}
+          </a>
+        </p>
       </section>
     </main>
   );

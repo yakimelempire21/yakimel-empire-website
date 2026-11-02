@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ConceptPreview from "@/components/innovation/ConceptPreview";
+import ProjectPhoto from "@/components/innovation/ProjectPhoto";
 import {
   INNOVATION_PAGE,
   getOverviewProject,
@@ -52,7 +53,15 @@ export default async function InnovationOverviewPage({ params }: Params) {
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10">
-            <ConceptPreview kind={project.media.kind} />
+            {project.photo ? (
+              <ProjectPhoto
+                photo={project.photo}
+                kind={project.media.kind}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+            ) : (
+              <ConceptPreview kind={project.media.kind} />
+            )}
           </div>
 
           <div>
