@@ -14,7 +14,16 @@ export async function loginAction(_prev: LoginState, form: FormData): Promise<Lo
   const password = String(form.get("password") ?? "");
   if (!email || !password) return { error: "Enter your email and password.", email };
 
-  const result = await signIn(email, password);
+  let result;
+  try {
+    result = await signIn(email, password);
+  } catch (error) {
+    console.error("Sign-in failed — database unreachable or misconfigured:", error);
+    return {
+      error: "YAKIMEL OS can't reach its database right now. Check DATABASE_URL in Vercel, then redeploy.",
+      email,
+    };
+  }
   // Return the email so the form keeps it after React resets the inputs.
   if (!result.ok) return { error: result.error, email };
   redirect("/admin");

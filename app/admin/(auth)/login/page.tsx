@@ -11,7 +11,16 @@ export const metadata = { title: "Sign in | YAKIMEL OS" };
 export default async function LoginPage() {
   // Always render at request time (it reads the session cookie).
   await connection();
-  if (databaseConfigured() && (await getCurrentUser())) redirect("/admin");
+  let signedIn = false;
+  if (databaseConfigured()) {
+    try {
+      signedIn = Boolean(await getCurrentUser());
+    } catch (error) {
+      // Show the form even if the database can't be reached; signing in will explain.
+      console.error("Login page: database check failed:", error);
+    }
+  }
+  if (signedIn) redirect("/admin");
 
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-16">
