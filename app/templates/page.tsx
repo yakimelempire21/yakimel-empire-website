@@ -66,9 +66,9 @@ export default function TemplatesPage() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.18 }}
           className="mt-6 max-w-xl text-base leading-relaxed text-[#a2adc4]"
         >
-          A few examples of the range we design across — from construction
-          to hospitality to e-commerce. Every project starts from your
-          business, not a one-size-fits-all template.
+          Concept designs that show the range we design across, from
+          construction to hospitality to e-commerce. Every project starts
+          from your business, not a one-size-fits-all template.
         </motion.p>
       </div>
 

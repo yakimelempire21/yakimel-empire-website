@@ -5,14 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { NAV_LINKS } from "@/lib/site";
 
-const LINKS = [
-  { label: "Company", href: "/#about" },
-  { label: "Services", href: "/services" },
-  { label: "Products", href: "/products" },
-  { label: "Innovation", href: "/innovation" },
-  { label: "About", href: "/#about" },
-];
+const LINKS = NAV_LINKS;
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);

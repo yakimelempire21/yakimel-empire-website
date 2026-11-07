@@ -37,7 +37,7 @@ export default function Expertise() {
             <div className="pointer-events-none absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/45" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent px-6 py-5">
               <span className="font-mono text-xs uppercase tracking-widest text-white">
-                Explore Our Website Template
+                See Our Work
               </span>
               <span className="font-mono text-xs uppercase tracking-widest text-[#7f93b8] group-hover:text-white">
                 →
@@ -90,7 +90,7 @@ export default function Expertise() {
     href="/templates"
     className="inline-block rounded-full bg-[#4d8dff] px-8 py-3.5 font-mono text-xs uppercase tracking-widest text-white transition-colors hover:bg-[#3a7ae8]"
   >
-    Browse Templates
+    See Our Work
   </Link>
 </motion.div>
         </div>

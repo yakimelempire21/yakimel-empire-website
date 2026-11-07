@@ -5,6 +5,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChromeGate from "@/components/ChromeGate";
+import { SITE } from "@/lib/site";
 
 const display = Archivo({
   subsets: ["latin"],
@@ -18,10 +19,20 @@ const body = Inter({
   weight: ["400", "500", "600"],
 });
 
+const SITE_DESCRIPTION =
+  "Yakimel Empire LLC designs and builds websites, online stores, apps and AI tools for small businesses, with clear starting prices and a private dashboard you control.";
+
 export const metadata: Metadata = {
-  title: "Yakimel Empire LLC | Technology. Innovation. Future.",
-  description:
-    "Yakimel Empire LLC builds and operates a portfolio of SaaS and marketplace products, end-to-end, from a single desk in Garnerville, New York.",
+  metadataBase: new URL(SITE.url),
+  title: "Yakimel Empire LLC | Websites, Apps & AI for Small Business",
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: "Yakimel Empire LLC | Websites, Apps & AI for Small Business",
+    description: SITE_DESCRIPTION,
+    type: "website",
+    siteName: SITE.name,
+    url: "/",
+  },
 };
 export default function RootLayout({
   children,

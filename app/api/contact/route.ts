@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { CONTACT_INBOX, createTransport, fromAddress, mailConfigured } from "@/lib/mailer";
 
 function generateTicketNumber() {
   const timestamp = Date.now().toString().slice(-6);
@@ -21,24 +21,23 @@ export async function POST(request: Request) {
 
     const ticketNumber = generateTicketNumber();
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-      },
-    });
+    if (!mailConfigured()) {
+      console.error("Contact form: ZOHO_USER / ZOHO_APP_PASSWORD are not set.");
+      return NextResponse.json({ error: "Email is not configured" }, { status: 500 });
+    }
+
+    const transporter = createTransport();
 
     await transporter.sendMail({
-      from: `"Yakimel Empire Website" <${process.env.GMAIL_USER}>`,
-      to: process.env.GMAIL_USER,
+      from: fromAddress("Yakimel Empire Website"),
+      to: CONTACT_INBOX,
       replyTo: email,
       subject: `New contact form message — ${ticketNumber}`,
       text: `Ticket: ${ticketNumber}\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     });
 
     await transporter.sendMail({
-      from: `"Yakimel Empire LLC Support" <${process.env.GMAIL_USER}>`,
+      from: fromAddress("Yakimel Empire LLC Support"),
       to: email,
       subject: `We received your request — Ticket ${ticketNumber}`,
       text: `Hi ${name},
@@ -57,7 +56,7 @@ We appreciate your patience and thank you for contacting Yakimel Empire LLC.
 
 Best regards,
 Yakimel Empire LLC Support Team
-support@yakimelempire.com
+info@yakimelempire.com
 
 This is an automated confirmation message. Your request has been received and is awaiting review.`,
     });

@@ -183,16 +183,19 @@ function ContactDialog({
   );
 }
 
-export default function ContactWidget() {
+export default function ContactWidget({
+  label = "Start a Conversation",
+  className = "bg-brand text-white font-medium px-8 py-4 rounded-full hover:bg-brand-dark transition-colors",
+}: {
+  label?: string;
+  className?: string;
+} = {}) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="bg-brand text-white font-medium px-8 py-4 rounded-full hover:bg-brand-dark transition-colors"
-      >
-        Start a Conversation
+      <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog" className={className}>
+        {label}
       </button>
       <ContactModal open={open} onClose={() => setOpen(false)} />
     </>

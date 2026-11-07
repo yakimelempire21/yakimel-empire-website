@@ -1,31 +1,28 @@
-import Hero from "@/components/Hero";
-import ServiceWorlds from "@/components/ServiceWorlds";
-import ProductGrid from "@/components/ProductGrid";
-import About from "@/components/About";
-import MissionVision from "@/components/MissionVision";
+import HomeHero from "@/components/home/HomeHero";
+import HomeServices from "@/components/home/HomeServices";
 import Expertise from "@/components/Expertise";
-import Approach from "@/components/Approach";
-import Values from "@/components/Values";
-import Ecosystem from "@/components/Ecosystem";
-import WhyUs from "@/components/WhyUs";
-import FAQ from "@/components/FAQ";
-import Contact from "@/components/Contact";
+import HomeWork from "@/components/home/HomeWork";
+import HomeProducts from "@/components/home/HomeProducts";
+import HomeProcess from "@/components/home/HomeProcess";
+import HomeAbout from "@/components/home/HomeAbout";
+import HomeFAQ from "@/components/home/HomeFAQ";
+import HomeCTA from "@/components/home/HomeCTA";
 
+// Lean, sales-focused home page. The older long-form sections (Mission,
+// Values, Ecosystem, Why Us…) are still in components/ if you want them
+// on a separate About page later.
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <ServiceWorlds />
-      <ProductGrid />
-      <About />
-      <MissionVision />
+      <HomeHero />
+      <HomeServices />
       <Expertise />
-      <Approach />
-      <Values />
-      <Ecosystem />
-      <WhyUs />
-      <FAQ />
-      <Contact />
+      <HomeWork />
+      <HomeProducts />
+      <HomeProcess />
+      <HomeAbout />
+      <HomeFAQ />
+      <HomeCTA />
     </main>
   );
 }
