@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src file:" />
+    <title>YAKIMEL OS — Offline</title>
+    <style>
+      html, body { height: 100%; margin: 0; }
+      body {
+        display: flex; align-items: center; justify-content: center;
+        background: radial-gradient(ellipse at top, rgba(47,111,234,0.22), transparent 60%), #07080b;
+        color: #eef1f6; font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .card {
+        width: min(420px, 88vw); padding: 36px; text-align: center; border-radius: 18px;
+        background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      }
+      img { width: 64px; height: 64px; }
+      h1 { margin: 18px 0 6px; font-size: 22px; letter-spacing: 0.08em; }
+      p { margin: 0 0 24px; color: #a2adc4; line-height: 1.5; font-size: 14px; }
+      button {
+        border: 0; border-radius: 10px; padding: 11px 22px; font-size: 14px; font-weight: 600;
+        background: #2f6fea; color: #fff; cursor: pointer;
+      }
+      button:hover { background: #1d4ed8; }
+      small { display: block; margin-top: 16px; color: #5d6b86; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <img src="build/icon.png" alt="" />
+      <h1>YAKIMEL OS</h1>
+      <p>Can't reach the Command Center. Check your internet connection, then try again.</p>
+      <button id="retry" type="button">Try again</button>
+      <small>Retrying automatically every 15 seconds…</small>
+    </div>
+    <script>
+      const target = new URLSearchParams(location.search).get("retry") || "https://www.yakimelempire.com/admin";
+      const go = () => { if (/^https:\/\/(www\.)?yakimelempire\.com\//.test(target) || target.startsWith("http://localhost")) location.href = target; };
+      document.getElementById("retry").addEventListener("click", go);
+      setInterval(() => { if (navigator.onLine) go(); }, 15000);
+    </script>
+  </body>
+</html>
