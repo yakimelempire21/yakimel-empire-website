@@ -25,7 +25,7 @@ export default async function DepartmentsPage() {
   const projects = new Map(projectCounts.map((p) => [p.departmentId, p.n]));
   const children = (id: string) => departments.filter((d) => d.parentDepartmentId === id);
 
-  const ORDER = ["technology", "eznob", "dream-ink-digitals", "yakimel-gallery", "executive", "human-resources", "finance"];
+  const ORDER = ["technology", "eznob", "executive", "human-resources", "finance"];
   const rank = (slug: string) => (ORDER.indexOf(slug) === -1 ? ORDER.length : ORDER.indexOf(slug));
   let roots = departments.filter((d) => !d.parentDepartmentId).sort((a, b) => rank(a.slug) - rank(b.slug));
   // Department managers only see their own branch.

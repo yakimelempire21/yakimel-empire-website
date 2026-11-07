@@ -102,7 +102,7 @@ export default function AdminShell({
         </div>
       </Link>
 
-      <nav aria-label="YAKIMEL OS" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6 pt-2 [scrollbar-width:thin]">
+      <nav aria-label="YAKIMEL OS" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6 pt-2 [scrollbar-color:#232a38_transparent] [scrollbar-width:thin]">
         {groups.map((group, gi) => (
           <div key={group.label ?? gi}>
             {group.label && (

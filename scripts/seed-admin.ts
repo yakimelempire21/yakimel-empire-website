@@ -35,14 +35,18 @@ const DEPARTMENTS: { slug: string; name: string; parent?: string; description?: 
   { slug: "eznob", name: "EZNOB" },
   { slug: "eznob-office-services", name: "Office Services", parent: "eznob" },
   { slug: "eznob-business-services", name: "Business Services", parent: "eznob" },
-  { slug: "dream-ink-digitals", name: "Dream Ink Digitals" },
-  { slug: "dream-ink-books", name: "Books", parent: "dream-ink-digitals" },
-  { slug: "dream-ink-digital-products", name: "Digital Products", parent: "dream-ink-digitals" },
-  { slug: "dream-ink-shopify-etsy", name: "Shopify / Etsy", parent: "dream-ink-digitals" },
-  { slug: "yakimel-gallery", name: "Yakimel Gallery" },
-  { slug: "gallery-clothing", name: "Clothing", parent: "yakimel-gallery" },
-  { slug: "gallery-templates", name: "Templates", parent: "yakimel-gallery" },
-  { slug: "gallery-creative-products", name: "Creative Products", parent: "yakimel-gallery" },
+];
+
+/** Divisions removed from the company structure (children listed before parents). */
+const REMOVED_DEPARTMENTS = [
+  "dream-ink-books",
+  "dream-ink-digital-products",
+  "dream-ink-shopify-etsy",
+  "dream-ink-digitals",
+  "gallery-clothing",
+  "gallery-templates",
+  "gallery-creative-products",
+  "yakimel-gallery",
 ];
 
 const APPS: { slug: string; name: string; domain?: string; status: "LIVE" | "DEVELOPMENT"; progress?: number }[] = [
@@ -77,6 +81,28 @@ async function main() {
       .onConflictDoUpdate({ target: s.departments.slug, set: { name: d.name } })
       .returning({ id: s.departments.id });
     deptIds[d.slug] = row.id;
+  }
+
+  // Remove retired divisions, but never one that still has people, projects or work attached.
+  for (const slug of REMOVED_DEPARTMENTS) {
+    const dept = await db.query.departments.findFirst({ where: eq(s.departments.slug, slug) });
+    if (!dept) continue;
+    const [inUse] = await Promise.all([
+      Promise.all([
+        db.select({ id: s.employees.id }).from(s.employees).where(eq(s.employees.departmentId, dept.id)).limit(1),
+        db.select({ id: s.projects.id }).from(s.projects).where(eq(s.projects.departmentId, dept.id)).limit(1),
+        db.select({ id: s.tasks.id }).from(s.tasks).where(eq(s.tasks.departmentId, dept.id)).limit(1),
+        db.select({ id: s.supportTickets.id }).from(s.supportTickets).where(eq(s.supportTickets.departmentId, dept.id)).limit(1),
+        db.select({ id: s.apps.id }).from(s.apps).where(eq(s.apps.departmentId, dept.id)).limit(1),
+        db.select({ id: s.departments.id }).from(s.departments).where(eq(s.departments.parentDepartmentId, dept.id)).limit(1),
+      ]).then((rows) => rows.some((r) => r.length > 0)),
+    ]);
+    if (inUse) {
+      console.log(`Kept "${dept.name}": it still has people, projects, tasks, tickets, apps or sub-departments.`);
+      continue;
+    }
+    await db.delete(s.departments).where(eq(s.departments.id, dept.id));
+    console.log(`Removed department "${dept.name}".`);
   }
 
   // Roles
