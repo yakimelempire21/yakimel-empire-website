@@ -76,6 +76,13 @@ Keep the service role key secret. It must only ever go in server environment var
 
 Edit `lib/db/schema.ts`, then run `npm run db:generate` (this creates a migration in `drizzle/`) and `npm run db:migrate`. Commit the `drizzle/` folder.
 
+**After every update that adds a migration, run `npm run db:migrate` before (or right after) pushing.** If you skip it, admin pages can't load.
+
+Supabase addresses:
+- `DATABASE_URL` → **Transaction pooler**, `aws-0-<region>.pooler.supabase.com:6543`
+- `DATABASE_URL_UNPOOLED` → **Session pooler**, `aws-0-<region>.pooler.supabase.com:5432`
+- Don't use `db.<ref>.supabase.co`: it's IPv6-only, and Vercel and most home networks can't reach it.
+
 ## Coming next
 
 - **Phase 4 (App Control Centers):** user, payment and moderation actions for each app; system health; analytics.
