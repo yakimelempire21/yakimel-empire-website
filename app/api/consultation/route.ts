@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { recordWebsiteRequest } from "@/lib/admin/intake";
 import { CONTACT_INBOX, createTransport, fromAddress, mailConfigured } from "@/lib/mailer";
 
 function generateTicketNumber() {
@@ -8,6 +9,9 @@ function generateTicketNumber() {
 }
 
 export async function POST(request: Request) {
+  // Declared outside try so a failed email still succeeds when the request was saved.
+  let saved = false;
+  let ticketNumber = "";
   try {
     const data = await request.json();
 
@@ -32,14 +36,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const ticketNumber = generateTicketNumber();
-
-    if (!mailConfigured()) {
-      console.error("Consultation form: ZOHO_USER / ZOHO_APP_PASSWORD are not set.");
-      return NextResponse.json({ error: "Email is not configured" }, { status: 500 });
-    }
-
-    const transporter = createTransport();
+    ticketNumber = generateTicketNumber();
 
     const detailsText = `Ticket: ${ticketNumber}
 
@@ -57,6 +54,34 @@ ${description}
 
 Additional Information:
 ${additionalInfo || "N/A"}`;
+
+    saved = await recordWebsiteRequest({
+      reference: ticketNumber,
+      kind: "project",
+      name: fullName,
+      email,
+      phone,
+      company: companyName,
+      website: existingWebsite,
+      subject: `${projectType} project request`,
+      body: [description, additionalInfo].filter(Boolean).join("\n\n"),
+      details: Object.fromEntries(
+        Object.entries({
+          "Project type": projectType,
+          "Estimated budget": budget,
+          "Desired timeline": timeline,
+          "Existing website": existingWebsite,
+        }).filter(([, v]) => v),
+      ),
+    });
+
+    if (!mailConfigured()) {
+      console.error("Consultation form: ZOHO_USER / ZOHO_APP_PASSWORD are not set.");
+      if (saved) return NextResponse.json({ success: true, ticketNumber });
+      return NextResponse.json({ error: "Email is not configured" }, { status: 500 });
+    }
+
+    const transporter = createTransport();
 
     await transporter.sendMail({
       from: fromAddress("Yakimel Empire Website"),
@@ -95,6 +120,7 @@ This is an automated confirmation message. Your request has been received and is
     return NextResponse.json({ success: true, ticketNumber });
   } catch (error) {
     console.error("Consultation form error:", error);
+    if (saved) return NextResponse.json({ success: true, ticketNumber });
     return NextResponse.json({ error: "Failed to send request" }, { status: 500 });
   }
 }

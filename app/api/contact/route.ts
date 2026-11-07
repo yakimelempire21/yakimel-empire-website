@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { recordWebsiteRequest } from "@/lib/admin/intake";
 import { CONTACT_INBOX, createTransport, fromAddress, mailConfigured } from "@/lib/mailer";
 
 function generateTicketNumber() {
@@ -8,6 +9,9 @@ function generateTicketNumber() {
 }
 
 export async function POST(request: Request) {
+  // Declared outside try so a failed email still succeeds when the request was saved.
+  let saved = false;
+  let ticketNumber = "";
   try {
     const { name, email, message, website } = await request.json();
 
@@ -19,10 +23,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    const ticketNumber = generateTicketNumber();
+    ticketNumber = generateTicketNumber();
+
+    saved = await recordWebsiteRequest({
+      reference: ticketNumber,
+      kind: "inquiry",
+      name,
+      email,
+      subject: String(message).startsWith("Escalated from chatbot")
+        ? "Chat assistant escalation"
+        : String(message).replace(/\s+/g, " ").trim().slice(0, 70) + (String(message).length > 70 ? "…" : ""),
+      body: message,
+    });
 
     if (!mailConfigured()) {
       console.error("Contact form: ZOHO_USER / ZOHO_APP_PASSWORD are not set.");
+      if (saved) return NextResponse.json({ success: true, ticketNumber });
       return NextResponse.json({ error: "Email is not configured" }, { status: 500 });
     }
 
@@ -64,6 +80,7 @@ This is an automated confirmation message. Your request has been received and is
     return NextResponse.json({ success: true, ticketNumber });
   } catch (error) {
     console.error("Contact form error:", error);
+    if (saved) return NextResponse.json({ success: true, ticketNumber });
     return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
   }
 }
