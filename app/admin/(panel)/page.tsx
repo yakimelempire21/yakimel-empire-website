@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { and, asc, count, desc, eq, inArray, ne, notInArray, sum } from "drizzle-orm";
+import { and, asc, count, desc, eq, gte, inArray, ne, notInArray, sql, sum } from "drizzle-orm";
 import { ArrowRight, CircleCheck, TriangleAlert } from "lucide-react";
 import AppCard from "@/components/admin/AppCard";
 import { Badge, Card, glass } from "@/components/admin/ui";
@@ -18,7 +18,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
   const executive = EXECUTIVE_VIEW.includes(user.role);
 
   const [
-    [pipeline],
+    [revenue],
     [activeClients],
     [activeProjects],
     [openTickets],
@@ -28,7 +28,10 @@ export default async function Overview({ searchParams }: { searchParams: Promise
     recent,
     myTasks,
   ] = await Promise.all([
-    db.select({ v: sum(t.projects.budget) }).from(t.projects).where(notInArray(t.projects.status, [...CLOSED])),
+    db
+      .select({ v: sum(t.payments.amount) })
+      .from(t.payments)
+      .where(gte(t.payments.paidAt, sql`date_trunc('month', now())`)),
     db.select({ n: count() }).from(t.clients).where(eq(t.clients.status, "ACTIVE")),
     db.select({ n: count() }).from(t.projects).where(notInArray(t.projects.status, ["LEAD", ...CLOSED])),
     db.select({ n: count() }).from(t.supportTickets).where(inArray(t.supportTickets.status, ["OPEN", "IN_PROGRESS"])),
@@ -64,7 +67,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
   const appUsers = sumMetric(apps, "users");
 
   const kpis = [
-    { label: "Pipeline Value", value: formatMoney(pipeline.v ?? 0), hint: "Open projects", href: "/admin/projects", show: can("projects") },
+    { label: "Revenue", value: formatMoney(revenue.v ?? 0), hint: "This month", href: "/admin/finance", show: can("finance") },
     { label: "Active Clients", value: activeClients.n, href: "/admin/clients?status=ACTIVE", show: can("clients") },
     { label: "Active Projects", value: activeProjects.n, href: "/admin/projects", show: can("projects") },
     {

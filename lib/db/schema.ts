@@ -425,6 +425,141 @@ export const notifications = pgTable(
 );
 
 // ============================================================
+// FINANCE
+// ============================================================
+
+export const invoiceStatus = pgEnum("invoice_status", ["DRAFT", "SENT", "PARTIAL", "PAID", "VOID"]);
+export const paymentMethod = pgEnum("payment_method", ["CARD", "BANK_TRANSFER", "ZELLE", "CASH_APP", "PAYPAL", "STRIPE", "CASH", "CHECK", "OTHER"]);
+export const billingInterval = pgEnum("billing_interval", ["MONTHLY", "QUARTERLY", "YEARLY"]);
+export const subscriptionKind = pgEnum("subscription_kind", ["INCOME", "EXPENSE"]);
+export const subscriptionStatus = pgEnum("subscription_status", ["ACTIVE", "PAUSED", "CANCELLED"]);
+
+export const invoices = pgTable(
+  "invoices",
+  {
+    id: id(),
+    /** Human number, shown as INV-1001. */
+    number: serial("number").notNull(),
+    clientId: text("client_id")
+      .notNull()
+      .references(() => clients.id),
+    projectId: text("project_id").references(() => projects.id, { onDelete: "set null" }),
+    status: invoiceStatus("status").default("DRAFT").notNull(),
+    issueDate: timestamp("issue_date", { withTimezone: true, mode: "date" }).notNull(),
+    dueDate: timestamp("due_date", { withTimezone: true, mode: "date" }),
+    /** Sum of line items, kept in sync on every save. */
+    total: numeric("total", { precision: 12, scale: 2 }).default("0").notNull(),
+    amountPaid: numeric("amount_paid", { precision: 12, scale: 2 }).default("0").notNull(),
+    notes: text("notes"),
+    sentAt: timestamp("sent_at", { withTimezone: true }),
+    createdById: text("created_by_id").references(() => users.id),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [index("invoices_client_idx").on(t.clientId), index("invoices_status_idx").on(t.status)],
+);
+
+export const invoiceItems = pgTable(
+  "invoice_items",
+  {
+    id: id(),
+    invoiceId: text("invoice_id")
+      .notNull()
+      .references(() => invoices.id, { onDelete: "cascade" }),
+    description: text("description").notNull(),
+    quantity: numeric("quantity", { precision: 10, scale: 2 }).default("1").notNull(),
+    unitPrice: numeric("unit_price", { precision: 12, scale: 2 }).notNull(),
+    position: integer("position").default(0).notNull(),
+  },
+  (t) => [index("invoice_items_invoice_idx").on(t.invoiceId)],
+);
+
+export const payments = pgTable(
+  "payments",
+  {
+    id: id(),
+    invoiceId: text("invoice_id").references(() => invoices.id, { onDelete: "set null" }),
+    clientId: text("client_id").references(() => clients.id),
+    amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
+    method: paymentMethod("method").default("OTHER").notNull(),
+    paidAt: timestamp("paid_at", { withTimezone: true, mode: "date" }).notNull(),
+    reference: text("reference"),
+    notes: text("notes"),
+    recordedById: text("recorded_by_id").references(() => users.id),
+    createdAt: createdAt(),
+  },
+  (t) => [index("payments_invoice_idx").on(t.invoiceId), index("payments_paid_idx").on(t.paidAt)],
+);
+
+export const expenses = pgTable(
+  "expenses",
+  {
+    id: id(),
+    date: timestamp("date", { withTimezone: true, mode: "date" }).notNull(),
+    category: text("category").notNull(),
+    vendor: text("vendor"),
+    description: text("description"),
+    amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
+    departmentId: text("department_id").references(() => departments.id),
+    appId: text("app_id").references(() => apps.id),
+    recordedById: text("recorded_by_id").references(() => users.id),
+    createdAt: createdAt(),
+  },
+  (t) => [index("expenses_date_idx").on(t.date)],
+);
+
+/** Recurring money: client plans (income) and company software/services (expense). */
+export const subscriptions = pgTable("subscriptions", {
+  id: id(),
+  kind: subscriptionKind("kind").notNull(),
+  name: text("name").notNull(),
+  clientId: text("client_id").references(() => clients.id),
+  vendor: text("vendor"),
+  amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
+  interval: billingInterval("interval").default("MONTHLY").notNull(),
+  nextDate: timestamp("next_date", { withTimezone: true, mode: "date" }),
+  status: subscriptionStatus("status").default("ACTIVE").notNull(),
+  notes: text("notes"),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+});
+
+// ============================================================
+// CONTRACTS & DOCUMENTS
+// ============================================================
+
+export const documentType = pgEnum("document_type", ["CONTRACT", "PROPOSAL", "SOW", "INVOICE", "RECEIPT", "COMPANY", "HR", "OTHER"]);
+export const documentStatus = pgEnum("document_status", ["DRAFT", "SENT", "SIGNED", "EXPIRED", "ARCHIVED"]);
+
+export const documents = pgTable(
+  "documents",
+  {
+    id: id(),
+    title: text("title").notNull(),
+    type: documentType("type").default("OTHER").notNull(),
+    status: documentStatus("status").default("DRAFT").notNull(),
+    clientId: text("client_id").references(() => clients.id),
+    projectId: text("project_id").references(() => projects.id, { onDelete: "set null" }),
+    departmentId: text("department_id").references(() => departments.id),
+    /** Storage path inside the private "documents" bucket (when a file was uploaded). */
+    storagePath: text("storage_path"),
+    fileName: text("file_name"),
+    mimeType: text("mime_type"),
+    sizeBytes: integer("size_bytes"),
+    /** Or a link to a file kept elsewhere (Google Drive, DocuSign…). */
+    externalUrl: text("external_url"),
+    value: numeric("value", { precision: 12, scale: 2 }),
+    signedAt: timestamp("signed_at", { withTimezone: true, mode: "date" }),
+    expiresAt: timestamp("expires_at", { withTimezone: true, mode: "date" }),
+    notes: text("notes"),
+    uploadedById: text("uploaded_by_id").references(() => users.id),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [index("documents_type_idx").on(t.type), index("documents_client_idx").on(t.clientId)],
+);
+
+// ============================================================
 // RELATIONS (for db.query.* with `with`)
 // ============================================================
 
@@ -450,12 +585,45 @@ export const clientsRelations = relations(clients, ({ many }) => ({
   projects: many(projects),
   conversations: many(conversations),
   tickets: many(supportTickets),
+  invoices: many(invoices),
+  documents: many(documents),
+}));
+
+export const invoicesRelations = relations(invoices, ({ one, many }) => ({
+  client: one(clients, { fields: [invoices.clientId], references: [clients.id] }),
+  project: one(projects, { fields: [invoices.projectId], references: [projects.id] }),
+  items: many(invoiceItems),
+  payments: many(payments),
+}));
+
+export const invoiceItemsRelations = relations(invoiceItems, ({ one }) => ({
+  invoice: one(invoices, { fields: [invoiceItems.invoiceId], references: [invoices.id] }),
+}));
+
+export const paymentsRelations = relations(payments, ({ one }) => ({
+  invoice: one(invoices, { fields: [payments.invoiceId], references: [invoices.id] }),
+  client: one(clients, { fields: [payments.clientId], references: [clients.id] }),
+}));
+
+export const subscriptionsRelations = relations(subscriptions, ({ one }) => ({
+  client: one(clients, { fields: [subscriptions.clientId], references: [clients.id] }),
+}));
+
+export const expensesRelations = relations(expenses, ({ one }) => ({
+  department: one(departments, { fields: [expenses.departmentId], references: [departments.id] }),
+}));
+
+export const documentsRelations = relations(documents, ({ one }) => ({
+  client: one(clients, { fields: [documents.clientId], references: [clients.id] }),
+  project: one(projects, { fields: [documents.projectId], references: [projects.id] }),
 }));
 
 export const projectsRelations = relations(projects, ({ one, many }) => ({
   client: one(clients, { fields: [projects.clientId], references: [clients.id] }),
   department: one(departments, { fields: [projects.departmentId], references: [departments.id] }),
   tasks: many(tasks),
+  invoices: many(invoices),
+  documents: many(documents),
 }));
 
 export const tasksRelations = relations(tasks, ({ one }) => ({

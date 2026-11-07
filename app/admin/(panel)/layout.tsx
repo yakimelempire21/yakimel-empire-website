@@ -63,10 +63,10 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     {
       label: "Business",
       links: [
-        { label: "Finance", icon: "finance", soon: true, area: "finance" },
-        { label: "Invoices", icon: "invoices", soon: true, area: "finance" },
-        { label: "Contracts", icon: "contracts", soon: true, area: "finance" },
-        { label: "Documents", icon: "documents", soon: true, area: "finance" },
+        { label: "Finance", href: "/admin/finance", icon: "finance", area: "finance" },
+        { label: "Invoices", href: "/admin/invoices", icon: "invoices", area: "finance" },
+        { label: "Contracts", href: "/admin/contracts", icon: "contracts", area: "documents" },
+        { label: "Documents", href: "/admin/documents", icon: "documents", area: "documents" },
       ],
     },
     {

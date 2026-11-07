@@ -159,7 +159,7 @@ export default function AdminShell({
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-white/[0.06] bg-[#08090d]/80 backdrop-blur-xl lg:block">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 print:!hidden border-r border-white/[0.06] bg-[#08090d]/80 backdrop-blur-xl lg:block">
         {sidebar}
       </aside>
 
@@ -176,9 +176,9 @@ export default function AdminShell({
         </div>
       )}
 
-      <div className="lg:pl-64">
+      <div className="lg:pl-64 print:!pl-0">
         {/* Top bar */}
-        <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#07080b]/75 backdrop-blur-xl">
+        <header className="sticky top-0 z-20 print:hidden border-b border-white/[0.06] bg-[#07080b]/75 backdrop-blur-xl">
           <div className="flex items-center gap-3 px-4 py-3 sm:px-6 lg:px-10">
             <button type="button" onClick={() => setOpen(true)} aria-label="Open menu" className="text-white lg:hidden">
               <Menu size={22} />
@@ -234,7 +234,7 @@ export default function AdminShell({
           </div>
         </header>
 
-        <main className="mx-auto max-w-[1400px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">{children}</main>
+        <main className="mx-auto max-w-[1400px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10 print:max-w-none print:p-0">{children}</main>
       </div>
     </>
   );

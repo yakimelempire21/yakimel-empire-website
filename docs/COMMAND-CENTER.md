@@ -38,6 +38,21 @@ The internal system for running Yakimel Empire, at **/admin** on the website.
    ```
    Any flat numbers or short text are accepted, up to 30 keys.
 
+## Phase 3 — Business
+
+- **Finance:** revenue, expenses and net for the month; revenue for the year; outstanding and overdue amounts; a chart of the last 6 months; monthly recurring income and costs.
+- **Invoices:** add line items, with one-click prices from the Services page. Email the invoice to the client through Zoho, or print it / save it as a PDF. Record payments (Zelle, Cash App, card…); the status moves to Partial or Paid on its own, and an invoice past its due date shows as Overdue.
+- **Expenses:** costs by category and department.
+- **Subscriptions:** client plans, such as Website Maintenance at $79/month, and company costs, such as hosting.
+- **Contracts and Documents:** contracts, proposals, SOWs, receipts and company files. Files are stored privately in Supabase Storage and downloaded through short-lived links; you can also save a link instead (Google Drive, DocuSign…).
+
+File uploads need two more environment variables, in `.env.local` and on Vercel:
+```
+SUPABASE_URL=https://<project-ref>.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=<Supabase → Project Settings → API Keys → service_role / secret key>
+```
+Keep the service role key secret. It must only ever go in server environment variables, never in code.
+
 ## Setup
 
 1. **Create a database.** In Vercel, go to **Storage → Create → Neon (Postgres)** and connect it to this project. Vercel adds `DATABASE_URL` and `DATABASE_URL_UNPOOLED` for you.
@@ -63,7 +78,6 @@ Edit `lib/db/schema.ts`, then run `npm run db:generate` (this creates a migratio
 
 ## Coming next
 
-- **Phase 3 (Business):** finance, invoices, subscriptions, contracts and documents.
 - **Phase 4 (App Control Centers):** user, payment and moderation actions for each app; system health; analytics.
 - **Phase 5:** the Ask Yakimel AI command bar and the desktop app.
 - **HR additions:** leave requests, employee documents, email invitations, password reset, two-factor authentication.

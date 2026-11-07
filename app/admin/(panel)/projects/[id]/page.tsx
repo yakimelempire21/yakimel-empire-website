@@ -15,7 +15,7 @@ import {
 } from "@/lib/admin/format";
 import { clientOptions, departmentOptions, teamOptions } from "@/lib/admin/lookups";
 import { db, tables as t } from "@/lib/db";
-import { DEPARTMENT_SCOPED } from "@/lib/admin/roles";
+import { canAccess, DEPARTMENT_SCOPED } from "@/lib/admin/roles";
 import { addTask, setTaskStatus, updateProject } from "../actions";
 import ProjectForm from "../ProjectForm";
 
@@ -112,9 +112,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         <Card className="p-6">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="font-display font-bold">Project details</h2>
-            <Link href={`/admin/clients/${project.clientId}`} className="text-sm text-brand hover:underline">
-              Open client →
-            </Link>
+            <div className="flex gap-4">
+              {canAccess(user.role, "finance") && (
+                <Link href={`/admin/invoices/new?client=${project.clientId}&project=${project.id}`} className="text-sm text-brand hover:underline">
+                  Create invoice
+                </Link>
+              )}
+              <Link href={`/admin/clients/${project.clientId}`} className="text-sm text-brand hover:underline">
+                Open client →
+              </Link>
+            </div>
           </div>
           <ProjectForm
             action={updateProject.bind(null, project.id)}

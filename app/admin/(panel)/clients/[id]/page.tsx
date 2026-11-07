@@ -7,6 +7,7 @@ import { formatDate, formatMoney, humanize, SOURCE_LABELS, statusTone } from "@/
 import { canAccess } from "@/lib/admin/roles";
 import { db, tables as t } from "@/lib/db";
 import { updateClient } from "../actions";
+import { balance, displayStatus, invoiceNumber } from "@/lib/admin/finance";
 import ClientForm from "../ClientForm";
 
 export default async function ClientPage({ params }: { params: Promise<{ id: string }> }) {
@@ -18,6 +19,8 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
     with: {
       projects: { orderBy: desc(t.projects.createdAt) },
       conversations: { orderBy: desc(t.conversations.createdAt) },
+      invoices: { orderBy: desc(t.invoices.number) },
+      documents: { orderBy: desc(t.documents.createdAt) },
     },
   });
   if (!client) notFound();
@@ -67,6 +70,52 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
               </ul>
             )}
           </Card>
+
+          {canAccess(user.role, "finance") && (
+            <Card>
+              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                <h2 className="font-display font-bold">Invoices</h2>
+                <Link href={`/admin/invoices/new?client=${client.id}`} className={`${primaryButton} px-3 py-1.5 text-xs`}>
+                  New invoice
+                </Link>
+              </div>
+              {client.invoices.length === 0 ? (
+                <p className="px-5 py-6 text-sm text-dim-invert">No invoices yet.</p>
+              ) : (
+                <ul className="divide-y divide-white/5">
+                  {client.invoices.map((inv) => {
+                    const s = displayStatus(inv);
+                    return (
+                      <li key={inv.id}>
+                        <Link href={`/admin/invoices/${inv.id}`} className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-white/[0.03]">
+                          <span className="font-mono text-sm">{invoiceNumber(inv.number)}</span>
+                          <span className="text-sm">{formatMoney(inv.total)}</span>
+                          <span className="text-xs text-dim-invert">{s === "PAID" ? "Paid" : `${formatMoney(balance(inv))} due`}</span>
+                          <Badge tone={statusTone(s)}>{humanize(s)}</Badge>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </Card>
+          )}
+
+          {canAccess(user.role, "documents") && client.documents.length > 0 && (
+            <Card>
+              <h2 className="border-b border-white/10 px-5 py-4 font-display font-bold">Contracts & documents</h2>
+              <ul className="divide-y divide-white/5">
+                {client.documents.map((d) => (
+                  <li key={d.id}>
+                    <a href={`/admin/documents/${d.id}/download`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-white/[0.03]">
+                      <span className="min-w-0 truncate text-sm font-medium">{d.title}</span>
+                      <Badge tone={statusTone(d.status)}>{humanize(d.status)}</Badge>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          )}
 
           <Card>
             <h2 className="border-b border-white/10 px-5 py-4 font-display font-bold">Messages</h2>

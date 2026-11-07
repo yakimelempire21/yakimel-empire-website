@@ -47,7 +47,8 @@ export type Area =
   | "notifications"
   | "security"
   | "roles"
-  | "finance";
+  | "finance"
+  | "documents";
 
 const ALL: Area[] = [
   "dashboard",
@@ -63,17 +64,18 @@ const ALL: Area[] = [
   "security",
   "roles",
   "finance",
+  "documents",
 ];
 
 export const ROLE_ACCESS: Record<RoleKey, Area[]> = {
   SUPER_ADMIN: ALL,
   EXECUTIVE: ALL.filter((a) => a !== "roles"),
-  FINANCE: ["dashboard", "clients", "projects", "tasks", "notifications", "finance"],
+  FINANCE: ["dashboard", "clients", "projects", "tasks", "notifications", "finance", "documents"],
   DEVELOPER: ["dashboard", "apps", "tickets", "tasks", "notifications", "security"],
-  PROJECT_MANAGER: ["dashboard", "clients", "projects", "tasks", "inbox", "tickets", "notifications"],
+  PROJECT_MANAGER: ["dashboard", "clients", "projects", "tasks", "inbox", "tickets", "notifications", "documents"],
   SUPPORT_AGENT: ["dashboard", "inbox", "tickets", "clients", "tasks", "notifications"],
   DEPARTMENT_MANAGER: ["dashboard", "departments", "employees", "projects", "tasks", "notifications"],
-  HR: ["dashboard", "departments", "employees", "tasks", "notifications"],
+  HR: ["dashboard", "departments", "employees", "tasks", "notifications", "documents"],
   EMPLOYEE: ["dashboard", "tasks", "notifications"],
 };
 

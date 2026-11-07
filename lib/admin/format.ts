@@ -66,6 +66,17 @@ export function statusTone(status: string): Tone {
     case "MAINTENANCE":
     case "INVITED":
       return "amber";
+    case "PAID":
+    case "SIGNED":
+      return "green";
+    case "SENT":
+    case "PARTIAL":
+    case "DRAFT":
+    case "PAUSED":
+      return status === "DRAFT" ? "gray" : status === "PAUSED" ? "amber" : "blue";
+    case "OVERDUE":
+    case "VOID":
+    case "EXPIRED":
     case "CANCELLED":
     case "BLOCKED":
     case "OFFLINE":
