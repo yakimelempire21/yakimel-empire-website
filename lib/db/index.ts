@@ -1,41 +1,41 @@
 import "server-only";
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import { attachDatabasePool } from "@vercel/functions";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import * as schema from "./schema";
 
 /**
- * Database client. Uses DATABASE_URL (on Vercel, the pooled Neon URL).
- * One connection pool is reused across hot reloads in development.
+ * Database client. Uses DATABASE_URL (on Vercel: the Supabase *shared*
+ * transaction pooler, aws-0-…pooler.supabase.com:6543 — never db.<ref>.supabase.co,
+ * which is IPv6-only and unreachable from Vercel).
+ *
+ * Every step has a hard time limit, so a database problem shows a clear error
+ * after a few seconds instead of hanging until Vercel's 504 timeout.
  */
-const globalForDb = globalThis as unknown as { pgClient?: ReturnType<typeof postgres> };
+const globalForDb = globalThis as unknown as { pgPool?: Pool };
 
-function client() {
-  // postgres() connects lazily on the first query, so a missing URL only
-  // fails when the database is actually used (not at build time).
-  const url = process.env.DATABASE_URL || "postgres://not-configured@localhost/none";
-  if (!globalForDb.pgClient) {
-    const options = {
-      // Serverless: keep few connections per instance and release them quickly,
-      // so Supabase's connection limit is never exhausted.
-      max: 3,
-      idle_timeout: 15, // close a connection after 15 s without use
-      max_lifetime: 60 * 5, // and recycle every connection after 5 minutes
-      connect_timeout: 10,
-      // Pooled (PgBouncer / Supavisor) connections don't support prepared statements.
-      prepare: false,
-    };
-    try {
-      globalForDb.pgClient = postgres(url, options);
-    } catch (error) {
-      // A malformed DATABASE_URL must not crash every admin page at import time.
-      console.error("DATABASE_URL is not a valid Postgres connection string:", error);
-      globalForDb.pgClient = postgres("postgres://invalid-database-url@localhost/none", options);
-    }
+function pool() {
+  if (!globalForDb.pgPool) {
+    const url = process.env.DATABASE_URL || "postgres://not-configured@localhost/none";
+    globalForDb.pgPool = new Pool({
+      connectionString: url,
+      max: 5,
+      idleTimeoutMillis: 5_000, // release idle connections quickly (serverless)
+      connectionTimeoutMillis: 8_000, // give up connecting after 8 s
+      query_timeout: 15_000, // and on any single query after 15 s
+      keepAlive: true,
+      ssl: /localhost|127\.0\.0\.1/.test(url) ? false : { rejectUnauthorized: false },
+    });
+    // A broken connection must never crash the server process.
+    globalForDb.pgPool.on("error", (error) => console.error("[db] idle connection error:", error.message));
+    // Vercel Fluid compute: close idle connections before the instance is suspended,
+    // so no request ever waits on a dead connection.
+    attachDatabasePool(globalForDb.pgPool);
   }
-  return globalForDb.pgClient;
+  return globalForDb.pgPool;
 }
 
-export const db = drizzle({ client: client(), schema });
+export const db = drizzle({ client: pool(), schema });
 
 export function databaseConfigured(): boolean {
   return Boolean(process.env.DATABASE_URL);
