@@ -90,17 +90,18 @@ export async function signIn(emailRaw: string, password: string): Promise<LoginR
   const meta = await requestMeta();
   const generic = "Incorrect email or password.";
 
-  // Lock out after repeated failures for this email.
+  // Lock out after repeated failures for this email (both lookups run together).
   const since = new Date(Date.now() - LOCKOUT_MINUTES * 60_000);
-  const [{ failures }] = await db
-    .select({ failures: count() })
-    .from(t.loginHistory)
-    .where(and(eq(t.loginHistory.email, email), eq(t.loginHistory.success, false), gt(t.loginHistory.createdAt, since)));
+  const [[{ failures }], user] = await Promise.all([
+    db
+      .select({ failures: count() })
+      .from(t.loginHistory)
+      .where(and(eq(t.loginHistory.email, email), eq(t.loginHistory.success, false), gt(t.loginHistory.createdAt, since))),
+    db.query.users.findFirst({ where: eq(t.users.email, email) }),
+  ]);
   if (failures >= MAX_FAILED_LOGINS) {
     return { ok: false, error: `Too many attempts. Try again in ${LOCKOUT_MINUTES} minutes.` };
   }
-
-  const user = await db.query.users.findFirst({ where: eq(t.users.email, email) });
   // Compare against a dummy hash when the user doesn't exist, so timing doesn't reveal accounts.
   const valid = await bcrypt.compare(
     password,
@@ -108,25 +109,30 @@ export async function signIn(emailRaw: string, password: string): Promise<LoginR
   );
 
   if (!user || !valid || !user.isActive) {
-    await db.insert(t.loginHistory).values({
-      email,
-      userId: user?.id,
-      success: false,
-      reason: !user ? "unknown_email" : !valid ? "invalid_password" : "inactive",
-      ...meta,
-    });
-    if (user) {
-      await db.insert(t.auditLogs).values({ userId: user.id, action: "LOGIN_FAILED", resource: "auth", ipAddress: meta.ipAddress });
-    }
+    await Promise.all([
+      db.insert(t.loginHistory).values({
+        email,
+        userId: user?.id,
+        success: false,
+        reason: !user ? "unknown_email" : !valid ? "invalid_password" : "inactive",
+        ...meta,
+      }),
+      user
+        ? db.insert(t.auditLogs).values({ userId: user.id, action: "LOGIN_FAILED", resource: "auth", ipAddress: meta.ipAddress })
+        : null,
+    ]);
     return { ok: false, error: generic };
   }
 
   const token = randomBytes(32).toString("base64url");
   const expiresAt = new Date(Date.now() + SESSION_DAYS * 86_400_000);
-  await db.insert(t.sessions).values({ userId: user.id, tokenHash: hashToken(token), expiresAt, ...meta });
-  await db.update(t.users).set({ lastLoginAt: new Date() }).where(eq(t.users.id, user.id));
-  await db.insert(t.loginHistory).values({ email, userId: user.id, success: true, ...meta });
-  await db.insert(t.auditLogs).values({ userId: user.id, action: "LOGIN", resource: "auth", ipAddress: meta.ipAddress });
+  // The session must exist before the cookie is used; the bookkeeping writes run alongside it.
+  await Promise.all([
+    db.insert(t.sessions).values({ userId: user.id, tokenHash: hashToken(token), expiresAt, ...meta }),
+    db.update(t.users).set({ lastLoginAt: new Date() }).where(eq(t.users.id, user.id)),
+    db.insert(t.loginHistory).values({ email, userId: user.id, success: true, ...meta }),
+    db.insert(t.auditLogs).values({ userId: user.id, action: "LOGIN", resource: "auth", ipAddress: meta.ipAddress }),
+  ]);
 
   (await cookies()).set(SESSION_COOKIE, token, {
     httpOnly: true,
