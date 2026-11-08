@@ -27,6 +27,14 @@ export const NAV_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Our Work", href: "/templates" },
   { label: "Products", href: "/products" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Innovation", href: "/innovation" },
   { label: "About", href: "/#about" },
 ];
+
+/** wa.me link for SITE.phone with a pre-filled message, or null when no number is set. */
+export function whatsappUrl(message?: string): string | null {
+  const digits = SITE.phone.replace(/\D/g, "");
+  if (!digits) return null;
+  return `https://wa.me/${digits}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
+}

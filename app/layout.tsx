@@ -5,6 +5,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChromeGate from "@/components/ChromeGate";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { SITE } from "@/lib/site";
 
 const display = Archivo({
@@ -48,6 +49,7 @@ export default function RootLayout({
         {children}
         <ChromeGate>
           <Footer />
+          <WhatsAppButton />
         </ChromeGate>
       </body>
     </html>
