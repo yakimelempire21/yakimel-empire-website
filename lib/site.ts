@@ -18,6 +18,8 @@ export const SITE = {
     instagram: "",
     youtube: "",
   },
+  /** Your Google "Write a review" link (Google Business Profile → Ask for reviews). */
+  googleReviewUrl: "",
   /** Last time the Privacy Policy / Terms were updated. */
   legalUpdated: "November 7, 2026",
 } as const;

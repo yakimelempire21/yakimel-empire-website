@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Check, MessageCircle } from "lucide-react";
+import Testimonials from "@/components/Testimonials";
 import { SITE, whatsappUrl } from "@/lib/site";
+
+export const revalidate = 600;
 
 const title = "Pricing — AI, Websites & Apps for Small Businesses | Yakimel Empire";
 const description =
@@ -62,6 +65,22 @@ const PLANS: Plan[] = [
     ],
   },
   {
+    name: "Shopify Store Rebuild",
+    forWho: "For online stores that look dated or don't convert",
+    setup: "$2,500",
+    monthly: "$149",
+    delivery: "Live in 14 days",
+    service: "Shopify Store Rebuild",
+    features: [
+      "New mobile-first design for your Shopify store",
+      "Products, collections and menus reorganized",
+      "Faster pages and a smoother checkout",
+      "SEO basics: titles, descriptions, Google Shopping",
+      "Abandoned-cart and order emails set up",
+      "Monthly care: updates, fixes and small changes",
+    ],
+  },
+  {
     name: "Custom",
     forWho: "For businesses that need an app or internal system",
     setup: "From $8,000",
@@ -116,7 +135,7 @@ export default function PricingPage() {
       </header>
 
       <section className="mx-auto max-w-7xl px-6 py-14 md:px-10">
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {PLANS.map((plan) => (
             <article
               key={plan.name}
@@ -172,6 +191,11 @@ export default function PricingPage() {
           need. No surprises.
         </p>
 
+      </section>
+
+      <Testimonials className="border-t border-white/10" />
+
+      <section className="mx-auto max-w-7xl px-6 pb-14 md:px-10">
         <div className="mx-auto mt-16 max-w-3xl">
           <h2 className="font-display text-3xl font-bold">Questions</h2>
           <span aria-hidden="true" className="mt-3 block h-1 w-12 rounded bg-brand" />

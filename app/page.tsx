@@ -7,6 +7,10 @@ import HomeProcess from "@/components/home/HomeProcess";
 import HomeAbout from "@/components/home/HomeAbout";
 import HomeFAQ from "@/components/home/HomeFAQ";
 import HomeCTA from "@/components/home/HomeCTA";
+import Testimonials from "@/components/Testimonials";
+
+// Refresh the reviews section at least every 10 minutes (and right after one is approved).
+export const revalidate = 600;
 
 // Lean, sales-focused home page. The older long-form sections (Mission,
 // Values, Ecosystem, Why Us…) are still in components/ if you want them
@@ -21,6 +25,7 @@ export default function Home() {
       <HomeProducts />
       <HomeProcess />
       <HomeAbout />
+      <Testimonials />
       <HomeFAQ />
       <HomeCTA />
     </main>

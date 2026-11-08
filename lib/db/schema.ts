@@ -655,3 +655,33 @@ export const appsRelations = relations(apps, ({ one, many }) => ({
 export const appMetricSnapshotsRelations = relations(appMetricSnapshots, ({ one }) => ({
   app: one(apps, { fields: [appMetricSnapshots.appId], references: [apps.id] }),
 }));
+
+// ============================================================
+// REVIEWS (client testimonials shown on yakimelempire.com)
+// ============================================================
+
+export const reviewStatus = pgEnum("review_status", ["PENDING", "APPROVED", "HIDDEN"]);
+
+export const reviews = pgTable(
+  "reviews",
+  {
+    id: id(),
+    name: text("name").notNull(),
+    company: text("company"),
+    role: text("role"),
+    email: text("email"),
+    rating: integer("rating").notNull(),
+    body: text("body").notNull(),
+    service: text("service"),
+    /** The client agreed to have this review shown publicly. */
+    consent: boolean("consent").default(false).notNull(),
+    status: reviewStatus("status").default("PENDING").notNull(),
+    /** "website" (sent through /review) or "team" (entered in YAKIMEL OS). */
+    source: text("source").default("website").notNull(),
+    ipAddress: text("ip_address"),
+    approvedAt: timestamp("approved_at", { withTimezone: true }),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (table) => [index("reviews_status_idx").on(table.status, table.createdAt)],
+);

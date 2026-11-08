@@ -17,7 +17,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   const user = await requireUser();
   const can = (a: Area) => canAccess(user.role, a);
 
-  const [[openInbox], [openTickets], [unread], apps] = await Promise.all([
+  const [[openInbox], [openTickets], [unread], apps, [pendingReviews]] = await Promise.all([
     can("inbox") ? db.select({ n: count() }).from(t.conversations).where(eq(t.conversations.status, "OPEN")) : [{ n: 0 }],
     can("tickets") ? db.select({ n: count() }).from(t.supportTickets).where(eq(t.supportTickets.status, "OPEN")) : [{ n: 0 }],
     db
@@ -27,6 +27,10 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     can("apps")
       ? db.select({ name: t.apps.name, slug: t.apps.slug, status: t.apps.status }).from(t.apps).orderBy(asc(t.apps.name))
       : [],
+    // Never let the reviews badge break the panel (e.g. before `npm run db:migrate`).
+    can("clients")
+      ? db.select({ n: count() }).from(t.reviews).where(eq(t.reviews.status, "PENDING")).catch(() => [{ n: 0 }])
+      : [{ n: 0 }],
   ]);
 
   // `area` decides visibility; links without an area are planned for later phases.
@@ -57,6 +61,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
       links: [
         { label: "Inbox", href: "/admin/inbox", icon: "inbox", area: "inbox", badge: openInbox.n },
         { label: "Support Tickets", href: "/admin/tickets", icon: "tickets", area: "tickets", badge: openTickets.n },
+        { label: "Reviews", href: "/admin/reviews", icon: "reviews", area: "clients", badge: pendingReviews.n },
         { label: "Notifications", href: "/admin/notifications", icon: "notifications", area: "notifications", badge: unread.n },
       ],
     },
