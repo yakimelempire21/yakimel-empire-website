@@ -15,10 +15,14 @@ function client() {
   const url = process.env.DATABASE_URL || "postgres://not-configured@localhost/none";
   if (!globalForDb.pgClient) {
     const options = {
-      max: process.env.NODE_ENV === "production" ? 5 : 3,
-      // Pooled (PgBouncer) connections don't support prepared statements.
-      prepare: false,
+      // Serverless: keep few connections per instance and release them quickly,
+      // so Supabase's connection limit is never exhausted.
+      max: 3,
+      idle_timeout: 15, // close a connection after 15 s without use
+      max_lifetime: 60 * 5, // and recycle every connection after 5 minutes
       connect_timeout: 10,
+      // Pooled (PgBouncer / Supavisor) connections don't support prepared statements.
+      prepare: false,
     };
     try {
       globalForDb.pgClient = postgres(url, options);
