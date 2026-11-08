@@ -98,7 +98,7 @@ export default function Footer() {
           )}
           {SITE.phone && (
             <a href={`tel:${SITE.phone}`} className={`transition-colors hover:text-ink-invert ${focus}`}>
-              {SITE.phone}
+              {SITE.phoneDisplay || SITE.phone}
             </a>
           )}
         </div>
