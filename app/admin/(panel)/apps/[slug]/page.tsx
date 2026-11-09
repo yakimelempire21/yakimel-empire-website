@@ -107,6 +107,7 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
               metricsUrl={metricsUrlFor(app)}
               token={canSeeToken ? connectionToken(app.id) : null}
               canSeeToken={canSeeToken}
+              hasPushKey={Boolean(app.apiKeyHash)}
             />
           </Card>
         </div>

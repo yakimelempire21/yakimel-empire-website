@@ -1,7 +1,7 @@
 import { RefreshCw } from "lucide-react";
 import { inputClass, labelClass, primaryButton } from "@/components/admin/ui";
 import { formatDate, timeAgo } from "@/lib/admin/format";
-import { refreshApp } from "../actions";
+import { refreshApp, revokeApiKey } from "../actions";
 
 type Props = {
   appId: string;
@@ -13,6 +13,8 @@ type Props = {
   metricsUrl: string | null;
   token: string | null;
   canSeeToken: boolean;
+  /** An old "push" API key (yk_live_…) is still active. */
+  hasPushKey: boolean;
 };
 
 /** How YAKIMEL OS reaches the app: status of the automatic check, the token to set in the app, "Refresh now". */
@@ -67,6 +69,17 @@ export default function ConnectionPanel(p: Props) {
             automatic checks and the connection token.
           </p>
         ))}
+
+      {p.canSeeToken && p.hasPushKey && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-os-ink/15 px-4 py-3">
+          <p className="text-os-muted">An older API key (yk_live_…) is still active for {p.appName}. It isn&apos;t needed anymore.</p>
+          <form action={revokeApiKey.bind(null, p.appId)}>
+            <button type="submit" className="rounded-lg px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-100">
+              Cancel old key
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
