@@ -27,9 +27,9 @@ const STRIP = [
 
 /** Example notifications floating around the logo (illustrations of what our systems do). */
 const CHIPS = [
-  { icon: CalendarCheck, title: "New booking request", sub: "Saturday · 2:30 PM", className: "-left-10 top-16" },
-  { icon: Bot, title: "AI assistant replied", sub: "“Yes, we deliver to Brooklyn!”", className: "-right-12 top-1/2" },
-  { icon: ShoppingBag, title: "New order received", sub: "Order #1042", className: "bottom-10 -left-4" },
+  { icon: CalendarCheck, title: "New booking request", sub: "Saturday · 2:30 PM", className: "-left-3 top-6 lg:-left-10 lg:top-16" },
+  { icon: Bot, title: "AI assistant replied", sub: "“Yes, we deliver to Brooklyn!”", className: "-right-3 top-[52%] lg:-right-12 lg:top-1/2" },
+  { icon: ShoppingBag, title: "New order received", sub: "Order #1042", className: "bottom-2 left-0 lg:bottom-10 lg:-left-4" },
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -41,8 +41,8 @@ export default function HomeHero() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -80]);
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.8], [1, reduce ? 1 : 0]);
-  const orbY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 120]);
+  const copyOpacity = useTransform(scrollYProgress, [0.45, 0.95], [1, reduce ? 1 : 0]);
+  const orbY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 60]);
   const orbScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 0.9]);
 
   const word = (w: string, i: number, gradient = false) => (
@@ -75,7 +75,7 @@ export default function HomeHero() {
         style={{ background: "radial-gradient(circle, rgba(77,141,255,0.5) 0%, transparent 70%)" }}
       />
 
-      <div className="mx-auto grid min-h-[100svh] max-w-7xl items-center gap-14 px-6 pb-16 pt-32 md:px-10 lg:grid-cols-[1.2fr_1fr] lg:pt-28">
+      <div className="mx-auto grid min-h-[100svh] max-w-7xl items-center gap-10 px-6 pb-20 pt-32 lg:gap-14 md:px-10 lg:grid-cols-[1.2fr_1fr] lg:pt-28">
         <motion.div style={{ y: copyY, opacity: copyOpacity }}>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -144,14 +144,14 @@ export default function HomeHero() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease, delay: 0.3 }}
-          className="relative mx-auto hidden w-full max-w-[440px] lg:block"
+          className="relative mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:max-w-[440px]"
         >
           {/* Rotating light ring */}
           <div
             aria-hidden="true"
             className="absolute -inset-[2px] animate-[spin_14s_linear_infinite] rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,rgba(77,141,255,0.9)_60deg,transparent_140deg,transparent_360deg)] motion-reduce:animate-none"
           />
-          <div className="relative aspect-square rounded-full bg-[#050505] p-10 shadow-[0_0_120px_10px_rgba(77,141,255,0.22)]">
+          <div className="relative aspect-square rounded-full bg-[#050505] p-7 shadow-[0_0_120px_10px_rgba(77,141,255,0.22)] lg:p-10">
             <div className="absolute inset-3 rounded-full border border-white/5" aria-hidden="true" />
             <Image src="/yakimel-logo.png" alt="Yakimel Empire LLC" width={440} height={440} priority className="relative h-full w-full object-contain" />
           </div>
@@ -163,14 +163,14 @@ export default function HomeHero() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: [0, -8, 0] }}
               transition={{ opacity: { delay: 1 + i * 0.25, duration: 0.6 }, y: { delay: 1 + i * 0.25, duration: 5 + i, repeat: Infinity, ease: "easeInOut" } }}
-              className={`absolute flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0b1020]/80 px-4 py-3 shadow-2xl shadow-black/40 backdrop-blur-xl ${c.className}`}
+              className={`absolute flex items-center gap-2.5 rounded-2xl border border-white/10 bg-[#0b1020]/85 px-3 py-2 lg:gap-3 lg:px-4 lg:py-3 shadow-2xl shadow-black/40 backdrop-blur-xl ${c.className}`}
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d8dff]/15 text-[#8fb3ff]">
-                <c.icon size={18} />
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg lg:h-9 lg:w-9 lg:rounded-xl bg-[#4d8dff]/15 text-[#8fb3ff]">
+                <c.icon size={16} />
               </span>
               <span>
-                <span className="block text-sm font-medium text-[#eef1f6]">{c.title}</span>
-                <span className="block text-xs text-[#8a97b3]">{c.sub}</span>
+                <span className="block whitespace-nowrap text-xs font-medium text-[#eef1f6] lg:text-sm">{c.title}</span>
+                <span className="block whitespace-nowrap text-[10px] text-[#8a97b3] lg:text-xs">{c.sub}</span>
               </span>
             </motion.div>
           ))}

@@ -12,6 +12,8 @@ export const SITE = {
   email: "info@yakimelempire.com",
   /** Phone or WhatsApp number in international format, e.g. "+18455551234". */
   phone: "+18455432799",
+  /** How the number is written on the site. */
+  phoneDisplay: "+1 (845) 543-2799",
   /** Social profile URLs, e.g. "https://www.instagram.com/yakimelempire". */
   socials: {
     linkedin: "",
