@@ -30,12 +30,16 @@
     <div class="card">
       <img src="build/icon.png" alt="" />
       <h1>YAKIMEL OS</h1>
-      <p>Can't reach the Command Center. Check your internet connection, then try again.</p>
+      <p id="msg">Can't reach the Command Center. Check your internet connection, then try again.</p>
       <button id="retry" type="button">Try again</button>
       <small>Retrying automatically every 15 seconds…</small>
     </div>
     <script>
-      const target = new URLSearchParams(location.search).get("retry") || "https://www.yakimelempire.com/admin";
+      const params = new URLSearchParams(location.search);
+      const reason = params.get("reason");
+      if (reason === "server") document.getElementById("msg").textContent = "The Command Center isn't responding right now. YAKIMEL OS will try again automatically.";
+      if (reason === "slow") document.getElementById("msg").textContent = "The Command Center is taking too long to load. YAKIMEL OS will try again automatically.";
+      const target = params.get("retry") || "https://www.yakimelempire.com/admin";
       const go = () => { if (/^https:\/\/(www\.)?yakimelempire\.com\//.test(target) || target.startsWith("http://localhost")) location.href = target; };
       document.getElementById("retry").addEventListener("click", go);
       setInterval(() => { if (navigator.onLine) go(); }, 15000);

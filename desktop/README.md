@@ -10,7 +10,7 @@ A Windows app that opens the YAKIMEL OS Command Center (`yakimelempire.com/admin
 
 ## Installing it on a computer
 
-1. Copy `dist/YAKIMEL-OS-Setup-1.0.0.exe` to the computer (USB, Google Drive, email…).
+1. Copy `dist/YAKIMEL-OS-Setup-1.0.1.exe` to the computer (USB, Google Drive, email…).
 2. Run it. The installer isn't code-signed yet, so Windows may show **"Windows protected your PC"**. Click **More info → Run anyway**.
 3. Sign in with your YAKIMEL OS email and password.
 

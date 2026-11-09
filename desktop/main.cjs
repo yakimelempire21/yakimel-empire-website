@@ -44,6 +44,17 @@ function isAllowed(url) {
   }
 }
 
+/** Only the Command Center (/admin) and its API run inside the app; the public website opens in the browser. */
+function isAppPage(url) {
+  try {
+    const u = new URL(url);
+    if (u.protocol === "file:") return true;
+    return ALLOWED_ORIGINS.has(u.origin) && (u.pathname === "/admin" || u.pathname.startsWith("/admin/") || u.pathname.startsWith("/api/"));
+  } catch {
+    return false;
+  }
+}
+
 function openExternal(url) {
   try {
     const u = new URL(url);
@@ -87,7 +98,7 @@ function createWindow() {
     minHeight: 680,
     title: "YAKIMEL OS",
     icon: asset("icon.png"),
-    backgroundColor: "#07080b",
+    backgroundColor: "#F6F1FA",
     autoHideMenuBar: true,
     show: false,
     webPreferences: {
@@ -127,7 +138,7 @@ function createWindow() {
     return { action: "deny" };
   });
   const guard = (event, url) => {
-    if (!isAllowed(url)) {
+    if (!isAllowed(url) || !isAppPage(url)) {
       event.preventDefault();
       openExternal(url);
     }
@@ -140,6 +151,27 @@ function createWindow() {
     if (!isMainFrame || code === -3 /* aborted */) return;
     win.loadFile(path.join(__dirname, "offline.html"), { query: { retry: url || START_URL } });
   });
+
+  // The server answered with an error (e.g. 502/504) → friendly retry screen instead of a dark error page.
+  wc.on("did-navigate", (_e, url, code) => {
+    if (code >= 500 && isAppPage(url) && !url.startsWith("file:")) {
+      win.loadFile(path.join(__dirname, "offline.html"), { query: { retry: url, reason: "server" } });
+    }
+  });
+
+  // Never stay on a blank window: if the Command Center hasn't loaded after 25 seconds, offer a retry.
+  let loadTimer = null;
+  wc.on("did-start-loading", () => {
+    clearTimeout(loadTimer);
+    loadTimer = setTimeout(() => {
+      const url = wc.getURL();
+      if (wc.isLoading() && !url.startsWith("file:")) {
+        wc.stop();
+        win.loadFile(path.join(__dirname, "offline.html"), { query: { retry: url || START_URL, reason: "slow" } });
+      }
+    }, 25_000);
+  });
+  wc.on("did-stop-loading", () => clearTimeout(loadTimer));
 
   wc.on("page-title-updated", (e) => {
     e.preventDefault();
@@ -179,6 +211,7 @@ function refreshTray() {
   tray.setContextMenu(
     Menu.buildFromTemplate([
       { label: "Open YAKIMEL OS", click: () => showWindow() },
+      { label: "Go to Overview", click: () => showWindow(START_URL) },
       {
         label: unread ? `Notifications (${unread})` : "Notifications",
         click: () => showWindow(`${SITE}/admin/notifications`),
@@ -263,6 +296,10 @@ app.whenReady().then(() => {
       {
         label: "View",
         submenu: [
+          { label: "Overview", accelerator: "Alt+Home", click: () => showWindow(START_URL) },
+          { label: "Back", accelerator: "Alt+Left", click: () => win && win.webContents.navigationHistory.canGoBack() && win.webContents.navigationHistory.goBack() },
+          { label: "Forward", accelerator: "Alt+Right", click: () => win && win.webContents.navigationHistory.canGoForward() && win.webContents.navigationHistory.goForward() },
+          { type: "separator" },
           { role: "reload" },
           { role: "forceReload" },
           { type: "separator" },
