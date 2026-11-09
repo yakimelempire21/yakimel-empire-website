@@ -22,8 +22,8 @@ export default function ReplyForm({ id, clientEmail }: { id: string; clientEmail
         className={`${inputClass} resize-y`}
       />
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <label className="flex items-center gap-2 text-sm text-dim-invert">
-          <input type="checkbox" name="internal" className="h-4 w-4 accent-[#2F6FEA]" />
+        <label className="flex items-center gap-2 text-sm text-os-muted">
+          <input type="checkbox" name="internal" className="h-4 w-4 accent-os-accent" />
           Internal note (not emailed)
         </label>
         <button type="submit" disabled={pending} className={primaryButton}>
@@ -31,12 +31,12 @@ export default function ReplyForm({ id, clientEmail }: { id: string; clientEmail
         </button>
       </div>
       {state?.error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {state.error}
         </p>
       )}
       {state?.sent && (
-        <p role="status" className="text-sm text-emerald-300">
+        <p role="status" className="text-sm text-emerald-700">
           Saved.
         </p>
       )}

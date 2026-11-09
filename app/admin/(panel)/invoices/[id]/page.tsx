@@ -43,7 +43,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
 
       <div className="grid gap-6 xl:grid-cols-[1.6fr_1fr] print:block">
         {/* The invoice itself — prints on a white page */}
-        <article className="rounded-2xl bg-white p-8 text-[#0b1220] shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] md:p-12 print:rounded-none print:p-0 print:shadow-none">
+        <article className="rounded-2xl bg-white p-8 text-os-ink shadow-sm md:p-12 print:rounded-none print:p-0 print:shadow-none">
           <header className="flex flex-col justify-between gap-6 border-b border-slate-200 pb-8 sm:flex-row">
             <div className="flex items-start gap-3">
               <Image src="/yakimel-icon.png" alt="" width={44} height={44} className="h-11 w-11" />
@@ -125,7 +125,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
         <aside className="space-y-6 print:hidden">
           <Card className="p-5">
             <SendAndPrint id={inv.id} canSend={inv.status !== "VOID"} />
-            {inv.sentAt && <p className="mt-3 text-xs text-[#7f93b8]">Last emailed {formatDate(inv.sentAt, true)}</p>}
+            {inv.sentAt && <p className="mt-3 text-xs text-os-muted">Last emailed {formatDate(inv.sentAt, true)}</p>}
           </Card>
 
           {inv.status !== "VOID" && due > 0 && (
@@ -138,16 +138,16 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
           <Card className="p-5">
             <h2 className="mb-3 font-display font-bold">Payments</h2>
             {inv.payments.length === 0 ? (
-              <p className="text-sm text-[#7f93b8]">No payments yet.</p>
+              <p className="text-sm text-os-muted">No payments yet.</p>
             ) : (
               <ul className="space-y-2 text-sm">
                 {inv.payments.map((p) => (
                   <li key={p.id} className="flex justify-between gap-3">
                     <span>
                       {formatDate(p.paidAt)} · {humanize(p.method)}
-                      {p.reference && <span className="text-[#7f93b8]"> · {p.reference}</span>}
+                      {p.reference && <span className="text-os-muted"> · {p.reference}</span>}
                     </span>
-                    <span className="font-medium text-emerald-300">{formatMoney(p.amount)}</span>
+                    <span className="font-medium text-emerald-700">{formatMoney(p.amount)}</span>
                   </li>
                 ))}
               </ul>
@@ -165,8 +165,8 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
                 Set
               </button>
             </form>
-            <p className="mt-2 text-xs text-[#7f93b8]">Paid and partial are set automatically from payments.</p>
-            <Link href={`/admin/clients/${inv.clientId}`} className="mt-4 inline-block text-sm text-[#4d8dff] hover:underline">
+            <p className="mt-2 text-xs text-os-muted">Paid and partial are set automatically from payments.</p>
+            <Link href={`/admin/clients/${inv.clientId}`} className="mt-4 inline-block text-sm text-os-accent hover:underline">
               Open client →
             </Link>
           </Card>

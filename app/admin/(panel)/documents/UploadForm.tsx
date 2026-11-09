@@ -118,7 +118,7 @@ export default function UploadForm({
             type="file"
             disabled={!storageReady}
             accept=".pdf,.doc,.docx,.xlsx,.pptx,.png,.jpg,.jpeg,.webp,.txt,.csv"
-            className={`${inputClass} py-2 file:mr-3 file:rounded-md file:border-0 file:bg-[#2F6FEA]/20 file:px-3 file:py-1 file:text-sm file:text-[#a9c4ff] disabled:opacity-50`}
+            className={`${inputClass} py-2 file:mr-3 file:rounded-md file:border-0 file:bg-os-accent/20 file:px-3 file:py-1 file:text-sm file:text-os-accent disabled:opacity-50`}
           />
         </label>
         <label className="block">
@@ -130,7 +130,7 @@ export default function UploadForm({
         </button>
       </div>
       {error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {error}
         </p>
       )}

@@ -64,7 +64,7 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
               key={v.id}
               href={`/admin/tasks?view=${v.id}`}
               className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
-                view === v.id ? "bg-[#2F6FEA] text-white" : "border border-white/10 text-[#a2adc4] hover:text-white"
+                view === v.id ? "bg-os-accent text-white" : "border border-os-ink/15 text-os-muted hover:text-os-ink"
               }`}
             >
               {v.label}
@@ -77,16 +77,16 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
         <EmptyState title="No tasks here" body="Add a task above. Tasks created inside a project show up here too." />
       ) : (
         <Card>
-          <ul className="divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-os-ink/10">
             {tasks.map((task) => {
               const overdue = task.dueDate && task.status !== "DONE" && new Date(task.dueDate) < today;
               return (
                 <li key={task.id} className="flex flex-wrap items-center gap-3 px-5 py-3.5">
                   <div className="min-w-0 flex-1">
-                    <p className={`text-sm font-medium ${task.status === "DONE" ? "text-[#7f93b8] line-through" : ""}`}>{task.title}</p>
-                    <p className="text-xs text-[#7f93b8]">
+                    <p className={`text-sm font-medium ${task.status === "DONE" ? "text-os-muted line-through" : ""}`}>{task.title}</p>
+                    <p className="text-xs text-os-muted">
                       {task.project ? (
-                        <Link href={`/admin/projects/${task.project.id}`} className="hover:text-white">
+                        <Link href={`/admin/projects/${task.project.id}`} className="hover:text-os-ink">
                           {task.project.name}
                         </Link>
                       ) : (
@@ -95,7 +95,7 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
                       {" · "}
                       {task.assigneeId ? (names.get(task.assigneeId) ?? "Team member") : "Unassigned"}
                       {task.dueDate && (
-                        <span className={overdue ? "text-red-300" : ""}>
+                        <span className={overdue ? "text-red-700" : ""}>
                           {" · "}
                           {overdue ? "Overdue " : "Due "}
                           {formatDate(task.dueDate)}
@@ -112,7 +112,7 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
                         </option>
                       ))}
                     </select>
-                    <button type="submit" className="rounded-lg border border-white/15 px-2.5 text-xs hover:border-[#2F6FEA]">
+                    <button type="submit" className="rounded-lg border border-os-ink/20 px-2.5 text-xs hover:border-os-accent">
                       Set
                     </button>
                   </form>

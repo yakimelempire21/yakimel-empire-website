@@ -44,7 +44,7 @@ export default async function TicketsPage({ searchParams }: { searchParams: Prom
             key={tab.label}
             href={tab.value ? `/admin/tickets?status=${tab.value}` : "/admin/tickets"}
             className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
-              tab.value === filter ? "bg-[#2F6FEA] text-white" : "border border-white/10 text-[#a2adc4] hover:text-white"
+              tab.value === filter ? "bg-os-accent text-white" : "border border-os-ink/15 text-os-muted hover:text-os-ink"
             }`}
           >
             {tab.label}
@@ -57,22 +57,22 @@ export default async function TicketsPage({ searchParams }: { searchParams: Prom
       ) : (
         <Table head={["Ticket", "Client / App", "Priority", "Status", "Assigned", "Opened"]}>
           {tickets.map((tk) => (
-            <tr key={tk.id} className="hover:bg-white/[0.03]">
+            <tr key={tk.id} className="hover:bg-os-ink/[0.03]">
               <td className="px-5 py-3.5">
-                <Link href={`/admin/tickets/${tk.id}`} className="font-medium hover:text-[#4d8dff]">
+                <Link href={`/admin/tickets/${tk.id}`} className="font-medium hover:text-os-accent">
                   {tk.subject}
                 </Link>
-                <p className="font-mono text-xs text-[#7f93b8]">TKT-{tk.number}</p>
+                <p className="font-mono text-xs text-os-muted">TKT-{tk.number}</p>
               </td>
-              <td className="px-5 py-3.5 text-[#a2adc4]">{[tk.client?.fullName, tk.app?.name].filter(Boolean).join(" · ") || "—"}</td>
+              <td className="px-5 py-3.5 text-os-muted">{[tk.client?.fullName, tk.app?.name].filter(Boolean).join(" · ") || "—"}</td>
               <td className="px-5 py-3.5">
                 <Badge tone={priorityTone[tk.priority]}>{humanize(tk.priority)}</Badge>
               </td>
               <td className="px-5 py-3.5">
                 <Badge tone={statusTone(tk.status)}>{humanize(tk.status)}</Badge>
               </td>
-              <td className="px-5 py-3.5 text-[#a2adc4]">{tk.assigneeId ? (names.get(tk.assigneeId) ?? "Team member") : "—"}</td>
-              <td className="whitespace-nowrap px-5 py-3.5 text-[#a2adc4]">{formatDate(tk.createdAt)}</td>
+              <td className="px-5 py-3.5 text-os-muted">{tk.assigneeId ? (names.get(tk.assigneeId) ?? "Team member") : "—"}</td>
+              <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(tk.createdAt)}</td>
             </tr>
           ))}
         </Table>

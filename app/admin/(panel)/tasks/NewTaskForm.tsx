@@ -43,7 +43,7 @@ export default function NewTaskForm({
             ))}
           </select>
         ) : (
-          <div className={`${inputClass} text-[#7f93b8]`}>Assigned to me</div>
+          <div className={`${inputClass} text-os-muted`}>Assigned to me</div>
         )}
         <select name="priority" defaultValue="MEDIUM" aria-label="Priority" className={inputClass}>
           <option value="LOW">Low</option>
@@ -57,7 +57,7 @@ export default function NewTaskForm({
         </button>
       </div>
       {state?.error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {state.error}
         </p>
       )}

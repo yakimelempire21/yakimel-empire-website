@@ -49,7 +49,7 @@ export default async function InvoicesPage({ searchParams }: { searchParams: Pro
             key={f}
             href={f === "ALL" ? "/admin/invoices" : `/admin/invoices?show=${f}`}
             className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
-              show === f ? "bg-[#2F6FEA] text-white" : "border border-white/10 text-[#a2adc4] hover:text-white"
+              show === f ? "bg-os-accent text-white" : "border border-os-ink/15 text-os-muted hover:text-os-ink"
             }`}
           >
             {humanize(f)}
@@ -62,18 +62,18 @@ export default async function InvoicesPage({ searchParams }: { searchParams: Pro
       ) : (
         <Table head={["Invoice", "Client", "Issued", "Due", "Total", "Balance", "Status"]}>
           {rows.map((inv) => (
-            <tr key={inv.id} className="hover:bg-white/[0.03]">
+            <tr key={inv.id} className="hover:bg-os-ink/[0.03]">
               <td className="px-5 py-3.5">
-                <Link href={`/admin/invoices/${inv.id}`} className="font-mono font-medium hover:text-[#4d8dff]">
+                <Link href={`/admin/invoices/${inv.id}`} className="font-mono font-medium hover:text-os-accent">
                   {invoiceNumber(inv.number)}
                 </Link>
               </td>
               <td className="px-5 py-3.5">
                 {inv.client.fullName}
-                {inv.client.company && <p className="text-xs text-[#7f93b8]">{inv.client.company}</p>}
+                {inv.client.company && <p className="text-xs text-os-muted">{inv.client.company}</p>}
               </td>
-              <td className="whitespace-nowrap px-5 py-3.5 text-[#a2adc4]">{formatDate(inv.issueDate)}</td>
-              <td className="whitespace-nowrap px-5 py-3.5 text-[#a2adc4]">{formatDate(inv.dueDate)}</td>
+              <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(inv.issueDate)}</td>
+              <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(inv.dueDate)}</td>
               <td className="px-5 py-3.5">{formatMoney(inv.total)}</td>
               <td className="px-5 py-3.5 font-medium">{inv.status === "VOID" ? "—" : formatMoney(balance(inv))}</td>
               <td className="px-5 py-3.5">

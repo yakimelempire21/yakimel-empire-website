@@ -9,14 +9,14 @@ const TABS = [
 
 export default function FinanceTabs({ active }: { active: (typeof TABS)[number]["id"] }) {
   return (
-    <nav aria-label="Finance" className="mb-6 flex gap-1 overflow-x-auto border-b border-white/[0.08]">
+    <nav aria-label="Finance" className="mb-6 flex gap-1 overflow-x-auto border-b border-os-ink/15">
       {TABS.map((tab) => (
         <Link
           key={tab.id}
           href={tab.href}
           aria-current={tab.id === active ? "page" : undefined}
           className={`-mb-px whitespace-nowrap border-b-2 px-4 py-2.5 text-sm transition-colors ${
-            tab.id === active ? "border-[#4d8dff] text-white" : "border-transparent text-[#a2adc4] hover:text-white"
+            tab.id === active ? "border-os-accent text-os-ink" : "border-transparent text-os-muted hover:text-os-ink"
           }`}
         >
           {tab.label}

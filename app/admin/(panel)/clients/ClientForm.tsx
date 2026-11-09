@@ -49,7 +49,7 @@ export default function ClientForm({
         <textarea name="notes" rows={4} defaultValue={client?.notes ?? ""} className={`${inputClass} resize-y`} />
       </label>
       {state?.error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {state.error}
         </p>
       )}

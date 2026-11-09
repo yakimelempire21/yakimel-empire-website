@@ -11,6 +11,20 @@
   --color-brand: #2F6FEA;
   --color-brand-dark: #1D4ED8;
 
+  /* YAKIMEL OS (Command Center) palette: plum, lilac and lime. */
+  --color-os-bg: #F6F1FA;
+  --color-os-ink: #2A0B36;
+  --color-os-muted: #6E5C7D;
+  --color-os-faint: #9C8CAB;
+  --color-os-accent: #6B2FD6;
+  --color-os-accent-dark: #4E1FA3;
+  --color-os-side: #2B0C38;
+  --color-os-lime: #E3F26B;
+  --color-os-lilac: #E6D8FB;
+  --color-os-peach: #FCD9B0;
+  --color-os-pink: #F8CFE1;
+  --color-os-mint: #D4F0BC;
+
   --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;

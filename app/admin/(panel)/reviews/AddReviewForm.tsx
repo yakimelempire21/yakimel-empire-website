@@ -23,16 +23,16 @@ export default function AddReviewForm({ services }: { services: string[] }) {
       <SelectField label="Service" name="service" options={services.map((s) => ({ value: s, label: s }))} />
       <label className="block">
         <span className={labelClass}>
-          Review <span className="text-brand">*</span>
+          Review <span className="text-os-accent">*</span>
         </span>
         <textarea name="body" required rows={4} maxLength={1200} className={inputClass} placeholder="The client's words, exactly as they wrote them" />
       </label>
-      <label className="flex items-start gap-3 text-sm text-dim-invert">
-        <input name="consent" type="checkbox" required className="mt-0.5 h-4 w-4 accent-[#2F6FEA]" />
+      <label className="flex items-start gap-3 text-sm text-os-muted">
+        <input name="consent" type="checkbox" required className="mt-0.5 h-4 w-4 accent-os-accent" />
         The client agreed to have this review, their name and business shown on yakimelempire.com.
       </label>
-      {state?.error && <p className="text-sm text-red-300">{state.error}</p>}
-      {state?.ok && <p className="text-sm text-emerald-300">Review added and published.</p>}
+      {state?.error && <p className="text-sm text-red-700">{state.error}</p>}
+      {state?.ok && <p className="text-sm text-emerald-700">Review added and published.</p>}
       <button type="submit" disabled={pending} className={primaryButton}>
         {pending ? "Saving…" : "Add & publish review"}
       </button>

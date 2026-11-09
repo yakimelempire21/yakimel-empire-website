@@ -33,7 +33,7 @@ export default function TicketForm({
       <Field label="Subject" name="subject" required defaultValue={defaults.subject} />
       <label className="block">
         <span className={labelClass}>
-          Description <span className="text-[#2F6FEA]">*</span>
+          Description <span className="text-os-accent">*</span>
         </span>
         <textarea name="description" required rows={5} defaultValue={defaults.description} className={`${inputClass} resize-y`} />
       </label>
@@ -45,7 +45,7 @@ export default function TicketForm({
         <SelectField label="Department" name="departmentId" options={departments} />
       </div>
       {state?.error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {state.error}
         </p>
       )}

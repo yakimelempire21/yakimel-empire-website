@@ -59,12 +59,12 @@ export default function ProjectForm({
         <textarea name="description" rows={4} defaultValue={project?.description ?? ""} className={`${inputClass} resize-y`} />
       </label>
       {state?.error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {state.error}
         </p>
       )}
       {state?.saved && (
-        <p role="status" className="text-sm text-emerald-300">
+        <p role="status" className="text-sm text-emerald-700">
           Saved.
         </p>
       )}

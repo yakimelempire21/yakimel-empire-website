@@ -21,12 +21,12 @@ export default function PasswordForm() {
         <input name="confirm" type="password" autoComplete="new-password" minLength={12} required className={inputClass} />
       </label>
       {state?.error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {state.error}
         </p>
       )}
       {state?.saved && (
-        <p role="status" className="text-sm text-emerald-300">
+        <p role="status" className="text-sm text-emerald-700">
           Password changed. Other devices were signed out.
         </p>
       )}

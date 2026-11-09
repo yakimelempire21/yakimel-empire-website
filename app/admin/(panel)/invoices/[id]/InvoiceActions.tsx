@@ -33,8 +33,8 @@ export function SendAndPrint({ id, canSend }: { id: string; canSend: boolean }) 
           <Printer size={15} aria-hidden="true" /> Print / Save PDF
         </button>
       </div>
-      {state?.error && <p role="alert" className="text-sm text-red-300">{state.error}</p>}
-      {state?.sent && <p role="status" className="text-sm text-emerald-300">Invoice emailed.</p>}
+      {state?.error && <p role="alert" className="text-sm text-red-700">{state.error}</p>}
+      {state?.sent && <p role="status" className="text-sm text-emerald-700">Invoice emailed.</p>}
     </div>
   );
 }
@@ -67,8 +67,8 @@ export function PaymentForm({ id, balance, today }: { id: string; balance: numbe
         <span className={labelClass}>Reference (optional)</span>
         <input name="reference" placeholder="Confirmation number…" className={inputClass} />
       </label>
-      {state?.error && <p role="alert" className="text-sm text-red-300">{state.error}</p>}
-      {state?.saved && <p role="status" className="text-sm text-emerald-300">Payment recorded.</p>}
+      {state?.error && <p role="alert" className="text-sm text-red-700">{state.error}</p>}
+      {state?.saved && <p role="status" className="text-sm text-emerald-700">Payment recorded.</p>}
       <button type="submit" disabled={pending} className={`${primaryButton} w-full`}>
         {pending ? "Saving…" : "Record payment"}
       </button>

@@ -37,13 +37,13 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
         }
       />
 
-      <Card className="mb-6 p-5 text-sm text-dim-invert">
+      <Card className="mb-6 p-5 text-sm text-os-muted">
         Send this link to every client when a project is done:{" "}
-        <span className="select-all font-mono text-ink-invert">https://www.yakimelempire.com/review</span>
+        <span className="select-all font-mono text-os-ink">https://www.yakimelempire.com/review</span>
       </Card>
 
       <details className="mb-6" open={params.add === "1" || all.length === 0}>
-        <summary className="cursor-pointer text-sm font-medium text-[#8fb3ff]">+ Add a review you already received</summary>
+        <summary className="cursor-pointer text-sm font-medium text-os-accent">+ Add a review you already received</summary>
         <Card className="mt-3 p-6">
           <AddReviewForm services={REVIEW_SERVICES} />
         </Card>
@@ -55,7 +55,7 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
             key={tab.value}
             href={`/admin/reviews?status=${tab.value}`}
             className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
-              tab.value === status ? "bg-[#2F6FEA] text-white" : "border border-white/10 text-[#a2adc4] hover:text-white"
+              tab.value === status ? "bg-os-accent text-white" : "border border-os-ink/15 text-os-muted hover:text-os-ink"
             }`}
           >
             {tab.label} ({counts[tab.value]})
@@ -74,17 +74,17 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
             <Card key={r.id} className="flex flex-col p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="font-medium text-ink-invert">{r.name}</p>
-                  <p className="text-sm text-dim-invert">{[r.role, r.company].filter(Boolean).join(", ") || "—"}</p>
+                  <p className="font-medium text-os-ink">{r.name}</p>
+                  <p className="text-sm text-os-muted">{[r.role, r.company].filter(Boolean).join(", ") || "—"}</p>
                 </div>
                 <div className="flex gap-0.5" aria-label={`${r.rating} out of 5 stars`}>
                   {[1, 2, 3, 4, 5].map((n) => (
-                    <Star key={n} size={15} aria-hidden="true" className={n <= r.rating ? "fill-amber-400 text-amber-400" : "text-white/20"} />
+                    <Star key={n} size={15} aria-hidden="true" className={n <= r.rating ? "fill-amber-400 text-amber-700" : "text-os-ink/20"} />
                   ))}
                 </div>
               </div>
-              <p className="mt-3 flex-1 whitespace-pre-line text-sm leading-relaxed text-ink-invert/90">“{r.body}”</p>
-              <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-dim-invert">
+              <p className="mt-3 flex-1 whitespace-pre-line text-sm leading-relaxed text-os-ink/90">“{r.body}”</p>
+              <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-os-muted">
                 {r.service && <Badge tone="blue">{r.service}</Badge>}
                 <Badge tone={r.consent ? "green" : "amber"}>{r.consent ? "OK to publish" : "No permission to publish"}</Badge>
                 <span>
@@ -92,19 +92,19 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
                 </span>
                 {r.email && <span>· {r.email}</span>}
               </div>
-              <div className="mt-4 flex flex-wrap gap-2 border-t border-white/10 pt-4">
+              <div className="mt-4 flex flex-wrap gap-2 border-t border-os-ink/15 pt-4">
                 {r.status !== "APPROVED" && r.consent && (
                   <form action={setReviewStatus.bind(null, r.id, "APPROVED")}>
-                    <button className="rounded-lg bg-emerald-500/15 px-3 py-1.5 text-sm text-emerald-300 hover:bg-emerald-500/25">Publish</button>
+                    <button className="rounded-lg bg-emerald-100 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100">Publish</button>
                   </form>
                 )}
                 {r.status !== "HIDDEN" && (
                   <form action={setReviewStatus.bind(null, r.id, "HIDDEN")}>
-                    <button className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-[#a2adc4] hover:text-white">Hide</button>
+                    <button className="rounded-lg border border-os-ink/15 px-3 py-1.5 text-sm text-os-muted hover:text-os-ink">Hide</button>
                   </form>
                 )}
                 <form action={deleteReview.bind(null, r.id)}>
-                  <button className="rounded-lg px-3 py-1.5 text-sm text-red-300/80 hover:bg-red-500/10 hover:text-red-300">Delete</button>
+                  <button className="rounded-lg px-3 py-1.5 text-sm text-red-600 hover:bg-red-100 hover:text-red-700">Delete</button>
                 </form>
               </div>
             </Card>

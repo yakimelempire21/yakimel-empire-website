@@ -40,15 +40,15 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
       <div className="grid gap-6 xl:grid-cols-[1.7fr_1fr]">
         <div className="space-y-4">
           {c.messages.map((m) => (
-            <Card key={m.id} className={`p-5 ${m.isInbound ? "" : "border-brand/30 bg-brand/[0.06]"}`}>
+            <Card key={m.id} className={`p-5 ${m.isInbound ? "" : "border-os-accent/30 bg-os-accent/[0.06]"}`}>
               <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
                 <p className="text-sm font-medium">
                   {m.senderName ?? "Unknown"}
-                  {m.senderEmail && <span className="ml-2 text-xs font-normal text-dim-invert">{m.senderEmail}</span>}
+                  {m.senderEmail && <span className="ml-2 text-xs font-normal text-os-muted">{m.senderEmail}</span>}
                 </p>
-                <p className="text-xs text-dim-invert">{formatDate(m.createdAt, true)}</p>
+                <p className="text-xs text-os-muted">{formatDate(m.createdAt, true)}</p>
               </div>
-              <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink-invert/90">{m.body}</p>
+              <p className="whitespace-pre-wrap text-sm leading-relaxed text-os-ink/90">{m.body}</p>
             </Card>
           ))}
 
@@ -63,15 +63,15 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
             <Card className="p-5">
               <h2 className="mb-3 font-display font-bold">Client</h2>
               <p className="font-medium">{c.client.fullName}</p>
-              <p className="text-sm text-dim-invert">
-                <a href={`mailto:${c.client.email}`} className="hover:text-ink-invert">
+              <p className="text-sm text-os-muted">
+                <a href={`mailto:${c.client.email}`} className="hover:text-os-ink">
                   {c.client.email}
                 </a>
               </p>
-              {c.client.phone && <p className="text-sm text-dim-invert">{c.client.phone}</p>}
-              {c.client.company && <p className="text-sm text-dim-invert">{c.client.company}</p>}
+              {c.client.phone && <p className="text-sm text-os-muted">{c.client.phone}</p>}
+              {c.client.company && <p className="text-sm text-os-muted">{c.client.company}</p>}
               {canAccess(user.role, "clients") && (
-                <Link href={`/admin/clients/${c.client.id}`} className="mt-3 inline-block text-sm text-brand hover:underline">
+                <Link href={`/admin/clients/${c.client.id}`} className="mt-3 inline-block text-sm text-os-accent hover:underline">
                   Open client →
                 </Link>
               )}
@@ -84,7 +84,7 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
               <dl className="space-y-2 text-sm">
                 {details.map(([k, v]) => (
                   <div key={k}>
-                    <dt className="text-xs uppercase tracking-wider text-dim-invert">{k}</dt>
+                    <dt className="text-xs uppercase tracking-wider text-os-muted">{k}</dt>
                     <dd>{v}</dd>
                   </div>
                 ))}
@@ -123,7 +123,7 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
 
             <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
               <form action={togglePriority.bind(null, c.id)}>
-                <button type="submit" className={`${secondaryButton} w-full ${c.isPriority ? "border-amber-400/50 text-amber-300" : ""}`}>
+                <button type="submit" className={`${secondaryButton} w-full ${c.isPriority ? "border-amber-400/50 text-amber-700" : ""}`}>
                   {c.isPriority ? "★ Priority" : "☆ Mark priority"}
                 </button>
               </form>

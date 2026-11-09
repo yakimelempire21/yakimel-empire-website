@@ -54,21 +54,21 @@ export default async function EmployeePage({ params }: { params: Promise<{ id: s
           {employee.user ? (
             <dl className="space-y-2 text-sm">
               <div>
-                <dt className="text-xs uppercase tracking-wider text-dim-invert">Sign-in email</dt>
+                <dt className="text-xs uppercase tracking-wider text-os-muted">Sign-in email</dt>
                 <dd>{employee.user.email}</dd>
               </div>
               <div>
-                <dt className="text-xs uppercase tracking-wider text-dim-invert">Last sign-in</dt>
+                <dt className="text-xs uppercase tracking-wider text-os-muted">Last sign-in</dt>
                 <dd>{formatDate(employee.user.lastLoginAt, true)}</dd>
               </div>
               <div>
-                <dt className="text-xs uppercase tracking-wider text-dim-invert">Role</dt>
+                <dt className="text-xs uppercase tracking-wider text-os-muted">Role</dt>
                 <dd>{employee.role.name}</dd>
               </div>
-              <p className="pt-2 text-xs text-dim-invert">{employee.role.description}</p>
+              <p className="pt-2 text-xs text-os-muted">{employee.role.description}</p>
             </dl>
           ) : (
-            <p className="text-sm text-dim-invert">This employee doesn&apos;t have a login yet. Email invitations arrive with the HR update.</p>
+            <p className="text-sm text-os-muted">This employee doesn&apos;t have a login yet. Email invitations arrive with the HR update.</p>
           )}
         </Card>
       </div>

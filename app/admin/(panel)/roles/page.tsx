@@ -41,7 +41,7 @@ export default async function RolesPage() {
       <Card className="overflow-x-auto">
         <table className="w-full min-w-[900px] text-sm">
           <thead>
-            <tr className="border-b border-white/[0.08] text-xs uppercase tracking-wider text-[#7f93b8]">
+            <tr className="border-b border-os-ink/15 text-xs uppercase tracking-wider text-os-muted">
               <th className="px-5 py-3 text-left font-medium">Role</th>
               {AREAS.map((a) => (
                 <th key={a} className="px-2 py-3 text-center font-medium">
@@ -50,21 +50,21 @@ export default async function RolesPage() {
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/[0.05]">
+          <tbody className="divide-y divide-os-ink/10">
             {ROLE_DEFINITIONS.map((r) => (
               <tr key={r.key}>
                 <td className="px-5 py-3.5">
-                  <p className="font-medium text-white">{r.name}</p>
-                  <p className="text-xs text-[#7f93b8]">
+                  <p className="font-medium text-os-ink">{r.name}</p>
+                  <p className="text-xs text-os-muted">
                     {people.get(r.key) ?? 0} {people.get(r.key) === 1 ? "person" : "people"} · {r.description}
                   </p>
                 </td>
                 {AREAS.map((a) => (
                   <td key={a} className="px-2 py-3.5 text-center">
                     {ROLE_ACCESS[r.key].includes(a) ? (
-                      <Check size={16} className="mx-auto text-[#4d8dff]" aria-label="Yes" />
+                      <Check size={16} className="mx-auto text-os-accent" aria-label="Yes" />
                     ) : (
-                      <span className="text-[#3a4458]" aria-label="No">
+                      <span className="text-os-faint" aria-label="No">
                         —
                       </span>
                     )}
@@ -78,16 +78,16 @@ export default async function RolesPage() {
 
       <div className="mt-6 grid gap-4 md:grid-cols-3">
         <Card className="p-5 text-sm">
-          <p className="font-medium text-white">Department Manager</p>
-          <p className="mt-1 text-[#a2adc4]">Only sees their own department&apos;s people, projects and tasks.</p>
+          <p className="font-medium text-os-ink">Department Manager</p>
+          <p className="mt-1 text-os-muted">Only sees their own department&apos;s people, projects and tasks.</p>
         </Card>
         <Card className="p-5 text-sm">
-          <p className="font-medium text-white">Employee</p>
-          <p className="mt-1 text-[#a2adc4]">Only sees tasks assigned to them.</p>
+          <p className="font-medium text-os-ink">Employee</p>
+          <p className="mt-1 text-os-muted">Only sees tasks assigned to them.</p>
         </Card>
         <Card className="p-5 text-sm">
-          <p className="font-medium text-white">Owner protection</p>
-          <p className="mt-1 text-[#a2adc4]">Only an Owner / Super Admin can grant the Owner or Executive Admin roles.</p>
+          <p className="font-medium text-os-ink">Owner protection</p>
+          <p className="mt-1 text-os-muted">Only an Owner / Super Admin can grant the Owner or Executive Admin roles.</p>
         </Card>
       </div>
     </>

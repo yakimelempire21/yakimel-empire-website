@@ -42,7 +42,7 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
 
         <div className="space-y-6">
           <Card>
-            <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+            <div className="flex items-center justify-between border-b border-os-ink/15 px-5 py-4">
               <h2 className="font-display font-bold">Projects</h2>
               {canAccess(user.role, "projects") && (
                 <Link href={`/admin/projects/new?client=${client.id}`} className={`${primaryButton} px-3 py-1.5 text-xs`}>
@@ -51,15 +51,15 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
               )}
             </div>
             {client.projects.length === 0 ? (
-              <p className="px-5 py-6 text-sm text-dim-invert">No projects yet.</p>
+              <p className="px-5 py-6 text-sm text-os-muted">No projects yet.</p>
             ) : (
-              <ul className="divide-y divide-white/5">
+              <ul className="divide-y divide-os-ink/10">
                 {client.projects.map((p) => (
                   <li key={p.id}>
-                    <Link href={`/admin/projects/${p.id}`} className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-white/[0.03]">
+                    <Link href={`/admin/projects/${p.id}`} className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-os-ink/[0.03]">
                       <div>
                         <p className="text-sm font-medium">{p.name}</p>
-                        <p className="text-xs text-dim-invert">
+                        <p className="text-xs text-os-muted">
                           {p.service} · {formatMoney(p.budget)}
                         </p>
                       </div>
@@ -73,24 +73,24 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
 
           {canAccess(user.role, "finance") && (
             <Card>
-              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+              <div className="flex items-center justify-between border-b border-os-ink/15 px-5 py-4">
                 <h2 className="font-display font-bold">Invoices</h2>
                 <Link href={`/admin/invoices/new?client=${client.id}`} className={`${primaryButton} px-3 py-1.5 text-xs`}>
                   New invoice
                 </Link>
               </div>
               {client.invoices.length === 0 ? (
-                <p className="px-5 py-6 text-sm text-dim-invert">No invoices yet.</p>
+                <p className="px-5 py-6 text-sm text-os-muted">No invoices yet.</p>
               ) : (
-                <ul className="divide-y divide-white/5">
+                <ul className="divide-y divide-os-ink/10">
                   {client.invoices.map((inv) => {
                     const s = displayStatus(inv);
                     return (
                       <li key={inv.id}>
-                        <Link href={`/admin/invoices/${inv.id}`} className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-white/[0.03]">
+                        <Link href={`/admin/invoices/${inv.id}`} className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-os-ink/[0.03]">
                           <span className="font-mono text-sm">{invoiceNumber(inv.number)}</span>
                           <span className="text-sm">{formatMoney(inv.total)}</span>
-                          <span className="text-xs text-dim-invert">{s === "PAID" ? "Paid" : `${formatMoney(balance(inv))} due`}</span>
+                          <span className="text-xs text-os-muted">{s === "PAID" ? "Paid" : `${formatMoney(balance(inv))} due`}</span>
                           <Badge tone={statusTone(s)}>{humanize(s)}</Badge>
                         </Link>
                       </li>
@@ -103,11 +103,11 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
 
           {canAccess(user.role, "documents") && client.documents.length > 0 && (
             <Card>
-              <h2 className="border-b border-white/10 px-5 py-4 font-display font-bold">Contracts & documents</h2>
-              <ul className="divide-y divide-white/5">
+              <h2 className="border-b border-os-ink/15 px-5 py-4 font-display font-bold">Contracts & documents</h2>
+              <ul className="divide-y divide-os-ink/10">
                 {client.documents.map((d) => (
                   <li key={d.id}>
-                    <a href={`/admin/documents/${d.id}/download`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-white/[0.03]">
+                    <a href={`/admin/documents/${d.id}/download`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-os-ink/[0.03]">
                       <span className="min-w-0 truncate text-sm font-medium">{d.title}</span>
                       <Badge tone={statusTone(d.status)}>{humanize(d.status)}</Badge>
                     </a>
@@ -118,17 +118,17 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
           )}
 
           <Card>
-            <h2 className="border-b border-white/10 px-5 py-4 font-display font-bold">Messages</h2>
+            <h2 className="border-b border-os-ink/15 px-5 py-4 font-display font-bold">Messages</h2>
             {client.conversations.length === 0 ? (
-              <p className="px-5 py-6 text-sm text-dim-invert">No messages yet.</p>
+              <p className="px-5 py-6 text-sm text-os-muted">No messages yet.</p>
             ) : (
-              <ul className="divide-y divide-white/5">
+              <ul className="divide-y divide-os-ink/10">
                 {client.conversations.map((c) => (
                   <li key={c.id}>
-                    <Link href={`/admin/inbox/${c.id}`} className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-white/[0.03]">
+                    <Link href={`/admin/inbox/${c.id}`} className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-os-ink/[0.03]">
                       <div className="min-w-0">
                         <p className="truncate text-sm font-medium">{c.subject ?? "—"}</p>
-                        <p className="text-xs text-dim-invert">
+                        <p className="text-xs text-os-muted">
                           {SOURCE_LABELS[c.source]} · {formatDate(c.createdAt)}
                         </p>
                       </div>

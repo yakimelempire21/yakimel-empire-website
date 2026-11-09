@@ -30,11 +30,8 @@ const DEPARTMENTS: { slug: string; name: string; parent?: string; description?: 
   {
     slug: "technology",
     name: "Technology",
-    description: "DigiMarket, Health Hyr, BrandForge AI, OmniPresence AI and future apps",
+    description: "DigiMarket, Health Hyr, BrandForge AI, Advertwize and future apps",
   },
-  { slug: "eznob", name: "EZNOB" },
-  { slug: "eznob-office-services", name: "Office Services", parent: "eznob" },
-  { slug: "eznob-business-services", name: "Business Services", parent: "eznob" },
 ];
 
 /** Divisions removed from the company structure (children listed before parents). */
@@ -47,6 +44,9 @@ const REMOVED_DEPARTMENTS = [
   "gallery-templates",
   "gallery-creative-products",
   "yakimel-gallery",
+  "eznob-office-services",
+  "eznob-business-services",
+  "eznob",
 ];
 
 const APPS: { slug: string; name: string; domain?: string; status: "LIVE" | "DEVELOPMENT"; progress?: number }[] = [
@@ -54,7 +54,7 @@ const APPS: { slug: string; name: string; domain?: string; status: "LIVE" | "DEV
   { slug: "whatsapp-ai-assistant", name: "WhatsApp AI Assistant", status: "LIVE" },
   { slug: "health-hyr", name: "Health Hyr", domain: "healthhyr.com", status: "DEVELOPMENT" },
   { slug: "yakimel-design-studio", name: "Yakimel Design Studio", status: "DEVELOPMENT" },
-  { slug: "omnipresence-ai", name: "OmniPresence AI", status: "DEVELOPMENT", progress: 72 },
+  { slug: "advertwize", name: "Advertwize", status: "DEVELOPMENT", progress: 72 },
   { slug: "brandforge-ai", name: "BrandForge AI", status: "DEVELOPMENT" },
 ];
 

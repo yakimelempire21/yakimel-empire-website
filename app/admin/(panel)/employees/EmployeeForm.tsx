@@ -56,14 +56,14 @@ export default function EmployeeForm({
         </div>
 
         {allowAccess && (
-          <div className="rounded-xl border border-white/10 p-4">
+          <div className="rounded-xl border border-os-ink/15 p-4">
             <label className="flex items-center gap-2 text-sm">
               <input
                 type="checkbox"
                 name="access"
                 checked={access}
                 onChange={(e) => setAccess(e.target.checked)}
-                className="h-4 w-4 accent-[#2F6FEA]"
+                className="h-4 w-4 accent-os-accent"
               />
               Give Command Center access (they can sign in with their email)
             </label>
@@ -71,7 +71,7 @@ export default function EmployeeForm({
               <label className="mt-4 block">
                 <span className={labelClass}>Temporary password (min. 12 characters)</span>
                 <input name="password" type="text" minLength={12} required autoComplete="off" className={inputClass} />
-                <span className="mt-1 block text-xs text-dim-invert">Share it privately. They can change it under My account after signing in.</span>
+                <span className="mt-1 block text-xs text-os-muted">Share it privately. They can change it under My account after signing in.</span>
               </label>
             )}
           </div>
@@ -79,12 +79,12 @@ export default function EmployeeForm({
       </fieldset>
 
       {state?.error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {state.error}
         </p>
       )}
       {state?.saved && (
-        <p role="status" className="text-sm text-emerald-300">
+        <p role="status" className="text-sm text-emerald-700">
           Saved.
         </p>
       )}

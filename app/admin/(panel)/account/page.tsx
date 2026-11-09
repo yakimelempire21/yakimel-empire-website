@@ -27,15 +27,15 @@ export default async function AccountPage() {
           <ul className="space-y-2 text-sm">
             {logins.map((l) => (
               <li key={l.id} className="flex justify-between gap-3">
-                <span className={l.success ? "text-[#d5dcea]" : "text-red-300"}>{l.success ? "Signed in" : "Failed attempt"}</span>
-                <span className="text-[#7f93b8]">
+                <span className={l.success ? "text-os-ink" : "text-red-700"}>{l.success ? "Signed in" : "Failed attempt"}</span>
+                <span className="text-os-muted">
                   {formatDate(l.createdAt, true)}
                   {l.ipAddress ? ` · ${l.ipAddress}` : ""}
                 </span>
               </li>
             ))}
           </ul>
-          <p className="mt-5 text-xs text-[#5d6b86]">If you see a sign-in you don&apos;t recognize, change your password right away.</p>
+          <p className="mt-5 text-xs text-os-faint">If you see a sign-in you don&apos;t recognize, change your password right away.</p>
         </Card>
       </div>
     </>

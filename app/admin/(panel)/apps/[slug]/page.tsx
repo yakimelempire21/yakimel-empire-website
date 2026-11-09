@@ -47,7 +47,7 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
         action={
           <div className="flex items-center gap-3">
             {app.domain && (
-              <a href={`https://${app.domain}`} target="_blank" rel="noopener noreferrer" className="text-sm text-[#a2adc4] hover:text-white">
+              <a href={`https://${app.domain}`} target="_blank" rel="noopener noreferrer" className="text-sm text-os-muted hover:text-os-ink">
                 Open site ↗
               </a>
             )}
@@ -59,11 +59,11 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
       {/* Live metrics */}
       {latest ? (
         <section className="mb-6">
-          <p className="mb-3 text-xs text-[#7f93b8]">Last report {timeAgo(snapshots[0].capturedAt)}</p>
+          <p className="mb-3 text-xs text-os-muted">Last report {timeAgo(snapshots[0].capturedAt)}</p>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
             {Object.entries(latest).map(([k, v]) => (
               <Card key={k} className="p-4">
-                <p className="text-xs text-[#7f93b8]">{metricLabel(k)}</p>
+                <p className="text-xs text-os-muted">{metricLabel(k)}</p>
                 <p className="mt-2 font-display text-2xl font-bold">{formatMetric(k, v)}</p>
               </Card>
             ))}
@@ -86,7 +86,7 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
                 const m = (s.metrics as Record<string, unknown>) ?? {};
                 return (
                   <tr key={s.id}>
-                    <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{formatDate(s.capturedAt, true)}</td>
+                    <td className="whitespace-nowrap px-5 py-3 text-os-muted">{formatDate(s.capturedAt, true)}</td>
                     {metricKeys.map((k) => (
                       <td key={k} className="px-5 py-3">
                         {k in m ? formatMetric(k, m[k]) : "—"}
@@ -134,21 +134,21 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
 
           {canAccess(user.role, "tickets") && (
             <Card>
-              <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-4">
+              <div className="flex items-center justify-between border-b border-os-ink/10 px-5 py-4">
                 <h2 className="font-display font-bold">Support tickets</h2>
-                <Link href={`/admin/tickets/new?app=${app.id}`} className="text-sm text-[#4d8dff] hover:underline">
+                <Link href={`/admin/tickets/new?app=${app.id}`} className="text-sm text-os-accent hover:underline">
                   New ticket
                 </Link>
               </div>
               {tickets.length === 0 ? (
-                <p className="px-5 py-6 text-sm text-[#7f93b8]">No tickets for this app.</p>
+                <p className="px-5 py-6 text-sm text-os-muted">No tickets for this app.</p>
               ) : (
-                <ul className="divide-y divide-white/[0.05]">
+                <ul className="divide-y divide-os-ink/10">
                   {tickets.map((tk) => (
                     <li key={tk.id}>
-                      <Link href={`/admin/tickets/${tk.id}`} className="flex items-center justify-between gap-3 px-5 py-3 hover:bg-white/[0.03]">
+                      <Link href={`/admin/tickets/${tk.id}`} className="flex items-center justify-between gap-3 px-5 py-3 hover:bg-os-ink/[0.03]">
                         <span className="min-w-0 truncate text-sm">
-                          <span className="font-mono text-xs text-[#7f93b8]">TKT-{tk.number}</span> {tk.subject}
+                          <span className="font-mono text-xs text-os-muted">TKT-{tk.number}</span> {tk.subject}
                         </span>
                         <Badge tone={statusTone(tk.status)}>{humanize(tk.status)}</Badge>
                       </Link>
@@ -159,8 +159,8 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
             </Card>
           )}
 
-          <Card className="p-5 text-sm text-[#a2adc4]">
-            <p className="font-medium text-white">Coming in the App Control Center phase</p>
+          <Card className="p-5 text-sm text-os-muted">
+            <p className="font-medium text-os-ink">Coming in the App Control Center phase</p>
             <p className="mt-1">
               Users, subscriptions, payments, content moderation and actions like Suspend User, Verify Seller, Approve
               Product and Refund Order, once {app.name} exposes them to YAKIMEL OS.

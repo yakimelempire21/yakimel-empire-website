@@ -46,7 +46,7 @@ export default async function EmployeesPage({ searchParams }: { searchParams: Pr
       />
 
       {denied && (
-        <p role="alert" className="mb-6 rounded-lg bg-amber-400/10 px-4 py-3 text-sm text-amber-300">
+        <p role="alert" className="mb-6 rounded-lg bg-amber-100 px-4 py-3 text-sm text-amber-700">
           Only the Owner, Executive Admins and HR can add or edit employees.
         </p>
       )}
@@ -56,20 +56,20 @@ export default async function EmployeesPage({ searchParams }: { searchParams: Pr
       ) : (
         <Table head={["Name", "Department", "Role", "Status", "Access", "Start date"]}>
           {rows.map((e) => (
-            <tr key={e.id} className="hover:bg-white/[0.03]">
+            <tr key={e.id} className="hover:bg-os-ink/[0.03]">
               <td className="px-5 py-3.5">
-                <Link href={`/admin/employees/${e.id}`} className="font-medium hover:text-brand">
+                <Link href={`/admin/employees/${e.id}`} className="font-medium hover:text-os-accent">
                   {e.fullName}
                 </Link>
-                <p className="text-xs text-dim-invert">{e.title ?? e.email ?? ""}</p>
+                <p className="text-xs text-os-muted">{e.title ?? e.email ?? ""}</p>
               </td>
-              <td className="px-5 py-3.5 text-dim-invert">{e.department}</td>
+              <td className="px-5 py-3.5 text-os-muted">{e.department}</td>
               <td className="px-5 py-3.5">{e.role}</td>
               <td className="px-5 py-3.5">
                 <Badge tone={statusTone(e.status)}>{humanize(e.status)}</Badge>
               </td>
-              <td className="px-5 py-3.5 text-dim-invert">{e.hasLogin ? "Can sign in" : "—"}</td>
-              <td className="whitespace-nowrap px-5 py-3.5 text-dim-invert">{formatDate(e.startDate)}</td>
+              <td className="px-5 py-3.5 text-os-muted">{e.hasLogin ? "Can sign in" : "—"}</td>
+              <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(e.startDate)}</td>
             </tr>
           ))}
         </Table>

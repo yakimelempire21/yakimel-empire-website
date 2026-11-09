@@ -57,21 +57,21 @@ export default async function AuditLogsPage({ searchParams }: { searchParams: Pr
             const meta = r.metadata ? JSON.stringify(r.metadata) : "";
             return (
               <tr key={r.id}>
-                <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{formatDate(r.createdAt, true)}</td>
+                <td className="whitespace-nowrap px-5 py-3 text-os-muted">{formatDate(r.createdAt, true)}</td>
                 <td className="px-5 py-3">{r.name ?? r.email ?? "System"}</td>
                 <td className="px-5 py-3">
                   <Badge tone={tone(r.action)}>{humanize(r.action)}</Badge>
                 </td>
-                <td className="px-5 py-3 text-[#a2adc4]">
+                <td className="px-5 py-3 text-os-muted">
                   {href ? (
-                    <Link href={href} className="hover:text-white">
+                    <Link href={href} className="hover:text-os-ink">
                       {humanize(r.resource)}
                     </Link>
                   ) : (
                     humanize(r.resource)
                   )}
                 </td>
-                <td className="max-w-xs truncate px-5 py-3 font-mono text-xs text-[#7f93b8]" title={meta}>
+                <td className="max-w-xs truncate px-5 py-3 font-mono text-xs text-os-muted" title={meta}>
                   {meta || "—"}
                 </td>
               </tr>
@@ -81,12 +81,12 @@ export default async function AuditLogsPage({ searchParams }: { searchParams: Pr
       )}
       <div className="mt-4 flex gap-4 text-sm">
         {page > 1 && (
-          <Link href={`/admin/audit?page=${page - 1}`} className="text-[#4d8dff] hover:underline">
+          <Link href={`/admin/audit?page=${page - 1}`} className="text-os-accent hover:underline">
             ← Newer
           </Link>
         )}
         {hasMore && (
-          <Link href={`/admin/audit?page=${page + 1}`} className="text-[#4d8dff] hover:underline">
+          <Link href={`/admin/audit?page=${page + 1}`} className="text-os-accent hover:underline">
             Older →
           </Link>
         )}

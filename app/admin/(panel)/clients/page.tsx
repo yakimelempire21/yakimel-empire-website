@@ -64,7 +64,7 @@ export default async function ClientsPage({ searchParams }: { searchParams: Prom
             </option>
           ))}
         </select>
-        <button type="submit" className="rounded-lg border border-white/15 px-4 py-2.5 text-sm hover:border-brand">
+        <button type="submit" className="rounded-lg border border-os-ink/20 px-4 py-2.5 text-sm hover:border-os-accent">
           Filter
         </button>
       </form>
@@ -74,20 +74,20 @@ export default async function ClientsPage({ searchParams }: { searchParams: Prom
       ) : (
         <Table head={["Client", "Company", "Status", "Projects", "Source", "Added"]}>
           {rows.map((c) => (
-            <tr key={c.id} className="hover:bg-white/[0.03]">
+            <tr key={c.id} className="hover:bg-os-ink/[0.03]">
               <td className="px-5 py-3.5">
-                <Link href={`/admin/clients/${c.id}`} className="font-medium hover:text-brand">
+                <Link href={`/admin/clients/${c.id}`} className="font-medium hover:text-os-accent">
                   {c.fullName}
                 </Link>
-                <p className="text-xs text-dim-invert">{c.email}</p>
+                <p className="text-xs text-os-muted">{c.email}</p>
               </td>
-              <td className="px-5 py-3.5 text-dim-invert">{c.company ?? "—"}</td>
+              <td className="px-5 py-3.5 text-os-muted">{c.company ?? "—"}</td>
               <td className="px-5 py-3.5">
                 <Badge tone={statusTone(c.status)}>{humanize(c.status)}</Badge>
               </td>
               <td className="px-5 py-3.5">{c.projectCount}</td>
-              <td className="px-5 py-3.5 text-dim-invert">{c.source ?? "—"}</td>
-              <td className="whitespace-nowrap px-5 py-3.5 text-dim-invert">{formatDate(c.createdAt)}</td>
+              <td className="px-5 py-3.5 text-os-muted">{c.source ?? "—"}</td>
+              <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(c.createdAt)}</td>
             </tr>
           ))}
         </Table>

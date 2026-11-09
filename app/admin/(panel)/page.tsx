@@ -86,7 +86,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
   return (
     <>
       {denied && (
-        <p role="alert" className="mb-6 rounded-lg bg-amber-400/10 px-4 py-3 text-sm text-amber-300">
+        <p role="alert" className="mb-6 rounded-lg bg-amber-100 px-4 py-3 text-sm text-amber-700">
           Your role doesn&apos;t have access to that area.
         </p>
       )}
@@ -94,9 +94,9 @@ export default async function Overview({ searchParams }: { searchParams: Promise
       {/* Hero */}
       <section className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#7f93b8]">{formatDate(new Date())}</p>
-          <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-white md:text-5xl">
-            {greeting()}, <span className="bg-gradient-to-r from-white to-[#7fa8ff] bg-clip-text text-transparent">{who}</span>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-os-muted">{formatDate(new Date())}</p>
+          <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-os-ink md:text-5xl">
+            {greeting()}, <span className="bg-gradient-to-r from-os-ink to-os-accent bg-clip-text text-transparent">{who}</span>
           </h1>
         </div>
 
@@ -108,16 +108,16 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
               </span>
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-emerald-300/80">Company Status</p>
-                <p className="flex items-center gap-1.5 text-sm font-semibold text-emerald-300">
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-emerald-700">Company Status</p>
+                <p className="flex items-center gap-1.5 text-sm font-semibold text-emerald-700">
                   <CircleCheck size={15} aria-hidden="true" /> ALL SYSTEMS OPERATIONAL
                 </p>
               </div>
             </div>
           ) : (
             <div className="rounded-xl border border-amber-400/25 bg-amber-400/[0.07] px-4 py-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-amber-300/80">Company Status</p>
-              <p className="flex items-center gap-1.5 text-sm font-semibold text-amber-300">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-amber-700">Company Status</p>
+              <p className="flex items-center gap-1.5 text-sm font-semibold text-amber-700">
                 <TriangleAlert size={15} aria-hidden="true" /> ATTENTION NEEDED
               </p>
               <p className="mt-0.5 text-xs text-amber-200/80">{issues.join(" · ")}</p>
@@ -130,10 +130,10 @@ export default async function Overview({ searchParams }: { searchParams: Promise
       {kpis.length > 0 && (
         <section className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
           {kpis.map((k) => (
-            <Link key={k.label} href={k.href} className={`group rounded-2xl p-4 transition-colors hover:border-[#2F6FEA]/40 ${glass}`}>
-              <p className="text-xs text-[#7f93b8]">{k.label}</p>
-              <p className="mt-2 font-display text-2xl font-bold text-white md:text-3xl">{k.value}</p>
-              {k.hint && <p className="mt-1 text-[11px] text-[#5d6b86]">{k.hint}</p>}
+            <Link key={k.label} href={k.href} className={`group rounded-2xl p-4 transition-colors hover:border-os-accent/40 ${glass}`}>
+              <p className="text-xs text-os-muted">{k.label}</p>
+              <p className="mt-2 font-display text-2xl font-bold text-os-ink md:text-3xl">{k.value}</p>
+              {k.hint && <p className="mt-1 text-[11px] text-os-faint">{k.hint}</p>}
             </Link>
           ))}
         </section>
@@ -143,8 +143,8 @@ export default async function Overview({ searchParams }: { searchParams: Promise
       {apps.length > 0 && (
         <section className="mt-10">
           <div className="mb-4 flex items-end justify-between">
-            <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-[#7f93b8]">Your Ecosystem</h2>
-            <Link href="/admin/apps" className="inline-flex items-center gap-1 text-sm text-[#a2adc4] hover:text-white">
+            <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-os-muted">Your Ecosystem</h2>
+            <Link href="/admin/apps" className="inline-flex items-center gap-1 text-sm text-os-muted hover:text-os-ink">
               App monitoring <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </div>
@@ -159,22 +159,22 @@ export default async function Overview({ searchParams }: { searchParams: Promise
       <section className={`mt-10 grid gap-6 ${can("inbox") ? "xl:grid-cols-2" : ""}`}>
         {can("inbox") && (
           <Card>
-            <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-4">
+            <div className="flex items-center justify-between border-b border-os-ink/10 px-5 py-4">
               <h2 className="font-display font-bold">Latest messages</h2>
-              <Link href="/admin/inbox" className="inline-flex items-center gap-1 text-sm text-[#a2adc4] hover:text-white">
+              <Link href="/admin/inbox" className="inline-flex items-center gap-1 text-sm text-os-muted hover:text-os-ink">
                 Inbox <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
             {recent.length === 0 ? (
-              <p className="px-5 py-10 text-center text-sm text-[#7f93b8]">No messages yet. Website requests will appear here.</p>
+              <p className="px-5 py-10 text-center text-sm text-os-muted">No messages yet. Website requests will appear here.</p>
             ) : (
-              <ul className="divide-y divide-white/[0.05]">
+              <ul className="divide-y divide-os-ink/10">
                 {recent.map((c) => (
                   <li key={c.id}>
-                    <Link href={`/admin/inbox/${c.id}`} className="flex items-center gap-4 px-5 py-3.5 hover:bg-white/[0.03]">
+                    <Link href={`/admin/inbox/${c.id}`} className="flex items-center gap-4 px-5 py-3.5 hover:bg-os-ink/[0.03]">
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-medium">{c.client?.fullName ?? "Unknown sender"}</p>
-                        <p className="truncate text-xs text-[#7f93b8]">
+                        <p className="truncate text-xs text-os-muted">
                           {SOURCE_LABELS[c.source]} · {c.subject}
                         </p>
                       </div>
@@ -188,21 +188,21 @@ export default async function Overview({ searchParams }: { searchParams: Promise
         )}
 
         <Card>
-          <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-4">
+          <div className="flex items-center justify-between border-b border-os-ink/10 px-5 py-4">
             <h2 className="font-display font-bold">My tasks</h2>
-            <Link href="/admin/tasks?view=mine" className="inline-flex items-center gap-1 text-sm text-[#a2adc4] hover:text-white">
+            <Link href="/admin/tasks?view=mine" className="inline-flex items-center gap-1 text-sm text-os-muted hover:text-os-ink">
               All tasks <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </div>
           {myTasks.length === 0 ? (
-            <p className="px-5 py-10 text-center text-sm text-[#7f93b8]">Nothing assigned to you. 🎉</p>
+            <p className="px-5 py-10 text-center text-sm text-os-muted">Nothing assigned to you. 🎉</p>
           ) : (
-            <ul className="divide-y divide-white/[0.05]">
+            <ul className="divide-y divide-os-ink/10">
               {myTasks.map((task) => (
                 <li key={task.id} className="flex items-center gap-4 px-5 py-3.5">
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium">{task.title}</p>
-                    <p className="truncate text-xs text-[#7f93b8]">
+                    <p className="truncate text-xs text-os-muted">
                       {task.project?.name ?? "General"}
                       {task.dueDate ? ` · Due ${formatDate(task.dueDate)}` : ""}
                     </p>

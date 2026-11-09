@@ -45,14 +45,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
 
       <div className="grid gap-6 xl:grid-cols-[1fr_1.1fr]">
         <Card>
-          <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+          <div className="flex items-center justify-between border-b border-os-ink/15 px-5 py-4">
             <h2 className="font-display font-bold">Tasks</h2>
-            <span className="text-sm text-dim-invert">
+            <span className="text-sm text-os-muted">
               {done}/{project.tasks.length} done
             </span>
           </div>
 
-          <form action={addTask.bind(null, project.id)} className="space-y-2 border-b border-white/10 p-4">
+          <form action={addTask.bind(null, project.id)} className="space-y-2 border-b border-os-ink/15 p-4">
             <input name="title" required placeholder="Add a task…" aria-label="Task title" className={inputClass} />
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-[1fr_1.3fr_1.2fr_auto]">
               <select name="priority" defaultValue="MEDIUM" aria-label="Priority" className={inputClass}>
@@ -78,14 +78,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
           </form>
 
           {project.tasks.length === 0 ? (
-            <p className="px-5 py-8 text-center text-sm text-dim-invert">No tasks yet.</p>
+            <p className="px-5 py-8 text-center text-sm text-os-muted">No tasks yet.</p>
           ) : (
-            <ul className="divide-y divide-white/5">
+            <ul className="divide-y divide-os-ink/10">
               {project.tasks.map((task) => (
                 <li key={task.id} className="flex flex-wrap items-center gap-3 px-5 py-3">
                   <div className="min-w-0 flex-1">
-                    <p className={`text-sm ${task.status === "DONE" ? "text-dim-invert line-through" : ""}`}>{task.title}</p>
-                    <p className="text-xs text-dim-invert">
+                    <p className={`text-sm ${task.status === "DONE" ? "text-os-muted line-through" : ""}`}>{task.title}</p>
+                    <p className="text-xs text-os-muted">
                       {task.assigneeId ? teamName.get(task.assigneeId) ?? "Team member" : "Unassigned"}
                       {task.dueDate ? ` · Due ${formatDate(task.dueDate)}` : ""}
                     </p>
@@ -99,7 +99,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
                         </option>
                       ))}
                     </select>
-                    <button type="submit" className="rounded-lg border border-white/15 px-2.5 text-xs hover:border-brand">
+                    <button type="submit" className="rounded-lg border border-os-ink/20 px-2.5 text-xs hover:border-os-accent">
                       Set
                     </button>
                   </form>
@@ -114,11 +114,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             <h2 className="font-display font-bold">Project details</h2>
             <div className="flex gap-4">
               {canAccess(user.role, "finance") && (
-                <Link href={`/admin/invoices/new?client=${project.clientId}&project=${project.id}`} className="text-sm text-brand hover:underline">
+                <Link href={`/admin/invoices/new?client=${project.clientId}&project=${project.id}`} className="text-sm text-os-accent hover:underline">
                   Create invoice
                 </Link>
               )}
-              <Link href={`/admin/clients/${project.clientId}`} className="text-sm text-brand hover:underline">
+              <Link href={`/admin/clients/${project.clientId}`} className="text-sm text-os-accent hover:underline">
                 Open client →
               </Link>
             </div>

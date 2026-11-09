@@ -47,7 +47,7 @@ export default async function DocumentsView({ mode, typeFilter }: { mode: "docum
       <Card className="mb-6 p-5">
         <UploadForm clients={clients} types={types} defaultType={types[0]} storageReady={storageReady} />
         {!storageReady && (
-          <p className="mt-3 text-xs text-amber-300/90">
+          <p className="mt-3 text-xs text-amber-700">
             File uploads turn on once SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are added. Until then you can save links
             (Google Drive, DocuSign…).
           </p>
@@ -60,7 +60,7 @@ export default async function DocumentsView({ mode, typeFilter }: { mode: "docum
             key={x ?? "all"}
             href={x ? `${base}?type=${x}` : base}
             className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
-              x === filter ? "bg-[#2F6FEA] text-white" : "border border-white/10 text-[#a2adc4] hover:text-white"
+              x === filter ? "bg-os-accent text-white" : "border border-os-ink/15 text-os-muted hover:text-os-ink"
             }`}
           >
             {x ? (x === "SOW" ? "SOW" : humanize(x)) : "All"}
@@ -77,20 +77,20 @@ export default async function DocumentsView({ mode, typeFilter }: { mode: "docum
               <td className="px-5 py-3">
                 <a href={`/admin/documents/${d.id}/download`} target="_blank" rel="noopener noreferrer" className="group inline-flex items-start gap-2">
                   {d.storagePath ? (
-                    <FileText size={16} className="mt-0.5 shrink-0 text-[#7fa8ff]" aria-hidden="true" />
+                    <FileText size={16} className="mt-0.5 shrink-0 text-os-accent" aria-hidden="true" />
                   ) : (
-                    <ExternalLink size={16} className="mt-0.5 shrink-0 text-[#7fa8ff]" aria-hidden="true" />
+                    <ExternalLink size={16} className="mt-0.5 shrink-0 text-os-accent" aria-hidden="true" />
                   )}
                   <span>
-                    <span className="font-medium group-hover:text-[#4d8dff]">{d.title}</span>
-                    <span className="block text-xs text-[#7f93b8]">{d.fileName ? `${d.fileName} · ${size(d.sizeBytes)}` : "External link"}</span>
+                    <span className="font-medium group-hover:text-os-accent">{d.title}</span>
+                    <span className="block text-xs text-os-muted">{d.fileName ? `${d.fileName} · ${size(d.sizeBytes)}` : "External link"}</span>
                   </span>
                 </a>
               </td>
-              {mode === "documents" && <td className="px-5 py-3 text-[#a2adc4]">{d.type === "SOW" ? "SOW" : humanize(d.type)}</td>}
-              <td className="px-5 py-3 text-[#a2adc4]">
+              {mode === "documents" && <td className="px-5 py-3 text-os-muted">{d.type === "SOW" ? "SOW" : humanize(d.type)}</td>}
+              <td className="px-5 py-3 text-os-muted">
                 {d.client ? (
-                  <Link href={`/admin/clients/${d.client.id}`} className="hover:text-white">
+                  <Link href={`/admin/clients/${d.client.id}`} className="hover:text-os-ink">
                     {d.client.fullName}
                   </Link>
                 ) : (
@@ -100,11 +100,11 @@ export default async function DocumentsView({ mode, typeFilter }: { mode: "docum
               {mode === "contracts" ? (
                 <>
                   <td className="px-5 py-3">{formatMoney(d.value)}</td>
-                  <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{formatDate(d.signedAt)}</td>
-                  <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{formatDate(d.expiresAt)}</td>
+                  <td className="whitespace-nowrap px-5 py-3 text-os-muted">{formatDate(d.signedAt)}</td>
+                  <td className="whitespace-nowrap px-5 py-3 text-os-muted">{formatDate(d.expiresAt)}</td>
                 </>
               ) : (
-                <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{formatDate(d.createdAt)}</td>
+                <td className="whitespace-nowrap px-5 py-3 text-os-muted">{formatDate(d.createdAt)}</td>
               )}
               <td className="px-5 py-3">
                 <form key={d.status} action={setDocumentStatus.bind(null, d.id)} className="flex items-center gap-1.5">
@@ -116,7 +116,7 @@ export default async function DocumentsView({ mode, typeFilter }: { mode: "docum
                     <option value="EXPIRED">Expired</option>
                     <option value="ARCHIVED">Archived</option>
                   </select>
-                  <button type="submit" className="rounded-lg border border-white/15 px-2 py-1 text-xs hover:border-[#2F6FEA]">
+                  <button type="submit" className="rounded-lg border border-os-ink/20 px-2 py-1 text-xs hover:border-os-accent">
                     Set
                   </button>
                 </form>

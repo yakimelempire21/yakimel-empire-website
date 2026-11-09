@@ -44,12 +44,12 @@ export default async function SubscriptionsPage() {
               <td className="px-5 py-3">
                 <Badge tone={s.kind === "INCOME" ? "green" : "gray"}>{s.kind === "INCOME" ? "Income" : "Cost"}</Badge>
               </td>
-              <td className="px-5 py-3 text-[#a2adc4]">{s.client?.fullName ?? s.vendor ?? "—"}</td>
+              <td className="px-5 py-3 text-os-muted">{s.client?.fullName ?? s.vendor ?? "—"}</td>
               <td className="whitespace-nowrap px-5 py-3">
-                {formatMoney(s.amount)} <span className="text-xs text-[#7f93b8]">/ {humanize(s.interval).replace("ly", "")}</span>
+                {formatMoney(s.amount)} <span className="text-xs text-os-muted">/ {humanize(s.interval).replace("ly", "")}</span>
               </td>
               <td className="px-5 py-3">{formatMoney(monthly(s.amount, s.interval))}</td>
-              <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{formatDate(s.nextDate)}</td>
+              <td className="whitespace-nowrap px-5 py-3 text-os-muted">{formatDate(s.nextDate)}</td>
               <td className="px-5 py-3">
                 <form key={s.status} action={setSubscriptionStatus.bind(null, s.id)} className="flex items-center gap-1.5">
                   <Badge tone={statusTone(s.status)}>{humanize(s.status)}</Badge>
@@ -58,7 +58,7 @@ export default async function SubscriptionsPage() {
                     <option value="PAUSED">Paused</option>
                     <option value="CANCELLED">Cancelled</option>
                   </select>
-                  <button type="submit" className="rounded-lg border border-white/15 px-2 py-1 text-xs hover:border-[#2F6FEA]">
+                  <button type="submit" className="rounded-lg border border-os-ink/20 px-2 py-1 text-xs hover:border-os-accent">
                     Set
                   </button>
                 </form>

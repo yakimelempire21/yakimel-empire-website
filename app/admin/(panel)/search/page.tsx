@@ -81,15 +81,15 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         <div className="grid gap-5 lg:grid-cols-2">
           {found.map((g) => (
             <Card key={g.label}>
-              <h2 className="border-b border-white/[0.06] px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#7f93b8]">
+              <h2 className="border-b border-os-ink/10 px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-os-muted">
                 {g.label}
               </h2>
-              <ul className="divide-y divide-white/[0.05]">
+              <ul className="divide-y divide-os-ink/10">
                 {g.hits.map((h, i) => (
                   <li key={`${h.href}-${i}`}>
-                    <Link href={h.href} className="block px-5 py-3 hover:bg-white/[0.03]">
+                    <Link href={h.href} className="block px-5 py-3 hover:bg-os-ink/[0.03]">
                       <p className="text-sm font-medium">{h.title}</p>
-                      {h.sub && <p className="text-xs text-[#7f93b8]">{h.sub}</p>}
+                      {h.sub && <p className="text-xs text-os-muted">{h.sub}</p>}
                     </Link>
                   </li>
                 ))}

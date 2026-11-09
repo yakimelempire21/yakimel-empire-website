@@ -46,8 +46,8 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
 
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
         {PIPELINE.map((stage) => (
-          <div key={stage.label} className="rounded-2xl border border-white/10 bg-surface/70 p-4">
-            <p className="text-sm text-dim-invert">{stage.label}</p>
+          <div key={stage.label} className="rounded-2xl border border-os-ink/15 bg-white p-4">
+            <p className="text-sm text-os-muted">{stage.label}</p>
             <p className="mt-1 font-display text-3xl font-bold">{countFor(stage.statuses)}</p>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {stage.statuses.map((s) => (
@@ -70,20 +70,20 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
       ) : (
         <Table head={["Project", "Client", "Status", "Budget", "Deadline", "Updated"]}>
           {rows.map((p) => (
-            <tr key={p.id} className="hover:bg-white/[0.03]">
+            <tr key={p.id} className="hover:bg-os-ink/[0.03]">
               <td className="px-5 py-3.5">
-                <Link href={`/admin/projects/${p.id}`} className="font-medium hover:text-brand">
+                <Link href={`/admin/projects/${p.id}`} className="font-medium hover:text-os-accent">
                   {p.name}
                 </Link>
-                <p className="text-xs text-dim-invert">{p.service}</p>
+                <p className="text-xs text-os-muted">{p.service}</p>
               </td>
-              <td className="px-5 py-3.5 text-dim-invert">{p.client.fullName}</td>
+              <td className="px-5 py-3.5 text-os-muted">{p.client.fullName}</td>
               <td className="px-5 py-3.5">
                 <Badge tone={statusTone(p.status)}>{humanize(p.status)}</Badge>
               </td>
               <td className="px-5 py-3.5">{formatMoney(p.budget)}</td>
-              <td className="whitespace-nowrap px-5 py-3.5 text-dim-invert">{formatDate(p.deadline)}</td>
-              <td className="whitespace-nowrap px-5 py-3.5 text-dim-invert">{formatDate(p.updatedAt)}</td>
+              <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(p.deadline)}</td>
+              <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(p.updatedAt)}</td>
             </tr>
           ))}
         </Table>

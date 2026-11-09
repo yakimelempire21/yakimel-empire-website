@@ -31,9 +31,9 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
       <div className="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
         <Card className="p-6">
           <h2 className="mb-3 font-display font-bold">Description</h2>
-          <p className="whitespace-pre-wrap text-sm leading-relaxed text-[#d5dcea]">{ticket.description}</p>
+          <p className="whitespace-pre-wrap text-sm leading-relaxed text-os-ink">{ticket.description}</p>
           {ticket.conversation && (
-            <Link href={`/admin/inbox/${ticket.conversation.id}`} className="mt-5 inline-block text-sm text-[#4d8dff] hover:underline">
+            <Link href={`/admin/inbox/${ticket.conversation.id}`} className="mt-5 inline-block text-sm text-os-accent hover:underline">
               Open the original message {ticket.conversation.reference ? `(${ticket.conversation.reference})` : ""} →
             </Link>
           )}
@@ -81,9 +81,9 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
 
           <Card className="space-y-3 p-6 text-sm">
             <div>
-              <p className="text-xs uppercase tracking-wider text-[#7f93b8]">Client</p>
+              <p className="text-xs uppercase tracking-wider text-os-muted">Client</p>
               {ticket.client ? (
-                <Link href={`/admin/clients/${ticket.client.id}`} className="hover:text-[#4d8dff]">
+                <Link href={`/admin/clients/${ticket.client.id}`} className="hover:text-os-accent">
                   {ticket.client.fullName} · {ticket.client.email}
                 </Link>
               ) : (
@@ -91,9 +91,9 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
               )}
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wider text-[#7f93b8]">App</p>
+              <p className="text-xs uppercase tracking-wider text-os-muted">App</p>
               {ticket.app ? (
-                <Link href={`/admin/apps/${ticket.app.slug}`} className="hover:text-[#4d8dff]">
+                <Link href={`/admin/apps/${ticket.app.slug}`} className="hover:text-os-accent">
                   {ticket.app.name}
                 </Link>
               ) : (
@@ -101,7 +101,7 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
               )}
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wider text-[#7f93b8]">Department</p>
+              <p className="text-xs uppercase tracking-wider text-os-muted">Department</p>
               <p>{ticket.department?.name ?? "—"}</p>
             </div>
           </Card>

@@ -61,11 +61,11 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                     <Link
                       href={href({ status, source: item.value })}
                       className={`flex items-center justify-between rounded-lg px-3 py-2 transition-colors ${
-                        active ? "bg-[#2F6FEA]/20 text-white" : "text-[#a2adc4] hover:bg-white/[0.04] hover:text-white"
+                        active ? "bg-os-accent/20 text-os-ink" : "text-os-muted hover:bg-os-ink/[0.04] hover:text-os-ink"
                       }`}
                     >
                       {item.label}
-                      {n > 0 && <span className="text-xs font-semibold text-[#7fa8ff]">{n}</span>}
+                      {n > 0 && <span className="text-xs font-semibold text-os-accent">{n}</span>}
                     </Link>
                   </li>
                 );
@@ -81,7 +81,7 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
                 key={tab.label}
                 href={href({ status: tab.value, source })}
                 className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
-                  tab.value === status ? "bg-[#2F6FEA] text-white" : "border border-white/10 text-[#a2adc4] hover:text-white"
+                  tab.value === status ? "bg-os-accent text-white" : "border border-os-ink/15 text-os-muted hover:text-os-ink"
                 }`}
               >
                 {tab.label}
@@ -97,26 +97,26 @@ export default async function InboxPage({ searchParams }: { searchParams: Promis
           ) : (
             <Table head={["From", "Subject", "Source", "Status", "Received"]}>
               {rows.map((c) => (
-                <tr key={c.id} className="hover:bg-white/[0.03]">
+                <tr key={c.id} className="hover:bg-os-ink/[0.03]">
                   <td className="px-5 py-3.5">
-                    <Link href={`/admin/inbox/${c.id}`} className="font-medium hover:text-[#4d8dff]">
+                    <Link href={`/admin/inbox/${c.id}`} className="font-medium hover:text-os-accent">
                       {c.isPriority && (
-                        <span className="mr-1 text-amber-300" aria-label="Priority">
+                        <span className="mr-1 text-amber-700" aria-label="Priority">
                           ★
                         </span>
                       )}
                       {c.client?.fullName ?? "Unknown"}
                     </Link>
-                    <p className="text-xs text-[#7f93b8]">{c.client?.email}</p>
+                    <p className="text-xs text-os-muted">{c.client?.email}</p>
                   </td>
                   <td className="max-w-xs truncate px-5 py-3.5">
                     <Link href={`/admin/inbox/${c.id}`}>{c.subject ?? "—"}</Link>
                   </td>
-                  <td className="px-5 py-3.5 text-[#a2adc4]">{SOURCE_LABELS[c.source]}</td>
+                  <td className="px-5 py-3.5 text-os-muted">{SOURCE_LABELS[c.source]}</td>
                   <td className="px-5 py-3.5">
                     <Badge tone={statusTone(c.status)}>{humanize(c.status)}</Badge>
                   </td>
-                  <td className="whitespace-nowrap px-5 py-3.5 text-[#a2adc4]">{formatDate(c.createdAt, true)}</td>
+                  <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(c.createdAt, true)}</td>
                 </tr>
               ))}
             </Table>

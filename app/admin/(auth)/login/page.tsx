@@ -26,22 +26,22 @@ export default async function LoginPage() {
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-16">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(47,111,234,0.22),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(107,47,214,0.16),transparent_60%)]"
       />
       <div className="relative w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center">
           <div className="relative">
-            <div className="absolute inset-0 rounded-full bg-[#2F6FEA]/50 blur-xl" aria-hidden="true" />
+            <div className="absolute inset-0 rounded-full bg-os-lime/70 blur-xl" aria-hidden="true" />
             <Image src="/yakimel-icon.png" alt="" width={64} height={64} className="relative h-16 w-16" />
           </div>
-          <h1 className="mt-6 font-display text-3xl font-bold tracking-[0.14em] text-white">YAKIMEL OS</h1>
-          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.3em] text-[#7f93b8]">Enterprise Control System</p>
+          <h1 className="mt-6 font-display text-3xl font-bold tracking-[0.14em] text-os-ink">YAKIMEL OS</h1>
+          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.3em] text-os-muted">Enterprise Control System</p>
         </div>
-        <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-7 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+        <div className="rounded-2xl border border-os-ink/15 bg-white p-7 shadow-[0_24px_60px_-30px_rgba(42,11,54,0.35)]">
           <LoginForm />
         </div>
-        <p className="mt-6 text-center text-xs text-dim-invert">
-          <Link href="/" className="hover:text-ink-invert">
+        <p className="mt-6 text-center text-xs text-os-muted">
+          <Link href="/" className="hover:text-os-ink">
             ← Back to yakimelempire.com
           </Link>
         </p>

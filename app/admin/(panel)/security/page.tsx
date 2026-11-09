@@ -61,7 +61,7 @@ export default async function SecurityCenter() {
         title="Security Center"
         description="Sign-ins, active sessions and suspicious activity."
         action={
-          <Link href="/admin/audit" className="text-sm text-[#4d8dff] hover:underline">
+          <Link href="/admin/audit" className="text-sm text-os-accent hover:underline">
             Audit logs →
           </Link>
         }
@@ -69,34 +69,34 @@ export default async function SecurityCenter() {
 
       <div className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <div className={`rounded-2xl p-4 ${glass}`}>
-          <p className="text-xs text-[#7f93b8]">Active sessions</p>
+          <p className="text-xs text-os-muted">Active sessions</p>
           <p className="mt-2 font-display text-3xl font-bold">{sessions.length}</p>
         </div>
         <div className={`rounded-2xl p-4 ${glass}`}>
-          <p className="text-xs text-[#7f93b8]">Failed sign-ins (24 h)</p>
-          <p className={`mt-2 font-display text-3xl font-bold ${failed24h.n > 0 ? "text-amber-300" : ""}`}>{failed24h.n}</p>
+          <p className="text-xs text-os-muted">Failed sign-ins (24 h)</p>
+          <p className={`mt-2 font-display text-3xl font-bold ${failed24h.n > 0 ? "text-amber-700" : ""}`}>{failed24h.n}</p>
         </div>
         <div className={`rounded-2xl p-4 ${glass}`}>
-          <p className="text-xs text-[#7f93b8]">Suspicious accounts</p>
-          <p className={`mt-2 font-display text-3xl font-bold ${suspicious.length ? "text-red-300" : ""}`}>{suspicious.length}</p>
+          <p className="text-xs text-os-muted">Suspicious accounts</p>
+          <p className={`mt-2 font-display text-3xl font-bold ${suspicious.length ? "text-red-700" : ""}`}>{suspicious.length}</p>
         </div>
         <div className={`rounded-2xl p-4 ${glass}`}>
-          <p className="text-xs text-[#7f93b8]">Two-factor enabled</p>
+          <p className="text-xs text-os-muted">Two-factor enabled</p>
           <p className="mt-2 font-display text-3xl font-bold">{twoFactor.n}</p>
-          <p className="mt-1 text-[11px] text-[#5d6b86]">2FA setup arrives in the HR & security update</p>
+          <p className="mt-1 text-[11px] text-os-faint">2FA setup arrives in the HR & security update</p>
         </div>
       </div>
 
       {suspicious.length > 0 ? (
         <Card className="mb-6 border-red-400/25 p-5">
-          <p className="flex items-center gap-2 font-semibold text-red-300">
+          <p className="flex items-center gap-2 font-semibold text-red-700">
             <ShieldAlert size={18} aria-hidden="true" /> Repeated failed sign-ins
           </p>
           <ul className="mt-3 space-y-1 text-sm">
             {suspicious.map((s) => (
               <li key={s.email}>
                 <span className="font-medium">{s.email}</span>{" "}
-                <span className="text-[#a2adc4]">
+                <span className="text-os-muted">
                   — {s.n} failed attempts, last {timeAgo(s.last)}. Accounts lock for 15 minutes after 5 failures.
                 </span>
               </li>
@@ -104,7 +104,7 @@ export default async function SecurityCenter() {
           </ul>
         </Card>
       ) : (
-        <p className="mb-6 flex items-center gap-2 text-sm text-emerald-300">
+        <p className="mb-6 flex items-center gap-2 text-sm text-emerald-700">
           <ShieldCheck size={16} aria-hidden="true" /> No suspicious sign-in activity in the last 24 hours.
         </p>
       )}
@@ -116,15 +116,15 @@ export default async function SecurityCenter() {
             <tr key={s.id}>
               <td className="px-5 py-3">
                 <p className="font-medium">{s.name ?? s.email}</p>
-                <p className="text-xs text-[#7f93b8]">{s.email}</p>
+                <p className="text-xs text-os-muted">{s.email}</p>
               </td>
-              <td className="px-5 py-3 text-[#a2adc4]">{browser(s.agent)}</td>
-              <td className="px-5 py-3 font-mono text-xs text-[#a2adc4]">{s.ip ?? "—"}</td>
-              <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{timeAgo(s.createdAt)}</td>
+              <td className="px-5 py-3 text-os-muted">{browser(s.agent)}</td>
+              <td className="px-5 py-3 font-mono text-xs text-os-muted">{s.ip ?? "—"}</td>
+              <td className="whitespace-nowrap px-5 py-3 text-os-muted">{timeAgo(s.createdAt)}</td>
               <td className="px-5 py-3 text-right">
                 {canRevoke && (
                   <form action={revokeSession.bind(null, s.id)}>
-                    <button type="submit" className="text-xs text-red-300 hover:underline">
+                    <button type="submit" className="text-xs text-red-700 hover:underline">
                       Sign out
                     </button>
                   </form>
@@ -143,9 +143,9 @@ export default async function SecurityCenter() {
             <td className="px-5 py-3">
               <Badge tone={h.success ? "green" : "red"}>{h.success ? "Success" : "Failed"}</Badge>
             </td>
-            <td className="px-5 py-3 text-[#a2adc4]">{h.reason?.replace(/_/g, " ") ?? "—"}</td>
-            <td className="px-5 py-3 font-mono text-xs text-[#a2adc4]">{h.ipAddress ?? "—"}</td>
-            <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{formatDate(h.createdAt, true)}</td>
+            <td className="px-5 py-3 text-os-muted">{h.reason?.replace(/_/g, " ") ?? "—"}</td>
+            <td className="px-5 py-3 font-mono text-xs text-os-muted">{h.ipAddress ?? "—"}</td>
+            <td className="whitespace-nowrap px-5 py-3 text-os-muted">{formatDate(h.createdAt, true)}</td>
           </tr>
         ))}
       </Table>

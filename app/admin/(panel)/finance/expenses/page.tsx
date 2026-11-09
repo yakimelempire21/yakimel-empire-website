@@ -45,8 +45,8 @@ export default async function ExpensesPage() {
                   <span>{c.category}</span>
                   <span className="font-medium">{formatMoney(c.v)}</span>
                 </div>
-                <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full rounded-full bg-[#4d8dff]" style={{ width: `${(Number(c.v) / monthTotal) * 100}%` }} />
+                <div className="h-1.5 overflow-hidden rounded-full bg-os-ink/10">
+                  <div className="h-full rounded-full bg-os-accent" style={{ width: `${(Number(c.v) / monthTotal) * 100}%` }} />
                 </div>
               </li>
             ))}
@@ -60,17 +60,17 @@ export default async function ExpensesPage() {
         <Table head={["Date", "Category", "Vendor / description", "Department", "Amount", ""]}>
           {rows.map((e) => (
             <tr key={e.id}>
-              <td className="whitespace-nowrap px-5 py-3 text-[#a2adc4]">{formatDate(e.date)}</td>
+              <td className="whitespace-nowrap px-5 py-3 text-os-muted">{formatDate(e.date)}</td>
               <td className="px-5 py-3">{e.category}</td>
               <td className="px-5 py-3">
                 {e.vendor ?? "—"}
-                {e.description && <p className="text-xs text-[#7f93b8]">{e.description}</p>}
+                {e.description && <p className="text-xs text-os-muted">{e.description}</p>}
               </td>
-              <td className="px-5 py-3 text-[#a2adc4]">{e.department?.name ?? "—"}</td>
+              <td className="px-5 py-3 text-os-muted">{e.department?.name ?? "—"}</td>
               <td className="px-5 py-3 font-medium">{formatMoney(e.amount)}</td>
               <td className="px-5 py-3 text-right">
                 <form action={deleteExpense.bind(null, e.id)}>
-                  <button type="submit" className="text-xs text-[#7f93b8] hover:text-red-300">
+                  <button type="submit" className="text-xs text-os-muted hover:text-red-700">
                     Delete
                   </button>
                 </form>

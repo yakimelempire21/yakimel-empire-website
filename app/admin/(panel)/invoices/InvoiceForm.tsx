@@ -41,7 +41,7 @@ export default function InvoiceForm({
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <label className="block">
           <span className={labelClass}>
-            Client <span className="text-[#2F6FEA]">*</span>
+            Client <span className="text-os-accent">*</span>
           </span>
           <select name="clientId" required value={clientId} onChange={(e) => setClientId(e.target.value)} className={inputClass}>
             <option value="">Choose a client</option>
@@ -60,7 +60,7 @@ export default function InvoiceForm({
         />
         <label className="block">
           <span className={labelClass}>
-            Issue date <span className="text-[#2F6FEA]">*</span>
+            Issue date <span className="text-os-accent">*</span>
           </span>
           <input name="issueDate" type="date" required defaultValue={defaults.issueDate} className={inputClass} />
         </label>
@@ -78,17 +78,17 @@ export default function InvoiceForm({
               key={p.label}
               type="button"
               onClick={() => addPreset(p)}
-              className="rounded-full border border-white/10 px-3 py-1 text-xs text-[#a2adc4] hover:border-[#2F6FEA]/60 hover:text-white"
+              className="rounded-full border border-os-ink/15 px-3 py-1 text-xs text-os-muted hover:border-os-accent/60 hover:text-os-ink"
             >
               {p.label} · {money(Number(p.price))}
             </button>
           ))}
         </div>
 
-        <div className="overflow-x-auto rounded-xl border border-white/[0.08]">
+        <div className="overflow-x-auto rounded-xl border border-os-ink/15">
           <table className="w-full min-w-[620px] text-sm">
             <thead>
-              <tr className="border-b border-white/[0.08] text-xs uppercase tracking-wider text-[#7f93b8]">
+              <tr className="border-b border-os-ink/15 text-xs uppercase tracking-wider text-os-muted">
                 <th className="px-3 py-2.5 text-left font-medium">Description</th>
                 <th className="w-24 px-3 py-2.5 text-left font-medium">Qty</th>
                 <th className="w-36 px-3 py-2.5 text-left font-medium">Unit price</th>
@@ -98,7 +98,7 @@ export default function InvoiceForm({
             </thead>
             <tbody>
               {items.map((item, i) => (
-                <tr key={i} className="border-b border-white/[0.05] last:border-0">
+                <tr key={i} className="border-b border-os-ink/10 last:border-0">
                   <td className="px-3 py-2">
                     <input
                       value={item.description}
@@ -134,7 +134,7 @@ export default function InvoiceForm({
                         type="button"
                         onClick={() => setItems((list) => list.filter((_, idx) => idx !== i))}
                         aria-label={`Remove line ${i + 1}`}
-                        className="text-[#7f93b8] hover:text-red-300"
+                        className="text-os-muted hover:text-red-700"
                       >
                         <Trash2 size={16} />
                       </button>
@@ -150,7 +150,7 @@ export default function InvoiceForm({
           <button
             type="button"
             onClick={() => setItems((list) => [...list, { description: "", quantity: "1", unitPrice: "" }])}
-            className="inline-flex items-center gap-1.5 text-sm text-[#4d8dff] hover:underline"
+            className="inline-flex items-center gap-1.5 text-sm text-os-accent hover:underline"
           >
             <Plus size={15} aria-hidden="true" /> Add line
           </button>
@@ -171,7 +171,7 @@ export default function InvoiceForm({
       </label>
 
       {state?.error && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-700">
           {state.error}
         </p>
       )}

@@ -66,26 +66,26 @@ export default async function NotificationsPage() {
         />
       ) : (
         <Card>
-          <ul className="divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-os-ink/10">
             {items.map((n) => {
               const Icon = ICON[n.kind];
               return (
                 <li key={n.id}>
                   <form action={openNotification.bind(null, n.id)}>
-                    <button type="submit" className="flex w-full items-start gap-4 px-5 py-4 text-left hover:bg-white/[0.03]">
+                    <button type="submit" className="flex w-full items-start gap-4 px-5 py-4 text-left hover:bg-os-ink/[0.03]">
                       <span
                         className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${
-                          n.readAt ? "bg-white/[0.04] text-[#7f93b8]" : "bg-[#2F6FEA]/15 text-[#7fa8ff]"
+                          n.readAt ? "bg-os-ink/[0.04] text-os-muted" : "bg-os-accent/15 text-os-accent"
                         }`}
                       >
                         <Icon size={17} aria-hidden="true" />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className={`block text-sm ${n.readAt ? "text-[#a2adc4]" : "font-semibold text-white"}`}>{n.title}</span>
-                        {n.body && <span className="block truncate text-xs text-[#7f93b8]">{n.body}</span>}
+                        <span className={`block text-sm ${n.readAt ? "text-os-muted" : "font-semibold text-os-ink"}`}>{n.title}</span>
+                        {n.body && <span className="block truncate text-xs text-os-muted">{n.body}</span>}
                       </span>
-                      <span className="shrink-0 text-xs text-[#5d6b86]">{timeAgo(n.createdAt)}</span>
-                      {!n.readAt && <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#4d8dff]" aria-label="Unread" />}
+                      <span className="shrink-0 text-xs text-os-faint">{timeAgo(n.createdAt)}</span>
+                      {!n.readAt && <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-os-accent" aria-label="Unread" />}
                     </button>
                   </form>
                 </li>
@@ -94,8 +94,8 @@ export default async function NotificationsPage() {
           </ul>
         </Card>
       )}
-      <p className="mt-4 text-xs text-[#5d6b86]">
-        Showing your latest 100. <Link href="/admin" className="hover:text-white">Back to overview</Link>
+      <p className="mt-4 text-xs text-os-faint">
+        Showing your latest 100. <Link href="/admin" className="hover:text-os-ink">Back to overview</Link>
       </p>
     </>
   );

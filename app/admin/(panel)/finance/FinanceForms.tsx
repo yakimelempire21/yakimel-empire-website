@@ -64,7 +64,7 @@ export function ExpenseForm({ categories, departments, today }: { categories: st
           {pending ? "Saving…" : "Add expense"}
         </button>
       </div>
-      {state?.error && <p role="alert" className="text-sm text-red-300">{state.error}</p>}
+      {state?.error && <p role="alert" className="text-sm text-red-700">{state.error}</p>}
     </form>
   );
 }
@@ -80,7 +80,7 @@ export function SubscriptionForm({ clients }: { clients: Option[] }) {
           <label
             key={k}
             className={`cursor-pointer rounded-full px-3.5 py-1.5 text-sm ${
-              kind === k ? "bg-[#2F6FEA] text-white" : "border border-white/10 text-[#a2adc4]"
+              kind === k ? "bg-os-accent text-white" : "border border-os-ink/15 text-os-muted"
             }`}
           >
             <input type="radio" name="kind" value={k} checked={kind === k} onChange={() => setKind(k)} className="sr-only" />
@@ -136,7 +136,7 @@ export function SubscriptionForm({ clients }: { clients: Option[] }) {
           {pending ? "Saving…" : "Add"}
         </button>
       </div>
-      {state?.error && <p role="alert" className="text-sm text-red-300">{state.error}</p>}
+      {state?.error && <p role="alert" className="text-sm text-red-700">{state.error}</p>}
     </form>
   );
 }
