@@ -1,24 +1,15 @@
 import type { Metadata } from "next";
-import { Archivo, Inter } from "next/font/google";
-import "@fontsource-variable/jetbrains-mono";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ChromeGate from "@/components/ChromeGate";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SmoothScroll from "@/components/motion/SmoothScroll";
+import MotionProvider from "@/components/motion/MotionProvider";
 import { SITE } from "@/lib/site";
 
-const display = Archivo({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["600", "700"],
-});
-
-const body = Inter({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600"],
-});
 
 const SITE_DESCRIPTION =
   "Yakimel Empire LLC designs and builds websites, online stores, apps and AI tools for small businesses, with clear starting prices and a private dashboard you control.";
@@ -41,15 +32,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="font-body bg-bg text-ink antialiased min-h-full" suppressHydrationWarning>
         <ChromeGate>
           <Nav />
         </ChromeGate>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <ChromeGate>
           <Footer />
           <WhatsAppButton />
+          <SmoothScroll />
         </ChromeGate>
       </body>
     </html>

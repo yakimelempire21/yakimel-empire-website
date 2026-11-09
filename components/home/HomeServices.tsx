@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { consultationHref, services } from "@/lib/services";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import Spotlight from "@/components/motion/Spotlight";
 
 const FEATURED = ["business-website", "shopify-store-setup", "dropshipping-website", "app-ai-development"];
 const EXTRAS = ["business-consultation", "website-redesign", "website-maintenance", "private-training"];
@@ -16,10 +18,10 @@ export default function HomeServices() {
   return (
     <section id="services" className="scroll-mt-20 bg-bg-dark px-6 py-24 text-ink-invert md:py-32">
       <div className="mx-auto max-w-7xl md:px-4">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <p className="font-mono text-xs uppercase tracking-widest text-brand">Services & Pricing</p>
-            <h2 className="mt-3 max-w-2xl font-display text-3xl font-bold md:text-5xl">
+            <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold md:text-5xl lg:text-6xl">
               What we build, and what it costs.
             </h2>
           </div>
@@ -29,14 +31,15 @@ export default function HomeServices() {
           >
             All services & packages <ArrowRight size={14} aria-hidden="true" />
           </Link>
-        </div>
+        </Reveal>
 
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((s) => (
-            <li key={s.slug}>
+            <RevealItem key={s.slug}>
+              <Spotlight className="h-full rounded-2xl">
               <Link
                 href={consultationHref(s.title)}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-surface/60 transition-colors hover:border-brand/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-surface/60 transition-all duration-500 hover:-translate-y-1 hover:border-brand/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
@@ -64,9 +67,10 @@ export default function HomeServices() {
                   </span>
                 </div>
               </Link>
-            </li>
+              </Spotlight>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealGroup>
 
         <ul className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
           {extras.map((s) => (

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { isExternal, products, type Product } from "@/lib/products";
+import { Reveal } from "@/components/motion/Reveal";
 
 const own = products.filter((p) => p.type !== "website");
 const live = own.filter((p) => p.status === "live");
@@ -12,13 +13,15 @@ export default function HomeProducts() {
   return (
     <section id="products" className="scroll-mt-20 bg-bg-dark px-6 py-24 text-ink-invert md:py-32">
       <div className="mx-auto max-w-7xl md:px-4">
+        <Reveal>
         <p className="font-mono text-xs uppercase tracking-widest text-brand">Our Products</p>
-        <h2 className="mt-3 max-w-2xl font-display text-3xl font-bold md:text-5xl">
+        <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold md:text-5xl lg:text-6xl">
           We build our own products too.
         </h2>
         <p className="mt-4 max-w-xl text-dim-invert">
           The same team and technology behind client projects runs our own platforms.
         </p>
+        </Reveal>
 
         <ul className="mt-12 grid gap-6 md:grid-cols-2">
           {live.map((p) => {

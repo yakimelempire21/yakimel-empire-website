@@ -11,13 +11,62 @@
   --color-brand: #2F6FEA;
   --color-brand-dark: #1D4ED8;
 
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Lenis smooth scrolling takes over from the browser's own. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Sleek, tight headlines. */
+.font-display {
+  letter-spacing: -0.035em;
+}
+
+/* Infinite marquee (pauses on hover, stops for reduced motion). */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Soft glow that follows the pointer on cards (set by <Spotlight>). */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(77, 141, 255, 0.16), transparent 45%);
+  z-index: -1;
+}
+.spotlight:hover::after {
+  opacity: 1;
 }
 
 body {

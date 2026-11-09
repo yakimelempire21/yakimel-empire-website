@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { publishedReviews } from "@/lib/reviews";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 function Stars({ rating }: { rating: number }) {
   return (
@@ -22,7 +23,7 @@ export default async function Testimonials({ className = "" }: { className?: str
       <div className="mx-auto max-w-7xl md:px-4">
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand">Client reviews</p>
         <div className="mt-3 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <h2 id="testimonials-title" className="font-display text-3xl font-bold md:text-4xl">
+          <h2 id="testimonials-title" className="font-display text-3xl font-semibold md:text-5xl">
             What our clients say
           </h2>
           {reviews.length >= 3 && (
@@ -36,9 +37,9 @@ export default async function Testimonials({ className = "" }: { className?: str
         </div>
         <span aria-hidden="true" className="mt-3 block h-1 w-12 rounded bg-brand" />
 
-        <ul className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r) => (
-            <li key={r.id} className="flex flex-col rounded-2xl border border-white/10 bg-surface/60 p-6">
+            <RevealItem key={r.id} className="flex flex-col rounded-2xl border border-white/10 bg-surface/60 p-6">
               <Stars rating={r.rating} />
               <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-ink-invert/90">
                 <p>“{r.body}”</p>
@@ -49,9 +50,9 @@ export default async function Testimonials({ className = "" }: { className?: str
                   <p className="text-sm text-dim-invert">{[r.role, r.company].filter(Boolean).join(", ")}</p>
                 )}
               </footer>
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealGroup>
       </div>
     </section>
   );

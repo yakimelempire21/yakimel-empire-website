@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Reveal } from "@/components/motion/Reveal";
 
 const PILLARS = [
   { title: "Websites & stores", body: "Business sites, Shopify and e-commerce, redesigns." },
@@ -10,9 +11,9 @@ export default function HomeAbout() {
   return (
     <section id="about" className="scroll-mt-20 bg-bg-dark px-6 py-24 text-ink-invert md:py-32">
       <div className="mx-auto grid max-w-7xl items-center gap-14 md:px-4 lg:grid-cols-2">
-        <div>
+        <Reveal>
           <p className="font-mono text-xs uppercase tracking-widest text-brand">About Us</p>
-          <h2 className="mt-3 font-display text-3xl font-bold md:text-5xl">
+          <h2 className="mt-3 font-display text-3xl font-semibold md:text-5xl lg:text-6xl">
             A New York technology company building for real business.
           </h2>
           <div className="mt-6 space-y-4 leading-relaxed text-dim-invert">
@@ -29,9 +30,9 @@ export default function HomeAbout() {
           <p className="mt-8 border-l-2 border-brand pl-5 font-display text-xl">
             Think beyond. Build better. Create the future.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="rounded-3xl border border-white/10 bg-surface/50 p-8 md:p-10">
+        <Reveal delay={0.15} className="rounded-3xl border border-white/10 bg-surface/50 p-8 md:p-10">
           <Image
             src="/yakimel-icon.png"
             alt=""
@@ -47,7 +48,7 @@ export default function HomeAbout() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
