@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { getCurrentUser } from "@/lib/admin/auth";
@@ -40,11 +39,6 @@ export default async function LoginPage() {
         <div className="rounded-2xl border border-os-ink/15 bg-white p-7 shadow-[0_24px_60px_-30px_rgba(42,11,54,0.35)]">
           <LoginForm />
         </div>
-        <p className="mt-6 text-center text-xs text-os-muted">
-          <Link href="/" className="hover:text-os-ink">
-            ← Back to yakimelempire.com
-          </Link>
-        </p>
       </div>
     </main>
   );
