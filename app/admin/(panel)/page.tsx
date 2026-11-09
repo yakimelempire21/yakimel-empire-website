@@ -61,6 +61,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
   const maintenance = apps.filter((a) => a.status === "MAINTENANCE");
   const issues = [
     ...offline.map((a) => `${a.name} is offline`),
+    ...apps.filter((a) => a.health === "DOWN" && a.status !== "OFFLINE").map((a) => `${a.name} is not answering`),
     ...maintenance.map((a) => `${a.name} is in maintenance`),
     ...(criticalTickets.n > 0 ? [`${criticalTickets.n} critical ticket${criticalTickets.n > 1 ? "s" : ""}`] : []),
   ];
@@ -120,7 +121,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
               <p className="flex items-center gap-1.5 text-sm font-semibold text-amber-700">
                 <TriangleAlert size={15} aria-hidden="true" /> ATTENTION NEEDED
               </p>
-              <p className="mt-0.5 text-xs text-amber-200/80">{issues.join(" · ")}</p>
+              <p className="mt-0.5 text-xs text-amber-800">{issues.join(" · ")}</p>
             </div>
           )
         ) : null}

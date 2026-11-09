@@ -251,6 +251,13 @@ export const apps = pgTable("apps", {
   status: appStatus("status").default("DEVELOPMENT").notNull(),
   progressPercent: integer("progress_percent"),
   apiKeyHash: text("api_key_hash").unique(),
+  /** Where YAKIMEL OS fetches the app's numbers (default: https://<domain>/api/yakimel-os/metrics). */
+  metricsUrl: text("metrics_url"),
+  /** Result of the last automatic check: "UP" (answering) or "DOWN" (not answering). */
+  health: text("health"),
+  checkedAt: timestamp("checked_at", { withTimezone: true }),
+  downSince: timestamp("down_since", { withTimezone: true }),
+  lastError: text("last_error"),
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 });

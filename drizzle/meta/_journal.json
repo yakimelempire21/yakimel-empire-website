@@ -36,6 +36,13 @@
       "when": 1794194532165,
       "tag": "0004_rebrand_advertwize_remove_eznob",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1794203390344,
+      "tag": "0005_app_health_checks",
+      "breakpoints": true
     }
   ]
 }

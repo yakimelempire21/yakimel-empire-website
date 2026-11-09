@@ -31,6 +31,14 @@ export default function AppCard({ app }: { app: AppWithMetrics }) {
           <p className={`mt-1 flex items-center gap-2 text-xs font-medium ${s.text}`}>
             <span className={`h-2 w-2 rounded-full ${s.dot}`} aria-hidden="true" />
             {humanize(app.status)}
+            {app.health && (
+              <span
+                className={`ml-1 rounded-full px-2 py-px text-[10px] font-semibold ${app.health === "UP" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}
+                title={app.checkedAt ? `Checked ${timeAgo(app.checkedAt)}` : undefined}
+              >
+                {app.health === "UP" ? "Online" : "Offline"}
+              </span>
+            )}
           </p>
         </div>
         <ArrowUpRight size={18} aria-hidden="true" className="shrink-0 text-os-faint transition-colors group-hover:text-os-ink" />

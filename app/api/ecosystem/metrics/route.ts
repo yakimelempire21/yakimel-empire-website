@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
+import { cleanMetrics } from "@/lib/admin/appChecks";
 import { databaseConfigured, db, tables as t } from "@/lib/db";
 
 /**
@@ -29,20 +30,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Body must be JSON" }, { status: 400 });
   }
 
-  const raw = (body as { metrics?: unknown })?.metrics;
-  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
-    return NextResponse.json({ error: 'Send { "metrics": { "name": value, … } }' }, { status: 400 });
-  }
-
-  // Keep it small and flat: up to 30 keys, numbers or short strings.
-  const metrics: Record<string, number | string> = {};
-  for (const [k, v] of Object.entries(raw).slice(0, 30)) {
-    if (!/^[A-Za-z][A-Za-z0-9_]{0,40}$/.test(k)) continue;
-    if (typeof v === "number" && Number.isFinite(v)) metrics[k] = v;
-    else if (typeof v === "string") metrics[k] = v.slice(0, 80);
-  }
-  if (Object.keys(metrics).length === 0) return NextResponse.json({ error: "No valid metrics" }, { status: 400 });
+  const metrics = cleanMetrics((body as { metrics?: unknown })?.metrics);
+  if (!metrics) return NextResponse.json({ error: 'Send { "metrics": { "name": number or short text, … } }' }, { status: 400 });
 
   await db.insert(t.appMetricSnapshots).values({ appId: app.id, metrics });
+  await db.update(t.apps).set({ health: "UP", checkedAt: new Date(), lastError: null, downSince: null }).where(eq(t.apps.id, app.id));
   return NextResponse.json({ ok: true, app: app.slug });
 }

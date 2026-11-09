@@ -12,6 +12,8 @@ export type AppWithMetrics = {
   connected: boolean;
   metrics: Record<string, unknown> | null;
   reportedAt: Date | null;
+  health: "UP" | "DOWN" | null;
+  checkedAt: Date | null;
 };
 
 /** Every app with its most recent metrics snapshot (if the app has reported). */
@@ -30,6 +32,8 @@ export async function appsWithLatestMetrics(): Promise<AppWithMetrics[]> {
     connected: Boolean(a.apiKeyHash),
     metrics: (a.metrics[0]?.metrics as Record<string, unknown> | undefined) ?? null,
     reportedAt: a.metrics[0]?.capturedAt ?? null,
+    health: a.health === "UP" || a.health === "DOWN" ? a.health : null,
+    checkedAt: a.checkedAt,
   }));
 }
 

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 import { desc, eq } from "drizzle-orm";
 import { Badge, Card, EmptyState, PageHeader, Table, inputClass, labelClass, secondaryButton } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
@@ -9,7 +8,8 @@ import { formatDate, formatMetric, humanize, metricLabel, statusTone, timeAgo } 
 import { canAccess } from "@/lib/admin/roles";
 import { db, tables as t } from "@/lib/db";
 import { updateApp } from "../actions";
-import ApiKeyPanel from "./ApiKeyPanel";
+import { connectionToken, metricsUrlFor } from "@/lib/admin/appChecks";
+import ConnectionPanel from "./ConnectionPanel";
 
 const STATUSES = ["LIVE", "DEVELOPMENT", "MAINTENANCE", "OFFLINE"] as const;
 
@@ -33,10 +33,7 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
   const latest = (snapshots[0]?.metrics as Record<string, unknown> | undefined) ?? null;
   const metricKeys = [...new Set(snapshots.flatMap((s) => Object.keys((s.metrics as Record<string, unknown>) ?? {})))].slice(0, 6);
 
-  const h = await headers();
-  const host = h.get("x-forwarded-host") ?? h.get("host") ?? "www.yakimelempire.com";
-  const proto = h.get("x-forwarded-proto") ?? "https";
-  const endpoint = `${proto}://${host}/api/ecosystem/metrics`;
+  const canSeeToken = ["SUPER_ADMIN", "EXECUTIVE", "DEVELOPER"].includes(user.role);
 
   return (
     <>
@@ -73,7 +70,7 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
         <div className="mb-6">
           <EmptyState
             title="No data from this app yet"
-            body="Create an API key below and have the app send its numbers. They'll appear here and on the Overview."
+            body="Set up the connection below. YAKIMEL OS will collect the app's numbers every 15 minutes and show them here and on the Overview."
           />
         </div>
       )}
@@ -100,7 +97,17 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
 
           <Card className="p-6">
             <h2 className="mb-4 font-display font-bold">Connect {app.name}</h2>
-            <ApiKeyPanel appId={app.id} connected={Boolean(app.apiKeyHash)} endpoint={endpoint} />
+            <ConnectionPanel
+              appId={app.id}
+              appName={app.name}
+              health={app.health}
+              checkedAt={app.checkedAt}
+              downSince={app.downSince}
+              lastError={app.lastError}
+              metricsUrl={metricsUrlFor(app)}
+              token={canSeeToken ? connectionToken(app.id) : null}
+              canSeeToken={canSeeToken}
+            />
           </Card>
         </div>
 
@@ -125,6 +132,10 @@ export default async function AppControlCenter({ params }: { params: Promise<{ s
               <label className="block">
                 <span className={labelClass}>Domain</span>
                 <input name="domain" defaultValue={app.domain ?? ""} placeholder="digimarketapp.com" className={inputClass} />
+              </label>
+              <label className="block">
+                <span className={labelClass}>Numbers address (optional)</span>
+                <input name="metricsUrl" type="url" defaultValue={app.metricsUrl ?? ""} placeholder={app.domain ? `https://${app.domain}/api/yakimel-os/metrics` : "https://…/api/yakimel-os/metrics"} className={inputClass} />
               </label>
               <button type="submit" className={secondaryButton}>
                 Save

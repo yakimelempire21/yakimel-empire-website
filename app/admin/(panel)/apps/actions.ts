@@ -4,6 +4,7 @@ import { createHash, randomBytes } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 import { audit, requireUser } from "@/lib/admin/auth";
+import { checkApp } from "@/lib/admin/appChecks";
 import { db, tables as t } from "@/lib/db";
 
 const STATUSES = ["LIVE", "DEVELOPMENT", "MAINTENANCE", "OFFLINE"] as const;
@@ -13,6 +14,8 @@ export async function updateApp(id: string, form: FormData) {
   const status = String(form.get("status") ?? "");
   const progressRaw = String(form.get("progress") ?? "").trim();
   const domain = String(form.get("domain") ?? "").trim().replace(/^https?:\/\//, "").replace(/\/$/, "") || null;
+  const metricsUrlRaw = String(form.get("metricsUrl") ?? "").trim();
+  const metricsUrl = /^https:\/\/[^\s]+$/i.test(metricsUrlRaw) ? metricsUrlRaw : null;
   if (!(STATUSES as readonly string[]).includes(status)) return;
   const progress = progressRaw === "" ? null : Math.max(0, Math.min(100, Math.round(Number(progressRaw))));
 
@@ -22,6 +25,7 @@ export async function updateApp(id: string, form: FormData) {
       status: status as (typeof STATUSES)[number],
       progressPercent: progress === null || Number.isNaN(progress) ? null : progress,
       domain,
+      ...(form.has("metricsUrl") ? { metricsUrl } : {}),
     })
     .where(eq(t.apps.id, id))
     .returning({ slug: t.apps.slug });
@@ -54,4 +58,14 @@ export async function revokeApiKey(id: string) {
   const [app] = await db.update(t.apps).set({ apiKeyHash: null }).where(eq(t.apps.id, id)).returning({ slug: t.apps.slug });
   await audit(user, "PERMISSION_CHANGE", "app_api_key", id, { action: "revoked" });
   if (app) revalidatePath(`/admin/apps/${app.slug}`);
+}
+
+/** "Refresh now": checks the app and collects its numbers right away. */
+export async function refreshApp(id: string) {
+  await requireUser("apps");
+  const app = await db.query.apps.findFirst({ where: eq(t.apps.id, id) });
+  if (!app) return;
+  await checkApp(app);
+  revalidatePath("/admin", "layout");
+  revalidatePath(`/admin/apps/${app.slug}`);
 }
