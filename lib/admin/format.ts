@@ -155,3 +155,6 @@ export function formatMetric(key: string, value: unknown): string {
 export function metricLabel(key: string): string {
   return humanize(key.replace(/([a-z])([A-Z])/g, "$1_$2"));
 }
+
+export const APPLICATION_STATUSES = ["NEW", "REVIEWING", "INTERVIEW", "OFFER", "HIRED", "REJECTED"] as const;
+export const APPLICATION_TONES = { NEW: "blue", REVIEWING: "amber", INTERVIEW: "violet", OFFER: "violet", HIRED: "green", REJECTED: "gray" } as const;

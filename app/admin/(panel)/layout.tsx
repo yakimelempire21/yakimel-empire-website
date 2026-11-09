@@ -17,7 +17,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   const user = await requireUser();
   const can = (a: Area) => canAccess(user.role, a);
 
-  const [[openInbox], [openTickets], [unread], apps, [pendingReviews]] = await Promise.all([
+  const [[openInbox], [openTickets], [unread], apps, [pendingReviews], [newApplicants]] = await Promise.all([
     can("inbox") ? db.select({ n: count() }).from(t.conversations).where(eq(t.conversations.status, "OPEN")) : [{ n: 0 }],
     can("tickets") ? db.select({ n: count() }).from(t.supportTickets).where(eq(t.supportTickets.status, "OPEN")) : [{ n: 0 }],
     db
@@ -31,6 +31,9 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     can("clients")
       ? db.select({ n: count() }).from(t.reviews).where(eq(t.reviews.status, "PENDING")).catch(() => [{ n: 0 }])
       : [{ n: 0 }],
+    can("employees")
+      ? db.select({ n: count() }).from(t.jobApplications).where(eq(t.jobApplications.status, "NEW")).catch(() => [{ n: 0 }])
+      : [{ n: 0 }],
   ]);
 
   // `area` decides visibility; links without an area are planned for later phases.
@@ -41,6 +44,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
       links: [
         { label: "Departments", href: "/admin/departments", icon: "departments", area: "departments" },
         { label: "Employees", href: "/admin/employees", icon: "employees", area: "employees" },
+        { label: "Hiring", href: "/admin/hiring", icon: "hiring", area: "employees", badge: newApplicants.n },
         { label: "Clients", href: "/admin/clients", icon: "clients", area: "clients" },
         { label: "Projects", href: "/admin/projects", icon: "projects", area: "projects" },
         { label: "Tasks", href: "/admin/tasks", icon: "tasks", area: "tasks" },

@@ -60,7 +60,6 @@ const PLANS: Plan[] = [
       "Online appointment booking",
       "Automatic WhatsApp reminders to cut no-shows",
       "Patient intake forms",
-      "Health Hyr staffing tools",
       "Priority support",
     ],
   },

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS, SITE } from "@/lib/site";
 
-const LINKS = [...NAV_LINKS, { label: "FAQ", href: "/faq" }];
+const LINKS = [...NAV_LINKS, { label: "Careers", href: "/careers" }, { label: "FAQ", href: "/faq" }];
 
 const LEGAL = [
   { label: "Privacy Policy", href: "/privacy" },

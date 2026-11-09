@@ -43,6 +43,13 @@
       "when": 1794203390344,
       "tag": "0005_app_health_checks",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794253670606,
+      "tag": "0006_hiring",
+      "breakpoints": true
     }
   ]
 }

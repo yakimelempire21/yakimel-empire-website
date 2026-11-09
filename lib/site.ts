@@ -32,7 +32,6 @@ export const NAV_LINKS = [
   { label: "Our Work", href: "/templates" },
   { label: "Products", href: "/products" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Innovation", href: "/innovation" },
   { label: "About", href: "/#about" },
 ];
 

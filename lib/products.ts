@@ -69,7 +69,8 @@ const template = (
   detailsUrl: `/products/${slug}`,
 });
 
-export const products: Product[] = [
+/** Every product, including ones still in development (kept for when they launch). */
+const allProducts: Product[] = [
   template(
     "aurum",
     "Aurum",
@@ -201,6 +202,9 @@ export const products: Product[] = [
     detailsUrl: "/products/omnipresence-ai",
   },
 ];
+
+/** Only products customers can use today are shown on the website. */
+export const products = allProducts.filter((p) => p.status === "live");
 
 export function getProduct(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);

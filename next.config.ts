@@ -16,10 +16,10 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        // Old spelling of the Advertwize overview page.
-        source: "/innovation/advertwise",
-        destination: "/innovation/advertwize",
-        permanent: true,
+        // Apps still in development are off the website for now (temporary, so they can come back).
+        source: "/innovation/:path*",
+        destination: "/products",
+        permanent: false,
       },
     ];
   },

@@ -692,3 +692,57 @@ export const reviews = pgTable(
   },
   (table) => [index("reviews_status_idx").on(table.status, table.createdAt)],
 );
+
+// ============================================================
+// HIRING (job posts on yakimelempire.com/careers + applications)
+// ============================================================
+
+export const jobStatus = pgEnum("job_status", ["DRAFT", "OPEN", "CLOSED"]);
+export const applicationStatus = pgEnum("application_status", ["NEW", "REVIEWING", "INTERVIEW", "OFFER", "HIRED", "REJECTED"]);
+
+export const jobs = pgTable("jobs", {
+  id: id(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  team: text("team"),
+  location: text("location"),
+  employmentType: text("employment_type"),
+  compensation: text("compensation"),
+  summary: text("summary"),
+  description: text("description").notNull(),
+  responsibilities: text("responsibilities"),
+  requirements: text("requirements"),
+  status: jobStatus("status").default("DRAFT").notNull(),
+  publishedAt: timestamp("published_at", { withTimezone: true }),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+});
+
+export const jobApplications = pgTable(
+  "job_applications",
+  {
+    id: id(),
+    jobId: text("job_id")
+      .notNull()
+      .references(() => jobs.id, { onDelete: "cascade" }),
+    fullName: text("full_name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone"),
+    location: text("location"),
+    linkUrl: text("link_url"),
+    coverLetter: text("cover_letter"),
+    resumePath: text("resume_path"),
+    resumeName: text("resume_name"),
+    status: applicationStatus("status").default("NEW").notNull(),
+    notes: text("notes"),
+    ipAddress: text("ip_address"),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (table) => [index("job_applications_job_idx").on(table.jobId, table.createdAt)],
+);
+
+export const jobsRelations = relations(jobs, ({ many }) => ({ applications: many(jobApplications) }));
+export const jobApplicationsRelations = relations(jobApplications, ({ one }) => ({
+  job: one(jobs, { fields: [jobApplications.jobId], references: [jobs.id] }),
+}));
