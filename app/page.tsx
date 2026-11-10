@@ -5,6 +5,11 @@ import HomeProcess from "@/components/home/HomeProcess";
 import HomeFAQ from "@/components/home/HomeFAQ";
 import HomeCTA from "@/components/home/HomeCTA";
 import Testimonials from "@/components/Testimonials";
+import OrganizationSchema from "@/components/OrganizationSchema";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 // Refresh the reviews section at least every 10 minutes (and right after one is approved).
 export const revalidate = 600;
@@ -14,6 +19,7 @@ export const revalidate = 600;
 export default function Home() {
   return (
     <main>
+      <OrganizationSchema />
       <HomeHero />
       <HomeServices />
       <HomeWork />

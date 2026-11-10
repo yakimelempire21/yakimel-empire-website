@@ -23,6 +23,14 @@ export default function HomeHero() {
           className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.65),transparent_70%)]"
         />
         <div className="relative mx-auto max-w-5xl px-6 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease }}
+            className="mb-5 text-sm font-semibold uppercase tracking-[0.18em] text-ink/70"
+          >
+            Website design, Shopify &amp; AI for small businesses · New York
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

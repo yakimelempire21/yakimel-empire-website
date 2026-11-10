@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        // EZNOB is no longer part of Yakimel Empire.
+        source: "/eznob",
+        destination: "/",
+        permanent: false,
+      },
+      {
         // Apps still in development are off the website for now (temporary, so they can come back).
         source: "/innovation/:path*",
         destination: "/products",
