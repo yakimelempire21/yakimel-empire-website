@@ -10,7 +10,7 @@ import { NAV_LINKS, whatsappUrl } from "@/lib/site";
 import { consultationHref } from "@/lib/services";
 
 const SERVICES = [
-  { icon: Globe, title: "Business Websites", body: "Fast, mobile-first sites from $699", href: "/services" },
+  { icon: Globe, title: "Business Websites", body: "Website + AI assistant from $1,500", href: "/services" },
   { icon: ShoppingBag, title: "Shopify Stores", body: "New stores and full rebuilds", href: "/pricing" },
   { icon: Bot, title: "WhatsApp AI Assistant", body: "Answers your customers 24/7", href: "/products/whatsapp-ai-assistant" },
   { icon: Smartphone, title: "Apps & AI Development", body: "Custom apps, dashboards, automation", href: consultationHref("App & AI Development") },

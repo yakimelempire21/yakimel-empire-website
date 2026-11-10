@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 const QUESTIONS = [
   {
     q: "How much does a website cost?",
-    a: "Business websites start at $699, Shopify stores at $599 and dropshipping stores at $799. Apps and AI tools are quoted per project. You get a written quote before any work starts.",
+    a: "Business websites start at $1,500 (with a WhatsApp AI assistant), Shopify stores at $599 and dropshipping stores at $799. Apps and AI tools are quoted per project. You get a written quote before any work starts.",
   },
   {
     q: "Are there other costs?",
