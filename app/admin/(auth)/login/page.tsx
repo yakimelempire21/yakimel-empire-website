@@ -25,7 +25,7 @@ export default async function LoginPage() {
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-16">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(107,47,214,0.16),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(15,76,63,0.16),transparent_60%)]"
       />
       <div className="relative w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center">
@@ -36,7 +36,7 @@ export default async function LoginPage() {
           <h1 className="mt-6 font-display text-3xl font-bold tracking-[0.14em] text-os-ink">YAKIMEL OS</h1>
           <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.3em] text-os-muted">Enterprise Control System</p>
         </div>
-        <div className="rounded-2xl border border-os-ink/15 bg-white p-7 shadow-[0_24px_60px_-30px_rgba(42,11,54,0.35)]">
+        <div className="rounded-2xl border border-os-ink/15 bg-white p-7 shadow-[0_24px_60px_-30px_rgba(14,59,50,0.35)]">
           <LoginForm />
         </div>
       </div>

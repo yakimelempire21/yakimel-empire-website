@@ -21,7 +21,7 @@ export const SITE = {
     youtube: "",
   },
   /** Your Google "Write a review" link (Google Business Profile → Ask for reviews). */
-  googleReviewUrl: "",
+  googleReviewUrl: "https://g.page/r/CYa7EkQq6Uf-ECE/review",
   /** Last time the Privacy Policy / Terms were updated. */
   legalUpdated: "November 7, 2026",
 } as const;

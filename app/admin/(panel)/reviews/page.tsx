@@ -5,6 +5,7 @@ import { Badge, Card, EmptyState, PageHeader, secondaryButton } from "@/componen
 import { requireUser } from "@/lib/admin/auth";
 import { formatDate } from "@/lib/admin/format";
 import { REVIEW_SERVICES } from "@/lib/reviews";
+import { SITE } from "@/lib/site";
 import { db, tables as t } from "@/lib/db";
 import AddReviewForm from "./AddReviewForm";
 import { deleteReview, setReviewStatus } from "./actions";
@@ -40,6 +41,15 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
       <Card className="mb-6 p-5 text-sm text-os-muted">
         Send this link to every client when a project is done:{" "}
         <span className="select-all font-mono text-os-ink">https://www.yakimelempire.com/review</span>
+        {SITE.googleReviewUrl && (
+          <>
+            <br />
+            And ask happy clients for a Google review (it shows on Google Maps):{" "}
+            <a href={SITE.googleReviewUrl} target="_blank" rel="noopener noreferrer" className="select-all font-mono text-os-accent hover:underline">
+              {SITE.googleReviewUrl}
+            </a>
+          </>
+        )}
       </Card>
 
       <details className="mb-6" open={params.add === "1" || all.length === 0}>

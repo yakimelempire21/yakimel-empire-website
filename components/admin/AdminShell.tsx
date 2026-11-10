@@ -74,7 +74,7 @@ export type NavLink = {
 };
 export type NavGroup = { label?: string; links: NavLink[] };
 
-const DOTS = { green: "bg-emerald-400", amber: "bg-amber-400", red: "bg-red-400", violet: "bg-violet-400" };
+const DOTS = { green: "bg-emerald-400", amber: "bg-amber-400", red: "bg-red-400", violet: "bg-sky-300" };
 
 export default function AdminShell({
   groups,
@@ -102,15 +102,15 @@ export default function AdminShell({
         </div>
         <div className="leading-tight">
           <p className="font-display text-[15px] font-bold tracking-[0.12em] text-white">YAKIMEL</p>
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#c9b6dc]">Command Center</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#9EC4BA]">Command Center</p>
         </div>
       </Link>
 
-      <nav aria-label="YAKIMEL OS" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6 pt-2 [scrollbar-color:#4a2459_transparent] [scrollbar-width:thin]">
+      <nav aria-label="YAKIMEL OS" className="flex-1 space-y-5 overflow-y-auto px-3 pb-6 pt-2 [scrollbar-color:#1f5a4c_transparent] [scrollbar-width:thin]">
         {groups.map((group, gi) => (
           <div key={group.label ?? gi}>
             {group.label && (
-              <p className="mb-1.5 px-3 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-[#b49fc9]">{group.label}</p>
+              <p className="mb-1.5 px-3 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-[#8DB5AB]">{group.label}</p>
             )}
             <ul className="space-y-0.5">
               {group.links.map((link) => {
@@ -126,7 +126,7 @@ export default function AdminShell({
                         {link.badge}
                       </span>
                     ) : null}
-                    {link.soon && <span className="font-mono text-[9px] uppercase tracking-wider text-[#b49fc9]">Soon</span>}
+                    {link.soon && <span className="font-mono text-[9px] uppercase tracking-wider text-[#8DB5AB]">Soon</span>}
                   </>
                 );
                 const base = "flex items-center gap-3 rounded-xl px-3 py-2 text-[13.5px] transition-colors";
@@ -139,14 +139,14 @@ export default function AdminShell({
                         aria-current={active ? "page" : undefined}
                         className={`${base} ${
                           active
-                            ? "bg-os-lime font-semibold text-os-ink shadow-[0_6px_20px_-8px_rgba(227,242,107,0.6)]"
-                            : "text-[#e9def3] hover:bg-white/[0.07] hover:text-white"
+                            ? "bg-os-lime font-semibold text-os-ink shadow-[0_6px_20px_-8px_rgba(184,226,238,0.6)]"
+                            : "text-[#E3F1EE] hover:bg-white/[0.07] hover:text-white"
                         }`}
                       >
                         {inner}
                       </Link>
                     ) : (
-                      <span className={`${base} cursor-default text-[#8f78a3]`} aria-disabled="true">
+                      <span className={`${base} cursor-default text-[#6F918A]`} aria-disabled="true">
                         {inner}
                       </span>
                     )}
@@ -172,7 +172,7 @@ export default function AdminShell({
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-os-ink/50" onClick={() => setOpen(false)} />
           <aside className="absolute inset-y-0 left-0 w-72 bg-os-side">
-            <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="absolute right-4 top-6 text-[#e9def3]">
+            <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="absolute right-4 top-6 text-[#E3F1EE]">
               <X size={20} />
             </button>
             {sidebar}

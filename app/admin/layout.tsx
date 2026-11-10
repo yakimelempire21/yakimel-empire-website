@@ -11,7 +11,7 @@ export default function AdminRootLayout({ children }: { children: React.ReactNod
       {/* Soft lilac light behind the cards */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 overflow-hidden print:hidden">
         <div className="absolute -top-40 left-1/3 h-[520px] w-[720px] rounded-full bg-os-lilac/70 blur-[140px]" />
-        <div className="absolute -right-40 bottom-0 h-[480px] w-[480px] rounded-full bg-os-pink/40 blur-[140px]" />
+        <div className="absolute -right-40 bottom-0 h-[480px] w-[480px] rounded-full bg-os-lime/40 blur-[140px]" />
       </div>
       <div className="relative">{children}</div>
     </div>

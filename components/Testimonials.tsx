@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { publishedReviews } from "@/lib/reviews";
+import { SITE } from "@/lib/site";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 function Stars({ rating }: { rating: number }) {
@@ -26,14 +27,26 @@ export default async function Testimonials({ className = "" }: { className?: str
           <h2 id="testimonials-title" className="font-display text-3xl font-semibold md:text-5xl">
             What our clients say
           </h2>
-          {reviews.length >= 3 && (
-            <p className="flex items-center gap-2 text-sm text-dim-invert">
-              <Stars rating={Math.round(average)} />
-              <span>
-                {average.toFixed(1)} average from {reviews.length} reviews
-              </span>
-            </p>
-          )}
+          <div className="flex flex-col items-start gap-3 md:items-end">
+            {reviews.length >= 3 && (
+              <p className="flex items-center gap-2 text-sm text-dim-invert">
+                <Stars rating={Math.round(average)} />
+                <span>
+                  {average.toFixed(1)} average from {reviews.length} reviews
+                </span>
+              </p>
+            )}
+            {SITE.googleReviewUrl && (
+              <a
+                href={SITE.googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-brand px-5 py-2.5 text-sm font-semibold text-ink-invert transition-colors hover:bg-brand hover:text-white"
+              >
+                Review us on Google <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
         </div>
         <span aria-hidden="true" className="mt-3 block h-1 w-12 rounded bg-brand" />
 

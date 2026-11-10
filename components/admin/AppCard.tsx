@@ -6,7 +6,7 @@ import type { AppWithMetrics } from "@/lib/admin/ecosystem";
 
 const STATUS = {
   LIVE: { dot: "bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.9)]", text: "text-emerald-700" },
-  DEVELOPMENT: { dot: "bg-violet-400 shadow-[0_0_10px_rgba(167,139,250,0.9)]", text: "text-violet-700" },
+  DEVELOPMENT: { dot: "bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.8)]", text: "text-sky-800" },
   MAINTENANCE: { dot: "bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.9)]", text: "text-amber-700" },
   OFFLINE: { dot: "bg-red-400 shadow-[0_0_10px_rgba(248,113,113,0.9)]", text: "text-red-700" },
 } as const;

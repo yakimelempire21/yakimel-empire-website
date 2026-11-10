@@ -4,7 +4,7 @@ import Link from "next/link";
 
 /** Card surface used across YAKIMEL OS. */
 export const glass =
-  "border border-os-ink/15 bg-white shadow-[0_1px_0_rgba(42,11,54,0.04),0_12px_32px_-18px_rgba(42,11,54,0.25)]";
+  "border border-os-ink/15 bg-white shadow-[0_1px_0_rgba(14,59,50,0.04),0_12px_32px_-18px_rgba(14,59,50,0.25)]";
 
 export const inputClass =
   "w-full rounded-xl border border-os-ink/20 bg-white px-3.5 py-2.5 text-sm text-os-ink placeholder:text-os-muted/60 focus:border-os-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-os-accent/40";
