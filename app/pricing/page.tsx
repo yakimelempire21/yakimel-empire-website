@@ -116,10 +116,10 @@ export default function PricingPage() {
   const wa = whatsappUrl("Hi Yakimel Empire, I'd like to know more about your packages.");
   return (
     <main className="min-h-screen bg-bg-dark text-ink-invert">
-      <header className="relative overflow-hidden border-b border-white/10 pb-14 pt-28 text-center md:pt-36">
+      <header className="relative overflow-hidden border-b border-ink-invert/15 pb-14 pt-28 text-center md:pt-36">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(47,111,234,0.3),transparent_65%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.66),transparent_65%)]"
         />
         <div className="relative mx-auto max-w-3xl px-6">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand">Pricing</p>
@@ -139,9 +139,7 @@ export default function PricingPage() {
             <article
               key={plan.name}
               className={`relative flex flex-col rounded-2xl border p-7 ${
-                plan.featured
-                  ? "border-brand bg-brand/10 shadow-[0_0_40px_rgba(47,111,234,0.25)]"
-                  : "border-white/10 bg-surface/60"
+                plan.featured ? "border-brand bg-brand/10 shadow-[0_0_40px_rgba(15,76,63,0.15)]" : "border-ink-invert/15 bg-surface/60"
               }`}
             >
               {plan.featured && (
@@ -174,9 +172,7 @@ export default function PricingPage() {
               <Link
                 href={`/consultation?service=${encodeURIComponent(plan.service)}`}
                 className={`mt-8 inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium transition-colors ${
-                  plan.featured
-                    ? "bg-brand text-white hover:bg-brand-dark"
-                    : "border border-white/20 hover:border-brand hover:bg-brand/10"
+                  plan.featured ? "bg-brand text-white hover:bg-brand-dark" : "border border-ink-invert/25 hover:border-brand hover:bg-brand/10"
                 } ${focus}`}
               >
                 Get started <span aria-hidden="true">&nbsp;→</span>
@@ -192,7 +188,7 @@ export default function PricingPage() {
 
       </section>
 
-      <Testimonials className="border-t border-white/10" />
+      <Testimonials className="border-t border-ink-invert/15" />
 
       <section className="mx-auto max-w-7xl px-6 pb-14 md:px-10">
         <div className="mx-auto mt-16 max-w-3xl">
@@ -200,7 +196,7 @@ export default function PricingPage() {
           <span aria-hidden="true" className="mt-3 block h-1 w-12 rounded bg-brand" />
           <dl className="mt-8 space-y-6">
             {FAQ.map((item) => (
-              <div key={item.q} className="rounded-xl border border-white/10 bg-surface/60 p-6">
+              <div key={item.q} className="rounded-xl border border-ink-invert/15 bg-surface/60 p-6">
                 <dt className="font-medium">{item.q}</dt>
                 <dd className="mt-2 text-sm leading-relaxed text-dim-invert">{item.a}</dd>
               </div>
@@ -208,7 +204,7 @@ export default function PricingPage() {
           </dl>
         </div>
 
-        <div className="mx-auto mt-16 flex max-w-5xl flex-col items-start justify-between gap-5 rounded-2xl border border-white/10 bg-surface/60 px-6 py-6 md:flex-row md:items-center md:px-8">
+        <div className="mx-auto mt-16 flex max-w-5xl flex-col items-start justify-between gap-5 rounded-2xl border border-ink-invert/15 bg-surface/60 px-6 py-6 md:flex-row md:items-center md:px-8">
           <div className="flex items-center gap-4">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand">
               <MessageCircle size={22} aria-hidden="true" />

@@ -26,7 +26,7 @@ const QUESTIONS = [
 
 export default function HomeFAQ() {
   return (
-    <section className="bg-slate-50 px-6 py-24 md:py-32">
+    <section className="bg-cream px-6 py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-12 md:px-4 lg:grid-cols-[1fr_1.6fr]">
         <div>
           <p className="font-mono text-xs uppercase tracking-widest text-brand">FAQ</p>

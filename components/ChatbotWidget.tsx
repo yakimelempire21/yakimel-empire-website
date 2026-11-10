@@ -103,7 +103,7 @@ export default function ChatbotWidget() {
 
   return (
     <>
-      <button onClick={openWidget} className="border border-white/20 text-ink-invert px-6 py-3 rounded-full hover:border-white/40 transition-colors">
+      <button onClick={openWidget} className="border border-ink-invert/25 text-ink-invert px-6 py-3 rounded-full hover:border-ink-invert/15 transition-colors">
         Chat with an Agent
       </button>
 

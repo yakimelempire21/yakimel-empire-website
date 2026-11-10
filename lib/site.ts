@@ -32,7 +32,7 @@ export const NAV_LINKS = [
   { label: "Our Work", href: "/templates" },
   { label: "Products", href: "/products" },
   { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/#about" },
+  { label: "About", href: "/about" },
 ];
 
 /** wa.me link for SITE.phone with a pre-filled message, or null when no number is set. */

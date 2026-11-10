@@ -16,7 +16,7 @@ export default function HomeServices() {
   const extras = pick(EXTRAS);
 
   return (
-    <section id="services" className="scroll-mt-20 bg-bg-dark px-6 py-24 text-ink-invert md:py-32">
+    <section id="services" className="scroll-mt-20 bg-white px-6 py-24 text-ink-invert md:py-32">
       <div className="mx-auto max-w-7xl md:px-4">
         <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
@@ -39,7 +39,7 @@ export default function HomeServices() {
               <Spotlight className="h-full rounded-2xl">
               <Link
                 href={consultationHref(s.title)}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-surface/60 transition-all duration-500 hover:-translate-y-1 hover:border-brand/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ink-invert/15 bg-surface/60 transition-all duration-500 hover:-translate-y-1 hover:border-brand/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
@@ -72,7 +72,7 @@ export default function HomeServices() {
           ))}
         </RevealGroup>
 
-        <ul className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-ink-invert/15 bg-ink-invert/10 sm:grid-cols-2 lg:grid-cols-4">
           {extras.map((s) => (
             <li key={s.slug} className="bg-bg-dark p-6">
               <p className="font-display font-bold">{s.title}</p>

@@ -25,7 +25,7 @@ export default function ServicesGrid() {
       <ul className="grid gap-5 min-[900px]:grid-cols-2">
         {services.map((s) => (
           <li key={s.slug}>
-            <article className="flex h-full flex-col gap-5 rounded-2xl border border-white/10 bg-surface/60 p-4 transition-colors duration-300 hover:border-brand/50 sm:flex-row">
+            <article className="flex h-full flex-col gap-5 rounded-2xl border border-ink-invert/15 bg-surface/60 p-4 transition-colors duration-300 hover:border-brand/50 sm:flex-row">
               <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl bg-bg-dark sm:w-[42%]">
                 <Image
                   src={s.image}

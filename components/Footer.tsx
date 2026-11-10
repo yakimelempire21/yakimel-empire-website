@@ -32,13 +32,13 @@ const SOCIAL_ICONS = [
 const SOCIALS = SOCIAL_ICONS.filter((s) => s.href);
 
 const focus =
-  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand";
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-bg-dark text-dim-invert py-14 px-6 border-t border-white/10">
+    <footer className="bg-brand text-white/75 py-14 px-6">
       <div className="mx-auto max-w-7xl flex flex-col gap-8 md:flex-row md:items-center md:justify-between md:px-4">
         <div>
           <Image
@@ -58,7 +58,7 @@ export default function Footer() {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className={`transition-colors hover:text-ink-invert ${focus}`}
+                  className={`transition-colors hover:text-white ${focus}`}
                 >
                   {link.label}
                 </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${s.label} (opens in a new tab)`}
-                className={`block transition-colors hover:text-ink-invert ${focus}`}
+                className={`block transition-colors hover:text-white ${focus}`}
               >
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
                   <path d={s.path} />
@@ -88,23 +88,23 @@ export default function Footer() {
         )}
       </div>
 
-      <div className="mx-auto mt-10 max-w-7xl flex flex-col gap-2 border-t border-white/10 pt-6 font-mono text-xs md:flex-row md:justify-between md:px-4">
+      <div className="mx-auto mt-10 max-w-7xl flex flex-col gap-2 border-t border-white/15 pt-6 font-mono text-xs md:flex-row md:justify-between md:px-4">
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           <span>{SITE.location}</span>
           {SITE.email && (
-            <a href={`mailto:${SITE.email}`} className={`transition-colors hover:text-ink-invert ${focus}`}>
+            <a href={`mailto:${SITE.email}`} className={`transition-colors hover:text-white ${focus}`}>
               {SITE.email}
             </a>
           )}
           {SITE.phone && (
-            <a href={`tel:${SITE.phone}`} className={`transition-colors hover:text-ink-invert ${focus}`}>
+            <a href={`tel:${SITE.phone}`} className={`transition-colors hover:text-white ${focus}`}>
               {SITE.phoneDisplay || SITE.phone}
             </a>
           )}
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           {LEGAL.map((l) => (
-            <Link key={l.href} href={l.href} className={`transition-colors hover:text-ink-invert ${focus}`}>
+            <Link key={l.href} href={l.href} className={`transition-colors hover:text-white ${focus}`}>
               {l.label}
             </Link>
           ))}

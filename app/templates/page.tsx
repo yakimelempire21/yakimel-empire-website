@@ -40,13 +40,13 @@ export default function TemplatesPage() {
   const headerInView = useInView(headerRef, { once: true, margin: "-10% 0px" });
 
   return (
-    <main className="min-h-screen bg-[#050505] px-6 pb-24 pt-40 md:px-16">
+    <main className="min-h-screen bg-bg-dark px-6 pb-24 pt-40 md:px-16">
       <div ref={headerRef} className="mx-auto mb-20 max-w-3xl">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-4 font-mono text-xs uppercase tracking-widest text-[#4d8dff]"
+          className="mb-4 font-mono text-xs uppercase tracking-widest text-brand"
         >
           Our Work
         </motion.p>
@@ -54,17 +54,17 @@ export default function TemplatesPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }}
-          className="font-display text-4xl font-bold leading-tight text-[#eef1f6] md:text-6xl"
+          className="font-display text-4xl font-bold leading-tight text-ink-invert md:text-6xl"
         >
           Every business is different.
           <br />
-          <span className="text-[#4d8dff]">So is every website we build.</span>
+          <span className="text-brand">So is every website we build.</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.18 }}
-          className="mt-6 max-w-xl text-base leading-relaxed text-[#a2adc4]"
+          className="mt-6 max-w-xl text-base leading-relaxed text-dim-invert"
         >
           Concept designs that show the range we design across, from
           construction to hospitality to e-commerce. Every project starts
@@ -79,12 +79,12 @@ export default function TemplatesPage() {
       </div>
 
       <div className="mx-auto mt-24 max-w-3xl text-center">
-        <p className="mb-6 text-lg text-[#a2adc4]">
+        <p className="mb-6 text-lg text-dim-invert">
           Have a business in mind? We&apos;ll design something built entirely around it.
         </p>
         <Link
           href="/consultation"
-          className="inline-block rounded-full bg-[#4d8dff] px-10 py-4 font-mono text-sm uppercase tracking-widest text-white transition-colors hover:bg-[#3a7ae8]"
+          className="inline-block rounded-full bg-brand px-10 py-4 font-mono text-sm uppercase tracking-widest text-white transition-colors hover:bg-brand-dark"
         >
           Start Your Project
         </Link>
@@ -109,7 +109,7 @@ function TemplateCard({
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
-      className="group overflow-hidden rounded-2xl border border-[#1b2436] bg-[#0b0f16] transition-colors duration-300 hover:border-[#2c3a52]"
+      className="group overflow-hidden rounded-2xl border border-ink-invert/15 bg-white transition-colors duration-300 hover:border-ink-invert/15"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
@@ -121,20 +121,20 @@ function TemplateCard({
       </div>
 
       <div className="p-6">
-        <p className="mb-2 font-mono text-xs uppercase tracking-widest text-[#4d8dff]">
+        <p className="mb-2 font-mono text-xs uppercase tracking-widest text-brand">
           {template.category}
         </p>
-        <h3 className="mb-3 font-display text-xl font-bold text-[#eef1f6]">
+        <h3 className="mb-3 font-display text-xl font-bold text-ink-invert">
           {template.name}
         </h3>
-        <p className="mb-5 text-sm leading-relaxed text-[#a2adc4]">
+        <p className="mb-5 text-sm leading-relaxed text-dim-invert">
           {template.description}
         </p>
         <div className="flex flex-wrap gap-2">
           {template.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-[#2c3a52] px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#7f93b8]"
+              className="rounded-full border border-ink-invert/15 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-dim-invert"
             >
               {tag}
             </span>

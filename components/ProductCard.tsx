@@ -46,7 +46,7 @@ export default function ProductCard({ product, onNotify }: Props) {
   const comingSoon = product.status === "coming-soon";
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-white/10 bg-surface/60 p-3 transition-colors duration-300 hover:border-brand/50">
+    <article className="flex h-full flex-col rounded-2xl border border-ink-invert/15 bg-surface/60 p-3 transition-colors duration-300 hover:border-brand/50">
       <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-bg-dark">
         <Image
           src={product.image}
@@ -56,7 +56,7 @@ export default function ProductCard({ product, onNotify }: Props) {
           className="object-cover object-top"
         />
         {comingSoon && (
-          <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-bg-dark/85 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink-invert backdrop-blur-sm">
+          <span className="absolute left-3 top-3 rounded-full border border-ink-invert/25 bg-bg-dark/85 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-ink-invert backdrop-blur-sm">
             Coming soon
           </span>
         )}

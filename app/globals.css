@@ -1,15 +1,19 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #FFFFFF;
-  --color-bg-dark: #060B1F;
-  --color-surface: #0D1330;
-  --color-ink: #0B1220;
-  --color-ink-invert: #F5F7FA;
-  --color-dim: #64748B;
-  --color-dim-invert: #9CA8C9;
-  --color-brand: #2F6FEA;
-  --color-brand-dark: #1D4ED8;
+  /* Website palette: sky blue, cream and deep green. */
+  --color-bg: #F8F4EC;
+  --color-bg-dark: #B8E2EE;
+  --color-sky: #B8E2EE;
+  --color-cream: #F8F4EC;
+  --color-surface: #FFFFFF;
+  --color-ink: #0E3B32;
+  --color-ink-invert: #0E3B32;
+  --color-dim: #4F6E67;
+  --color-dim-invert: #4F6E67;
+  --color-brand: #0F4C3F;
+  --color-brand-dark: #0A3329;
+  --color-mint: #2FB39A;
 
   /* YAKIMEL OS (Command Center) palette: plum, lilac and lime. */
   --color-os-bg: #F6F1FA;
@@ -76,7 +80,7 @@ html.lenis body {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(77, 141, 255, 0.16), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(15, 76, 63, 0.10), transparent 45%);
   z-index: -1;
 }
 .spotlight:hover::after {
@@ -84,8 +88,8 @@ html.lenis body {
 }
 
 body {
-  background-color: #FFFFFF;
-  color: #0B1220;
+  background-color: #F8F4EC;
+  color: #0E3B32;
 }
 
 @keyframes fadeUp {
@@ -119,12 +123,12 @@ body {
   padding: 1.2px;
   background: linear-gradient(
     160deg,
-    rgba(77, 141, 255, 0.55) 0%,
-    rgba(77, 141, 255, 0.12) 22%,
-    rgba(77, 141, 255, 0) 45%,
-    rgba(77, 141, 255, 0) 60%,
-    rgba(77, 141, 255, 0.18) 82%,
-    rgba(77, 141, 255, 0.55) 100%
+    rgba(15, 76, 63, 0.55) 0%,
+    rgba(15, 76, 63, 0.12) 22%,
+    rgba(15, 76, 63, 0) 45%,
+    rgba(15, 76, 63, 0) 60%,
+    rgba(15, 76, 63, 0.18) 82%,
+    rgba(15, 76, 63, 0.55) 100%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

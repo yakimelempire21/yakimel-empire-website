@@ -32,7 +32,7 @@ export default function HomeAbout() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.15} className="rounded-3xl border border-white/10 bg-surface/50 p-8 md:p-10">
+        <Reveal delay={0.15} className="rounded-3xl border border-ink-invert/15 bg-surface/50 p-8 md:p-10">
           <Image
             src="/yakimel-icon.png"
             alt=""
@@ -40,7 +40,7 @@ export default function HomeAbout() {
             height={56}
             className="h-14 w-14"
           />
-          <ul className="mt-8 divide-y divide-white/10">
+          <ul className="mt-8 divide-y divide-ink-invert/15">
             {PILLARS.map((p) => (
               <li key={p.title} className="py-5 first:pt-0 last:pb-0">
                 <p className="font-display text-lg font-bold">{p.title}</p>

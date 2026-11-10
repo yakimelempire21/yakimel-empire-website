@@ -110,7 +110,7 @@ function ServiceRow({
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.18 }}
-          className="mb-5 font-display text-3xl font-bold leading-tight text-[#eef1f6] md:text-4xl"
+          className="mb-5 font-display text-3xl font-bold leading-tight text-ink-invert md:text-4xl"
         >
           {service.title.toUpperCase()}
         </motion.h3>
@@ -120,7 +120,7 @@ function ServiceRow({
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="mb-6 font-mono text-xs tracking-[0.15em] text-[#7f93b8]"
+            className="mb-6 font-mono text-xs tracking-[0.15em] text-dim-invert"
           >
             {service.tagline}
           </motion.p>
@@ -131,7 +131,7 @@ function ServiceRow({
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="mb-6 text-[#a2adc4]"
+            className="mb-6 text-dim-invert"
           >
             {service.description}
           </motion.p>
@@ -145,7 +145,7 @@ function ServiceRow({
             className="mb-8 grid grid-cols-2 gap-x-6 gap-y-2"
           >
             {service.list.map((item) => (
-              <li key={item} className="text-sm text-[#a2adc4]">
+              <li key={item} className="text-sm text-dim-invert">
                 {item}
               </li>
             ))}
@@ -157,7 +157,7 @@ function ServiceRow({
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
           href="/consultation"
-          className="inline-block rounded-full border px-7 py-3 font-mono text-xs uppercase tracking-widest text-[#eef1f6] transition-colors"
+          className="inline-block rounded-full border px-7 py-3 font-mono text-xs uppercase tracking-widest text-ink-invert transition-colors"
           style={{ borderColor: service.accent }}
         >
           {service.cta}
@@ -169,19 +169,19 @@ function ServiceRow({
 
 export default function ServiceWorlds() {
   return (
-    <section id="services" className="bg-[#050505] px-6 py-24 md:px-16">
+    <section id="services" className="bg-bg-dark px-6 py-24 md:px-16">
       <div className="mx-auto mb-16 max-w-3xl text-center">
-        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-[#4d8dff]">
+        <p className="mb-4 font-mono text-xs tracking-[0.3em] text-brand">
           THE YAKIMEL TECHNOLOGY ECOSYSTEM
         </p>
-        <h2 className="font-display text-3xl font-bold leading-tight text-[#eef1f6] md:text-5xl">
+        <h2 className="font-display text-3xl font-bold leading-tight text-ink-invert md:text-5xl">
           WE DON&apos;T JUST BUILD WEBSITES.
           <br />
           WE BUILD DIGITAL SYSTEMS.
         </h2>
       </div>
 
-      <div className="mx-auto max-w-6xl divide-y divide-[#1b2436]">
+      <div className="mx-auto max-w-6xl divide-y divide-ink-invert/15">
         {SERVICES.map((service, i) => (
           <ServiceRow key={service.number} service={service} index={i} />
         ))}

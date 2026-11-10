@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const input =
-  "w-full rounded-lg border border-white/15 bg-white/[0.04] px-4 py-3 text-sm text-ink-invert placeholder:text-dim-invert/70 focus:border-brand focus:outline-none";
+  "w-full rounded-lg border border-ink-invert/20 bg-ink-invert/[0.04] px-4 py-3 text-sm text-ink-invert placeholder:text-dim-invert/70 focus:border-brand focus:outline-none";
 const label = "mb-1.5 block text-sm font-medium";
 
 export default function ApplyForm({ jobId }: { jobId: string }) {
@@ -73,7 +73,7 @@ export default function ApplyForm({ jobId }: { jobId: string }) {
           name="resume"
           type="file"
           accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          className="block w-full text-sm text-dim-invert file:mr-3 file:rounded-lg file:border-0 file:bg-white/10 file:px-4 file:py-2 file:text-sm file:text-ink-invert hover:file:bg-white/15"
+          className="block w-full text-sm text-dim-invert file:mr-3 file:rounded-lg file:border-0 file:bg-ink-invert/10 file:px-4 file:py-2 file:text-sm file:text-ink-invert hover:file:bg-ink-invert/15"
         />
       </label>
       <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />

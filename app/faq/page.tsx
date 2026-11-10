@@ -51,7 +51,7 @@ export default function FAQPage() {
             setActiveCategory(null);
           }}
           placeholder="Search questions, apps, technology, support..."
-          className="w-full bg-white/5 border border-white/15 rounded-full px-6 py-4 text-ink-invert placeholder:text-dim-invert focus:outline-none focus:border-brand mb-6"
+          className="w-full bg-ink-invert/5 border border-ink-invert/20 rounded-full px-6 py-4 text-ink-invert placeholder:text-dim-invert focus:outline-none focus:border-brand mb-6"
         />
 
         <div className="flex flex-wrap gap-2 mb-12">
@@ -63,7 +63,7 @@ export default function FAQPage() {
             className={
               activeCategory === null && !search
                 ? "font-mono text-xs uppercase tracking-widest px-4 py-2 rounded-full border bg-brand border-brand text-white"
-                : "font-mono text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-white/15 text-dim-invert hover:border-white/30"
+                : "font-mono text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-ink-invert/20 text-dim-invert hover:border-ink-invert/15"
             }
           >
             All
@@ -78,7 +78,7 @@ export default function FAQPage() {
               className={
                 activeCategory === cat
                   ? "font-mono text-xs uppercase tracking-widest px-4 py-2 rounded-full border bg-brand border-brand text-white"
-                  : "font-mono text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-white/15 text-dim-invert hover:border-white/30"
+                  : "font-mono text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-ink-invert/20 text-dim-invert hover:border-ink-invert/15"
               }
             >
               {cat}
@@ -92,7 +92,7 @@ export default function FAQPage() {
               {filtered.length} questions found
             </p>
             {filtered.map((f) => (
-              <div key={f.q} className="border-b border-white/10 pb-6">
+              <div key={f.q} className="border-b border-ink-invert/15 pb-6">
                 <p className="font-display font-bold text-lg mb-2">{f.q}</p>
                 <p className="text-dim-invert leading-relaxed">{f.a}</p>
               </div>
@@ -108,10 +108,10 @@ export default function FAQPage() {
               const isOpen = openCategory === cat;
               const visibleItems = isOpen ? items : items.slice(0, 3);
               return (
-                <div key={cat} className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div key={cat} className="bg-ink-invert/5 border border-ink-invert/15 rounded-2xl p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-display font-bold text-lg">{cat}</h3>
-                    <span className="font-mono text-xs text-dim-invert bg-white/10 rounded-full px-2 py-1">
+                    <span className="font-mono text-xs text-dim-invert bg-ink-invert/10 rounded-full px-2 py-1">
                       {items.length}
                     </span>
                   </div>
@@ -132,7 +132,7 @@ export default function FAQPage() {
                   </button>
 
                   {isOpen && (
-                    <div className="mt-6 space-y-5 border-t border-white/10 pt-5">
+                    <div className="mt-6 space-y-5 border-t border-ink-invert/15 pt-5">
                       {items.map((f) => (
                         <div key={f.q}>
                           <p className="font-medium mb-1">{f.q}</p>
@@ -147,7 +147,7 @@ export default function FAQPage() {
           </div>
         )}
 
-        <div className="bg-slate-900 border border-white/10 rounded-2xl p-10 text-center">
+        <div className="bg-slate-900 border border-ink-invert/15 rounded-2xl p-10 text-center">
           <h2 className="font-display font-bold text-2xl md:text-3xl mb-3">
             Can&apos;t Find What You&apos;re Looking For?
           </h2>

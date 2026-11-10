@@ -20,10 +20,10 @@ const focus =
 export default function ProductsPage() {
   return (
     <main className="min-h-screen bg-bg-dark text-ink-invert">
-      <header className="relative overflow-hidden border-b border-white/10 pb-12 pt-28 md:pt-32">
+      <header className="relative overflow-hidden border-b border-ink-invert/15 pb-12 pt-28 md:pt-32">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 w-2/3 bg-[radial-gradient(ellipse_at_top_right,rgba(47,111,234,0.28),transparent_65%)]"
+          className="pointer-events-none absolute inset-y-0 right-0 w-2/3 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.62),transparent_65%)]"
         />
         <div className="relative mx-auto max-w-7xl px-6 md:px-10">
           <nav aria-label="Breadcrumb">
@@ -57,7 +57,7 @@ export default function ProductsPage() {
           <ProductsBrowser />
         </Suspense>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl border border-white/10 bg-surface/60 px-6 py-6 md:flex-row md:items-center md:px-8">
+        <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl border border-ink-invert/15 bg-surface/60 px-6 py-6 md:flex-row md:items-center md:px-8">
           <div>
             <h2 className="font-display text-2xl font-bold">Have a different vision?</h2>
             <p className="mt-1 text-sm text-dim-invert">

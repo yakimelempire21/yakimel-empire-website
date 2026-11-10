@@ -35,7 +35,7 @@ export default function ServiceModal({ service, onClose }: Props) {
         // Clicking the backdrop targets the <dialog> element itself.
         if (e.target === e.currentTarget) ref.current?.close();
       }}
-      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-white/10 bg-surface p-0 text-ink-invert shadow-2xl backdrop:bg-black/70"
+      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-ink-invert/15 bg-surface p-0 text-ink-invert shadow-2xl backdrop:bg-black/70"
     >
       <div className="p-7">
         <h2 id={`${uid}-title`} className="font-display text-2xl font-bold">
@@ -78,7 +78,7 @@ export default function ServiceModal({ service, onClose }: Props) {
           <button
             type="button"
             onClick={() => ref.current?.close()}
-            className={`rounded-lg border border-white/25 px-6 py-2.5 text-sm font-medium transition-colors hover:border-white/60 hover:bg-white/5 ${focus}`}
+            className={`rounded-lg border border-ink-invert/15 px-6 py-2.5 text-sm font-medium transition-colors hover:border-ink-invert/15 hover:bg-ink-invert/5 ${focus}`}
           >
             {SERVICES_PAGE.modal.close}
           </button>

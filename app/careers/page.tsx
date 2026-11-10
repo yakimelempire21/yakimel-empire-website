@@ -21,8 +21,8 @@ export default async function CareersPage() {
   const jobs = await openJobs();
   return (
     <main className="min-h-screen bg-bg-dark text-ink-invert">
-      <header className="relative overflow-hidden border-b border-white/10 pb-16 pt-32 md:pt-40">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(47,111,234,0.3),transparent_65%)]" />
+      <header className="relative overflow-hidden border-b border-ink-invert/15 pb-16 pt-32 md:pt-40">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.66),transparent_65%)]" />
         <Reveal className="relative mx-auto max-w-3xl px-6 text-center">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand">Careers</p>
           <h1 className="mt-3 font-display text-4xl font-semibold leading-tight md:text-6xl">Build the future of small business with us.</h1>
@@ -36,7 +36,7 @@ export default async function CareersPage() {
       <section className="mx-auto max-w-4xl px-6 py-16">
         <h2 className="font-display text-2xl font-semibold md:text-3xl">Open roles</h2>
         {jobs.length === 0 ? (
-          <div className="mt-8 rounded-2xl border border-white/10 bg-surface/60 p-8 text-center">
+          <div className="mt-8 rounded-2xl border border-ink-invert/15 bg-surface/60 p-8 text-center">
             <p className="font-medium">No open roles right now.</p>
             <p className="mt-2 text-sm text-dim-invert">
               Want to work with us anyway? Write to{" "}
@@ -52,7 +52,7 @@ export default async function CareersPage() {
               <RevealItem key={job.id}>
                 <Link
                   href={`/careers/${job.slug}`}
-                  className="group flex flex-col gap-4 rounded-2xl border border-white/10 bg-surface/60 p-6 transition-colors hover:border-brand/60 sm:flex-row sm:items-center sm:justify-between md:p-8"
+                  className="group flex flex-col gap-4 rounded-2xl border border-ink-invert/15 bg-surface/60 p-6 transition-colors hover:border-brand/60 sm:flex-row sm:items-center sm:justify-between md:p-8"
                 >
                   <div>
                     {job.team && <p className="font-mono text-xs uppercase tracking-widest text-brand">{job.team}</p>}

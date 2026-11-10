@@ -47,13 +47,13 @@ export default function ProductGrid() {
   };
 
   return (
-    <section id="products" ref={sectionRef} className="bg-[#05070a] py-24">
+    <section id="products" ref={sectionRef} className="bg-cream py-24">
       <div className="mx-auto max-w-6xl px-6">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="font-mono text-xs uppercase tracking-widest text-[#4d8dff] mb-3"
+          className="font-mono text-xs uppercase tracking-widest text-brand mb-3"
         >
           Portfolio
         </motion.p>
@@ -63,7 +63,7 @@ export default function ProductGrid() {
             initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }}
-            className="font-display font-bold text-3xl md:text-4xl text-[#eef1f6]"
+            className="font-display font-bold text-3xl md:text-4xl text-ink-invert"
           >
             Products in the empire
           </motion.h2>
@@ -74,7 +74,7 @@ export default function ProductGrid() {
               onClick={() => scrollByCard("left")}
               disabled={!canScrollLeft}
               aria-label="Scroll left"
-              className="rounded-full border border-[#1b2436] p-2.5 text-[#a2adc4] transition-colors hover:border-[#4d8dff] hover:text-white disabled:opacity-30 disabled:hover:border-[#1b2436] disabled:hover:text-[#a2adc4]"
+              className="rounded-full border border-ink-invert/15 p-2.5 text-dim-invert transition-colors hover:border-brand hover:text-ink-invert disabled:opacity-30 disabled:hover:border-ink-invert/15 disabled:hover:text-dim-invert"
             >
               <ChevronLeft size={18} />
             </button>
@@ -82,7 +82,7 @@ export default function ProductGrid() {
               onClick={() => scrollByCard("right")}
               disabled={!canScrollRight}
               aria-label="Scroll right"
-              className="rounded-full border border-[#1b2436] p-2.5 text-[#a2adc4] transition-colors hover:border-[#4d8dff] hover:text-white disabled:opacity-30 disabled:hover:border-[#1b2436] disabled:hover:text-[#a2adc4]"
+              className="rounded-full border border-ink-invert/15 p-2.5 text-dim-invert transition-colors hover:border-brand hover:text-ink-invert disabled:opacity-30 disabled:hover:border-ink-invert/15 disabled:hover:text-dim-invert"
             >
               <ChevronRight size={18} />
             </button>
@@ -106,28 +106,28 @@ export default function ProductGrid() {
               ease: "easeOut",
               delay: 0.15 + Math.min(i, 4) * 0.08,
             }}
-            className="liquid-glass w-[85vw] max-w-[340px] flex-shrink-0 snap-start rounded-2xl bg-[#0b0f16]/60 backdrop-blur-md p-8 transition-all duration-300 hover:bg-[#0b0f16]/80"
+            className="liquid-glass w-[85vw] max-w-[340px] flex-shrink-0 snap-start rounded-2xl bg-ink-invert/60 backdrop-blur-md p-8 transition-all duration-300 hover:bg-ink-invert/80"
           >
             <div className="flex items-center justify-between mb-4 gap-3">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#4d8dff]">
+              <span className="font-mono text-xs uppercase tracking-widest text-brand">
                 {p.categoryLabel}
               </span>
-              <span className="font-mono text-xs uppercase tracking-widest text-[#7f93b8] shrink-0">
+              <span className="font-mono text-xs uppercase tracking-widest text-dim-invert shrink-0">
                 {p.status === "live" ? "Live" : "Coming soon"}
               </span>
             </div>
 
-            <h3 className="font-display font-bold text-2xl mb-3 text-[#eef1f6]">
+            <h3 className="font-display font-bold text-2xl mb-3 text-ink-invert">
               {p.name}
             </h3>
-            <p className="text-[#a2adc4] leading-relaxed mb-6">
+            <p className="text-dim-invert leading-relaxed mb-6">
               {p.description}
             </p>
 
             <div className="flex items-center gap-6">
               <Link
                 href={`/products/${p.slug}`}
-                className="font-mono text-xs uppercase tracking-widest text-[#4d8dff] hover:text-[#7fa8ff] transition-colors"
+                className="font-mono text-xs uppercase tracking-widest text-brand hover:text-brand transition-colors"
               >
                 Learn more
               </Link>
@@ -136,7 +136,7 @@ export default function ProductGrid() {
                   href={siteUrlFor(p)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-xs uppercase tracking-widest text-[#7f93b8] hover:text-[#eef1f6] transition-colors"
+                  className="font-mono text-xs uppercase tracking-widest text-dim-invert hover:text-ink-invert transition-colors"
                 >
                   Visit site
                 </a>
@@ -149,7 +149,7 @@ export default function ProductGrid() {
       <div className="mx-auto max-w-6xl px-6 pt-8">
         <Link
           href="/products"
-          className="font-mono text-xs uppercase tracking-widest text-[#7f93b8] hover:text-[#eef1f6] transition-colors"
+          className="font-mono text-xs uppercase tracking-widest text-dim-invert hover:text-ink-invert transition-colors"
         >
           View all products &rarr;
         </Link>

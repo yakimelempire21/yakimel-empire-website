@@ -64,7 +64,7 @@ export default function HomeProducts() {
         </ul>
 
         {upcoming.length > 0 && (
-          <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center">
+          <div className="mt-10 flex flex-col gap-4 border-t border-ink-invert/15 pt-8 md:flex-row md:items-center">
             <p className="shrink-0 font-mono text-xs uppercase tracking-widest text-dim-invert">
               In development
             </p>
@@ -73,7 +73,7 @@ export default function HomeProducts() {
                 <li key={p.slug}>
                   <Link
                     href={`/products/${p.slug}`}
-                    className="block rounded-full border border-white/10 px-4 py-2 text-sm text-dim-invert transition-colors hover:border-brand/60 hover:text-ink-invert"
+                    className="block rounded-full border border-ink-invert/15 px-4 py-2 text-sm text-dim-invert transition-colors hover:border-brand/60 hover:text-ink-invert"
                   >
                     {p.name}
                   </Link>

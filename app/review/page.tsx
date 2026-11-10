@@ -14,7 +14,7 @@ export default function ReviewPage() {
     <main className="min-h-screen bg-bg-dark px-6 pb-20 pt-28 text-ink-invert md:pt-36">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-[radial-gradient(ellipse_at_top,rgba(47,111,234,0.3),transparent_65%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[480px] bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.66),transparent_65%)]"
       />
       <div className="relative mx-auto max-w-2xl">
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand">Your feedback</p>

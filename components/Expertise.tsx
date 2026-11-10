@@ -11,7 +11,7 @@ export default function Expertise() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#050505] px-6 py-32 md:px-16"
+      className="bg-bg-dark px-6 py-32 md:px-16"
     >
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-14 md:flex-row md:items-center md:gap-16">
         {/* Video preview — links to /templates */}
@@ -23,7 +23,7 @@ export default function Expertise() {
         >
           <Link
             href="/templates"
-            className="group relative block overflow-hidden rounded-2xl border border-[#1b2436]"
+            className="group relative block overflow-hidden rounded-2xl border border-ink-invert/15"
           >
             <video
               src="/expertise-preview.mp4"
@@ -36,10 +36,10 @@ export default function Expertise() {
 
             <div className="pointer-events-none absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/45" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent px-6 py-5">
-              <span className="font-mono text-xs uppercase tracking-widest text-white">
+              <span className="font-mono text-xs uppercase tracking-widest text-ink-invert">
                 See Our Work
               </span>
-              <span className="font-mono text-xs uppercase tracking-widest text-[#7f93b8] group-hover:text-white">
+              <span className="font-mono text-xs uppercase tracking-widest text-dim-invert group-hover:text-ink-invert">
                 →
               </span>
             </div>
@@ -52,7 +52,7 @@ export default function Expertise() {
             initial={{ opacity: 0, y: 14 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
-            className="mb-4 font-mono text-xs uppercase tracking-widest text-[#4d8dff]"
+            className="mb-4 font-mono text-xs uppercase tracking-widest text-brand"
           >
             Built For Real Business
           </motion.p>
@@ -61,7 +61,7 @@ export default function Expertise() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.22 }}
-            className="mb-6 font-display text-3xl font-bold leading-tight text-[#eef1f6] md:text-4xl"
+            className="mb-6 font-display text-3xl font-bold leading-tight text-ink-invert md:text-4xl"
           >
             Your website. Your control.
           </motion.h2>
@@ -70,7 +70,7 @@ export default function Expertise() {
             initial={{ opacity: 0, y: 14 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-            className="mb-8 text-base leading-relaxed text-[#a2adc4]"
+            className="mb-8 text-base leading-relaxed text-dim-invert"
           >
             Every website we build comes with a private admin dashboard
             built for you, not a template you're locked out of. Track
@@ -88,7 +88,7 @@ export default function Expertise() {
 >
   <Link
     href="/templates"
-    className="inline-block rounded-full bg-[#4d8dff] px-8 py-3.5 font-mono text-xs uppercase tracking-widest text-white transition-colors hover:bg-[#3a7ae8]"
+    className="inline-block rounded-full bg-brand px-8 py-3.5 font-mono text-xs uppercase tracking-widest text-white transition-colors hover:bg-brand-dark"
   >
     See Our Work
   </Link>

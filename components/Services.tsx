@@ -39,7 +39,7 @@ export default function Services() {
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+          <div className="bg-ink-invert/5 border border-ink-invert/15 rounded-2xl p-8">
             <p className="font-mono text-xs uppercase tracking-widest text-brand mb-3">
               Web Development
             </p>
@@ -67,7 +67,7 @@ export default function Services() {
             </Link>
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+          <div className="bg-ink-invert/5 border border-ink-invert/15 rounded-2xl p-8">
             <p className="font-mono text-xs uppercase tracking-widest text-brand mb-3">
               App Development
             </p>

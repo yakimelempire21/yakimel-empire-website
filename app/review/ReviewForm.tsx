@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 
 const input =
-  "w-full rounded-lg border border-white/15 bg-white/[0.04] px-4 py-3 text-sm text-ink-invert placeholder:text-dim-invert/70 focus:border-brand focus:outline-none";
+  "w-full rounded-lg border border-ink-invert/20 bg-ink-invert/[0.04] px-4 py-3 text-sm text-ink-invert placeholder:text-dim-invert/70 focus:border-brand focus:outline-none";
 const label = "mb-1.5 block text-sm font-medium";
 
 export default function ReviewForm({ services, googleReviewUrl }: { services: string[]; googleReviewUrl: string }) {
@@ -46,7 +46,7 @@ export default function ReviewForm({ services, googleReviewUrl }: { services: st
 
   if (status === "sent") {
     return (
-      <div className="mt-10 rounded-2xl border border-white/10 bg-surface/60 p-8 text-center" role="status">
+      <div className="mt-10 rounded-2xl border border-ink-invert/15 bg-surface/60 p-8 text-center" role="status">
         <p className="font-display text-2xl font-bold">Thank you!</p>
         <p className="mt-2 text-dim-invert">Your review was sent to our team.</p>
         {googleReviewUrl && rating >= 4 && (
@@ -68,7 +68,7 @@ export default function ReviewForm({ services, googleReviewUrl }: { services: st
 
   const shown = hover || rating;
   return (
-    <form onSubmit={submit} className="mt-10 space-y-6 rounded-2xl border border-white/10 bg-surface/60 p-6 md:p-8">
+    <form onSubmit={submit} className="mt-10 space-y-6 rounded-2xl border border-ink-invert/15 bg-surface/60 p-6 md:p-8">
       <fieldset>
         <legend className={label}>
           Your rating <span className="text-brand">*</span>
@@ -84,7 +84,7 @@ export default function ReviewForm({ services, googleReviewUrl }: { services: st
               aria-pressed={rating === n}
               className="rounded p-1 focus-visible:outline-2 focus-visible:outline-brand"
             >
-              <Star size={34} className={n <= shown ? "fill-amber-400 text-amber-400" : "text-white/25"} aria-hidden="true" />
+              <Star size={34} className={n <= shown ? "fill-amber-400 text-amber-400" : "text-ink-invert/25"} aria-hidden="true" />
             </button>
           ))}
         </div>
@@ -132,7 +132,7 @@ export default function ReviewForm({ services, googleReviewUrl }: { services: st
       <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
       <label className="flex items-start gap-3 text-sm">
-        <input name="consent" type="checkbox" defaultChecked className="mt-0.5 h-4 w-4 accent-[#2F6FEA]" />
+        <input name="consent" type="checkbox" defaultChecked className="mt-0.5 h-4 w-4 accent-brand" />
         <span className="text-dim-invert">
           Yakimel Empire may show my review, first and last name, role and business name on its website.
         </span>

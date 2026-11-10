@@ -47,7 +47,7 @@ export default async function ProductPage({ params }: Params) {
         </Link>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-surface">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-ink-invert/15 bg-surface">
             <Image
               src={product.image}
               alt={`${product.name} ${product.categoryLabel.toLowerCase()} preview`}
@@ -57,7 +57,7 @@ export default async function ProductPage({ params }: Params) {
               className="object-cover object-top"
             />
             {comingSoon && (
-              <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-bg-dark/85 px-3 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm">
+              <span className="absolute left-3 top-3 rounded-full border border-ink-invert/25 bg-bg-dark/85 px-3 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur-sm">
                 Coming soon
               </span>
             )}
@@ -82,7 +82,7 @@ export default async function ProductPage({ params }: Params) {
                   href={siteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`rounded-lg border border-white/25 px-7 py-3 text-sm font-medium transition-colors hover:border-white/60 hover:bg-white/5 ${focus}`}
+                  className={`rounded-lg border border-ink-invert/15 px-7 py-3 text-sm font-medium transition-colors hover:border-ink-invert/15 hover:bg-ink-invert/5 ${focus}`}
                 >
                   Visit site
                   <span className="sr-only"> (opens in a new tab)</span>
@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: Params) {
       </section>
 
       {detail && (
-        <section className="border-t border-white/10 px-6 py-16">
+        <section className="border-t border-ink-invert/15 px-6 py-16">
           <div className="mx-auto max-w-3xl space-y-6">
             {detail.longDescription.map((paragraph, i) => (
               <p key={i} className="text-lg leading-relaxed text-dim-invert">

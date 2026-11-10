@@ -90,7 +90,7 @@ export default function ProductsBrowser() {
         <div
           role="tablist"
           aria-label="Product categories"
-          className="flex w-full gap-1 overflow-x-auto rounded-full border border-white/10 bg-surface/60 p-1.5 lg:w-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex w-full gap-1 overflow-x-auto rounded-full border border-ink-invert/15 bg-surface/60 p-1.5 lg:w-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {VISIBLE_TABS.map((t, i) => {
             const selected = t.id === tab;
@@ -109,9 +109,7 @@ export default function ProductsBrowser() {
                 onClick={() => selectTab(t.id)}
                 onKeyDown={(e) => onTabKeyDown(e, i)}
                 className={`shrink-0 whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-colors ${focus} ${
-                  selected
-                    ? "bg-brand text-white"
-                    : "text-dim-invert hover:text-ink-invert"
+                  selected ? "bg-brand text-white" : "text-dim-invert hover:text-ink-invert"
                 }`}
               >
                 {t.label}
@@ -137,7 +135,7 @@ export default function ProductsBrowser() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder={activeTab.searchPlaceholder}
               autoComplete="off"
-              className={`w-full rounded-full border border-white/10 bg-surface/60 py-2.5 pl-10 pr-4 text-sm text-ink-invert placeholder:text-dim-invert ${focus}`}
+              className={`w-full rounded-full border border-ink-invert/15 bg-surface/60 py-2.5 pl-10 pr-4 text-sm text-ink-invert placeholder:text-dim-invert ${focus}`}
             />
           </div>
 
@@ -149,7 +147,7 @@ export default function ProductsBrowser() {
               id="industry-filter"
               value={industry}
               onChange={(e) => setIndustryChoice(e.target.value)}
-              className={`w-full appearance-none rounded-full border border-white/10 bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-ink-invert ${focus}`}
+              className={`w-full appearance-none rounded-full border border-ink-invert/15 bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-ink-invert ${focus}`}
             >
               <option value="all" className="bg-bg-dark">
                 All industries
@@ -188,7 +186,7 @@ export default function ProductsBrowser() {
             ))}
           </ul>
         ) : (
-          <div className="rounded-2xl border border-white/10 bg-surface/40 px-6 py-16 text-center">
+          <div className="rounded-2xl border border-ink-invert/15 bg-surface/40 px-6 py-16 text-center">
             <p className="font-display text-xl font-bold text-ink-invert">
               No products match your search
             </p>
@@ -198,7 +196,7 @@ export default function ProductsBrowser() {
             <button
               type="button"
               onClick={clearFilters}
-              className={`mt-6 rounded-full border border-white/25 px-6 py-2.5 text-sm font-medium text-ink-invert transition-colors hover:border-white/60 hover:bg-white/5 ${focus}`}
+              className={`mt-6 rounded-full border border-ink-invert/15 px-6 py-2.5 text-sm font-medium text-ink-invert transition-colors hover:border-ink-invert/15 hover:bg-ink-invert/5 ${focus}`}
             >
               Clear filters
             </button>

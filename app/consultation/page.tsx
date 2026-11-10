@@ -72,7 +72,7 @@ function ConsultationForm() {
 
   if (status === "sent") {
     return (
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-10 text-center max-w-xl mx-auto">
+      <div className="bg-ink-invert/5 border border-ink-invert/15 rounded-2xl p-10 text-center max-w-xl mx-auto">
         <p className="font-display font-bold text-2xl mb-3">Request received</p>
         <p className="text-dim-invert leading-relaxed mb-2">
           Your reference number is <span className="font-mono text-brand">{ticketNumber}</span>.

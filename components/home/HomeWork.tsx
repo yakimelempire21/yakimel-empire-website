@@ -39,7 +39,7 @@ function Card({ w, i, large = false }: { w: (typeof WORK)[number]; i: number; la
       href={`/products/${w.slug}`}
       className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
     >
-      <div className={`relative overflow-hidden rounded-3xl border border-white/10 ${large ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
+      <div className={`relative overflow-hidden rounded-3xl border border-ink-invert/15 ${large ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
         <Image
           src={w.image}
           alt={`${w.name} website design`}
@@ -82,7 +82,7 @@ function HorizontalGallery() {
   }, []);
 
   return (
-    <section ref={section} className="relative hidden bg-[#05070a] text-ink-invert lg:block motion-reduce:hidden" style={{ height: `calc(100vh + ${distance}px)` }}>
+    <section ref={section} className="relative hidden bg-cream text-ink-invert lg:block motion-reduce:hidden" style={{ height: `calc(100vh + ${distance}px)` }}>
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-16">
         <div className="mx-auto w-full max-w-7xl px-10">
           <Heading />
@@ -95,7 +95,7 @@ function HorizontalGallery() {
           ))}
         </motion.div>
         <div className="mx-auto mt-10 w-full max-w-7xl px-10" aria-hidden="true">
-          <div className="h-px w-full bg-white/10">
+          <div className="h-px w-full bg-ink-invert/10">
             <motion.div style={{ width: progress }} className="h-px bg-brand" />
           </div>
         </div>
@@ -106,7 +106,7 @@ function HorizontalGallery() {
 
 function StackedGallery({ className = "" }: { className?: string }) {
   return (
-    <section className={`bg-[#05070a] px-6 py-24 text-ink-invert md:py-32 ${className}`}>
+    <section className={`bg-cream px-6 py-24 text-ink-invert md:py-32 ${className}`}>
       <div className="mx-auto max-w-7xl md:px-4">
         <Reveal>
           <Heading />
