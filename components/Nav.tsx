@@ -26,7 +26,7 @@ function Logo() {
     <Link href="/" className={`flex items-center gap-3 rounded-lg ${focus}`} aria-label="Yakimel Empire — home">
       <Image src="/yakimel-icon.png" alt="" width={44} height={44} priority className="h-10 w-10 object-contain md:h-11 md:w-11" />
       <span className="leading-none">
-        <span className="block font-display text-xl font-bold tracking-tight text-ink md:text-[22px]">Yakimel Empire</span>
+        <span className="block whitespace-nowrap font-display text-xl font-bold tracking-tight text-ink lg:text-lg xl:text-[22px]">Yakimel Empire</span>
       </span>
     </Link>
   );
@@ -84,7 +84,7 @@ export default function Nav() {
         <nav className={`mx-auto flex max-w-7xl items-center justify-between px-6 transition-all duration-300 md:px-10 ${scrolled ? "py-3" : "py-5"}`}>
           <Logo />
 
-          <ul className="hidden items-center gap-1 rounded-full bg-brand px-3 py-1.5 shadow-[0_10px_30px_-14px_rgba(14,59,50,0.7)] lg:flex">
+          <ul className="hidden items-center gap-0.5 rounded-full bg-brand px-2 py-1.5 xl:gap-1 xl:px-3 shadow-[0_10px_30px_-14px_rgba(14,59,50,0.7)] lg:flex">
             {NAV_LINKS.map((link) => {
               const active = isActive(link.href);
               if (link.href === "/services") {
@@ -95,7 +95,7 @@ export default function Nav() {
                       aria-expanded={servicesOpen}
                       aria-haspopup="true"
                       onClick={() => setServicesOpen((v) => !v)}
-                      className={`flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-white/10 ${focus} ${
+                      className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold xl:px-4 xl:text-[15px] text-white transition-colors hover:bg-white/10 ${focus} ${
                         active || servicesOpen ? "bg-white/10" : ""
                       }`}
                     >
@@ -150,7 +150,7 @@ export default function Nav() {
                   <Link
                     href={link.href}
                     aria-current={active ? "page" : undefined}
-                    className={`block rounded-full px-4 py-2 text-[15px] font-semibold text-white transition-colors hover:bg-white/10 ${focus} ${
+                    className={`block whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold xl:px-4 xl:text-[15px] text-white transition-colors hover:bg-white/10 ${focus} ${
                       active ? "bg-white/15" : ""
                     }`}
                   >
@@ -177,7 +177,7 @@ export default function Nav() {
             )}
             <Link
               href="/consultation"
-              className={`rounded-full border-2 border-brand px-5 py-2.5 text-sm font-semibold text-ink transition-all hover:bg-brand hover:text-white ${focus}`}
+              className={`whitespace-nowrap rounded-full border-2 border-brand px-4 py-2.5 text-sm font-semibold xl:px-5 text-ink transition-all hover:bg-brand hover:text-white ${focus}`}
             >
               Book a free call
             </Link>
