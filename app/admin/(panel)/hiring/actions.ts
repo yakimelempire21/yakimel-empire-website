@@ -83,3 +83,36 @@ export async function updateApplication(id: string, form: FormData) {
   revalidatePath("/admin/hiring");
   revalidatePath(`/admin/hiring/applications/${id}`);
 }
+
+export type ApplicantFormState = { error?: string } | undefined;
+
+/** Adds an applicant by hand (WhatsApp, email, referral…). */
+export async function addApplicant(_prev: ApplicantFormState, form: FormData): Promise<ApplicantFormState> {
+  const user = await requireUser("employees");
+  const jobId = str(form, "jobId");
+  const fullName = str(form, "fullName");
+  const email = str(form, "email")?.toLowerCase();
+  if (!jobId || !fullName || !email) return { error: "Job, full name and email are required." };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { error: "That email doesn't look right." };
+  const job = await db.query.jobs.findFirst({ where: eq(t.jobs.id, jobId), columns: { id: true } });
+  if (!job) return { error: "That job no longer exists." };
+  const linkUrl = str(form, "linkUrl");
+  if (linkUrl && !/^https?:\/\//i.test(linkUrl)) return { error: "The link must start with http:// or https://" };
+
+  const [row] = await db
+    .insert(t.jobApplications)
+    .values({
+      jobId,
+      fullName: fullName.slice(0, 120),
+      email: email.slice(0, 200),
+      phone: str(form, "phone")?.slice(0, 40),
+      location: str(form, "location")?.slice(0, 120),
+      linkUrl: linkUrl?.slice(0, 500),
+      notes: str(form, "notes"),
+      status: APPLICATION_STATUSES.find((s) => s === str(form, "status")) ?? "NEW",
+    })
+    .returning({ id: t.jobApplications.id });
+  await audit(user, "CREATE", "job_application", row.id, { manual: true });
+  revalidatePath("/admin/hiring");
+  redirect(`/admin/hiring/applications/${row.id}`);
+}
