@@ -54,7 +54,7 @@ export type BookingSite = Base & {
   policy: string;
 };
 
-export type MenuItem = { name: string; price: number; desc?: string; tag?: string };
+export type MenuItem = { name: string; price: number; desc?: string; tag?: string; /** File name in public/demos/<slug>/ */ photo?: string };
 export type CafeSite = Base & { kind: "menu"; menu: { category: string; items: MenuItem[] }[] };
 
 export type Product = { id: string; name: string; price: number; category: string; desc: string; tone: string };
@@ -140,8 +140,13 @@ export const DEMO_SITES: DemoSite[] = [
     tagline: "Haitian coffee, fresh juice and warm pastries.",
     intro: "Small-batch coffee from the mountains of Haiti, cold drinks made to order and pastries baked every morning. Order ahead and skip the line.",
     theme: { bg: "#FBF6EF", surface: "#FFFFFF", ink: "#2B1A10", muted: "#6E5646", accent: "#B4532A", accentInk: "#FFFFFF", soft: "#F3E3D3", font: "serif" },
-    hero: photo("cafe", "hero.jpg", "Latte with foam art on a wooden counter"),
-    gallery: gallery("cafe", ["Our espresso bar", "Iced drinks", "Fresh pastries", "The café"]),
+    hero: photo("cafe", "hero.jpg", "Latte with leaf foam art"),
+    gallery: [
+      photo("cafe", "cappuccino.jpg", "Cappuccino with cinnamon"),
+      photo("cafe", "iced-caramel-latte.jpg", "Iced caramel latte"),
+      photo("cafe", "pen-patat.jpg", "Pen patat, Haitian sweet potato pudding"),
+      photo("cafe", "mango-smoothie.jpg", "Mango smoothie"),
+    ],
     location: "88 Church Ave, Brooklyn, NY",
     phone: "(347) 555-0118",
     hours: [
@@ -157,28 +162,31 @@ export const DEMO_SITES: DemoSite[] = [
       {
         category: "Coffee",
         items: [
-          { name: "Haitian espresso", price: 3.5, desc: "Single origin, dark chocolate notes", tag: "House favorite" },
-          { name: "Café au lait", price: 4.75, desc: "Espresso, steamed milk" },
-          { name: "Vanilla latte", price: 5.5, desc: "Espresso, milk, house vanilla" },
-          { name: "Cold brew", price: 5.0, desc: "Steeped 18 hours" },
+          { name: "Haitian espresso", price: 3.5, desc: "Single origin, dark chocolate notes", tag: "House favorite", photo: "espresso.jpg" },
+          { name: "Kafe nwa", price: 3.0, desc: "Haitian drip coffee, strong and smooth", photo: "drip-coffee.jpg" },
+          { name: "Café au lait", price: 4.75, desc: "Espresso and steamed milk, served in a bowl", photo: "cafe-au-lait.jpg" },
+          { name: "Vanilla latte", price: 5.5, desc: "Espresso, milk, house vanilla", photo: "hero.jpg" },
+          { name: "Cappuccino", price: 5.0, desc: "Thick foam, a touch of cinnamon", photo: "cappuccino.jpg" },
+          { name: "Chokola", price: 5.25, desc: "Haitian hot chocolate, cinnamon and nutmeg", photo: "hot-chocolate.jpg" },
         ],
       },
       {
         category: "Cold drinks",
         items: [
-          { name: "Passion fruit juice", price: 6.0, desc: "Fresh grenadia, a touch of lime", tag: "New" },
-          { name: "Iced caramel latte", price: 6.25, desc: "Espresso, milk, caramel, ice" },
-          { name: "Mango smoothie", price: 7.0, desc: "Mango, banana, coconut milk" },
-          { name: "Lemonade", price: 4.5, desc: "Lime, cane sugar, mint" },
+          { name: "Passion fruit juice", price: 6.0, desc: "Fresh grenadia, a touch of lime", tag: "New", photo: "passion-fruit-juice.jpg" },
+          { name: "Iced caramel latte", price: 6.25, desc: "Espresso, milk, caramel, ice", photo: "iced-caramel-latte.jpg" },
+          { name: "Cold brew", price: 5.0, desc: "Steeped 18 hours", photo: "cold-brew.jpg" },
+          { name: "Mango smoothie", price: 7.0, desc: "Mango, banana, coconut milk", photo: "mango-smoothie.jpg" },
+          { name: "Lime lemonade", price: 4.5, desc: "Fresh lime, cane sugar, mint", photo: "lemonade.jpg" },
         ],
       },
       {
         category: "Pastries",
         items: [
-          { name: "Pâté kòde (chicken)", price: 4.0, desc: "Flaky pastry, spiced chicken" },
-          { name: "Butter croissant", price: 3.75 },
-          { name: "Pen patat slice", price: 4.5, desc: "Sweet potato bread" },
-          { name: "Banana bread", price: 3.95 },
+          { name: "Pâté kòde (chicken)", price: 4.0, desc: "Crispy pastry, spiced chicken", tag: "Lakay classic", photo: "pate-kode.jpg" },
+          { name: "Pen patat", price: 4.5, desc: "Haitian sweet potato pudding", photo: "pen-patat.jpg" },
+          { name: "Butter croissant", price: 3.75, desc: "Baked every morning", photo: "croissant.jpg" },
+          { name: "Banana bread", price: 3.95, desc: "Ripe bananas, brown sugar", photo: "banana-bread.jpg" },
         ],
       },
     ],

@@ -27,6 +27,9 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
   const subtotal = lines.reduce((n, l) => n + l.q * l.item.price, 0);
   const tax = subtotal * 0.08875;
 
+  // Two tagged favorites (new drink + house pastry) sit beside the hero photo.
+  const featured = items.filter((i) => i.tag && i.photo).slice(-2);
+  const pic = (i: MenuItem) => ({ src: `/demos/${site.slug}/${i.photo ?? "none.jpg"}`, alt: i.name });
   const add = (i: MenuItem, d = 1) => setCart((c) => ({ ...c, [i.name]: Math.max(0, (c[i.name] ?? 0) + d) }));
   const nav = [
     { label: "Menu", href: "#menu" },
@@ -81,7 +84,10 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
           <ul className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
             {lines.map(({ item, q }) => (
               <li key={item.name} className="flex items-center justify-between gap-3">
-                <div className="min-w-0">
+                <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl">
+                  <DemoPhoto photo={pic(item)} tone={site.theme.soft} ink={site.theme.ink} label={false} />
+                </div>
+                <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold">{item.name}</p>
                   <p className="text-sm text-[var(--d-muted)]">{money(item.price * q)}</p>
                 </div>
@@ -174,25 +180,39 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
           </header>
 
           {/* Hero */}
-          <section id="top" className="relative overflow-hidden">
-            <div className="absolute inset-0">
-              <DemoPhoto photo={site.hero} tone={site.theme.soft} ink={site.theme.ink} label={false} priority />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1b0f08]/85 via-[#1b0f08]/55 to-transparent" />
-            </div>
-            <div className="relative mx-auto max-w-6xl px-6 py-24 text-white md:py-32">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F3C9A8]">{site.businessType} · Brooklyn</p>
-              <h1 className={`mt-4 max-w-2xl text-[2.7rem] leading-[1.05] md:text-6xl ${h}`}>{site.tagline}</h1>
-              <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/85">{site.intro}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a href="#menu" className={dButton}>
-                  Order ahead <ArrowRight size={16} aria-hidden="true" />
-                </a>
-                <a href="#visit" className={`inline-flex items-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 ${dFocus}`}>
-                  Hours & location
-                </a>
+          <section id="top" className="relative overflow-hidden px-6 pb-16 pt-10 md:pb-20 md:pt-14">
+            <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-[var(--d-soft)] blur-3xl" />
+            <div className="relative mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[1fr_1.05fr]">
+              <div>
+                <Eyebrow>{site.businessType} · Brooklyn</Eyebrow>
+                <h1 className={`mt-4 text-[2.7rem] leading-[1.03] md:text-[4.2rem] ${h}`}>{site.tagline}</h1>
+                <p className="mt-5 max-w-lg text-lg leading-relaxed text-[var(--d-muted)]">{site.intro}</p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a href="#menu" className={dButton}>
+                    Order ahead <ArrowRight size={16} aria-hidden="true" />
+                  </a>
+                  <a href="#visit" className={dGhost}>
+                    Hours & location
+                  </a>
+                </div>
+                <div className="mt-8 flex items-center gap-3 text-sm text-[var(--d-muted)]">
+                  <Stars />
+                  <span>
+                    <strong className="text-[var(--d-ink)]">4.8</strong> · 410 Google reviews
+                  </span>
+                </div>
               </div>
-              <div className="mt-8 flex items-center gap-3 text-sm text-white/80">
-                <Stars /> <span>4.8 · 410 Google reviews</span>
+              <div className="grid grid-cols-[1.35fr_1fr] gap-3 md:gap-4">
+                <div className="row-span-2 overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgba(43,26,16,0.55)]">
+                  <DemoPhoto photo={site.hero} tone={site.theme.soft} ink={site.theme.ink} priority className="aspect-[3/4] h-full" />
+                </div>
+                <div className="aspect-square overflow-hidden rounded-[1.5rem]">
+                  <DemoPhoto photo={pic(featured[0])} tone={site.theme.soft} ink={site.theme.ink} priority />
+                </div>
+                <div className="relative aspect-square overflow-hidden rounded-[1.5rem]">
+                  <DemoPhoto photo={pic(featured[1])} tone={site.theme.soft} ink={site.theme.ink} priority />
+                  <span className="absolute bottom-2.5 left-2.5 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-[var(--d-ink)] shadow">Fresh daily</span>
+                </div>
               </div>
             </div>
           </section>
@@ -223,26 +243,29 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
                   {site.menu
                     .find((c) => c.category === cat)!
                     .items.map((i) => (
-                      <li key={i.name} className="flex items-start justify-between gap-4 rounded-2xl bg-[var(--d-surface)] p-5 shadow-[0_10px_30px_-24px_rgba(0,0,0,0.4)]">
-                        <div className="min-w-0">
-                          <p className="font-semibold">
-                            {i.name}
-                            {i.tag && <span className="ml-2 rounded-full bg-[var(--d-soft)] px-2 py-0.5 align-middle text-[11px] font-semibold text-[var(--d-accent)]">{i.tag}</span>}
-                          </p>
-                          {i.desc && <p className="mt-1 text-sm text-[var(--d-muted)]">{i.desc}</p>}
-                          <p className="mt-2 font-semibold text-[var(--d-accent)]">{money(i.price)}</p>
+                      <li key={i.name} className="group flex flex-col overflow-hidden rounded-2xl bg-[var(--d-surface)] shadow-[0_10px_30px_-24px_rgba(0,0,0,0.4)]">
+                        <div className="relative aspect-[4/3] overflow-hidden">
+                          <DemoPhoto photo={pic(i)} tone={site.theme.soft} ink={site.theme.ink} label={false} className="transition duration-500 group-hover:scale-105" />
+                          {i.tag && <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-[var(--d-accent)] shadow">{i.tag}</span>}
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            add(i);
-                            setPlaced(null);
-                          }}
-                          aria-label={`Add ${i.name} to order`}
-                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--d-accent)] text-[var(--d-accent-ink)] transition hover:brightness-110 ${dFocus}`}
-                        >
-                          <Plus size={18} aria-hidden="true" />
-                        </button>
+                        <div className="flex flex-1 items-start justify-between gap-4 p-5">
+                          <div className="min-w-0">
+                            <p className="font-semibold">{i.name}</p>
+                            {i.desc && <p className="mt-1 text-sm text-[var(--d-muted)]">{i.desc}</p>}
+                            <p className="mt-2 font-semibold text-[var(--d-accent)]">{money(i.price)}</p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              add(i);
+                              setPlaced(null);
+                            }}
+                            aria-label={`Add ${i.name} to order`}
+                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--d-accent)] text-[var(--d-accent-ink)] transition hover:brightness-110 ${dFocus}`}
+                          >
+                            <Plus size={18} aria-hidden="true" />
+                          </button>
+                        </div>
                       </li>
                     ))}
                 </ul>

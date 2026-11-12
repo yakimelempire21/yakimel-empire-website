@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 /** Which demo photos have been added to public/demos/<slug>/ (checked at build time). */
 function photosFor(site: DemoSite): string[] {
   const all = [site.hero, ...site.gallery].map((p) => p.src);
+  if (site.kind === "menu") all.push(...site.menu.flatMap((c) => c.items.flatMap((i) => (i.photo ? [`/demos/${site.slug}/${i.photo}`] : []))));
   if (site.kind === "store") all.push(...site.products.map((p) => `/demos/${site.slug}/${p.id}.jpg`));
   return all.filter((src) => existsSync(path.join(process.cwd(), "public", src)));
 }
