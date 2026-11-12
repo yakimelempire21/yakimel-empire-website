@@ -1,10 +1,13 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Check, ChevronLeft, Clock, Menu, X } from "lucide-react";
 import type { BookingSite, ServiceItem } from "@/lib/demo-sites";
 import DemoShell from "./DemoShell";
 import DemoPhoto, { PhotoContext } from "./DemoPhoto";
+import { DemoMarquee, HeroSlider, PhotoWall, SplitHeadline, type Slide } from "./DemoSlider";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { DemoFooter, Eyebrow, Reviews, Stars, Visit, dButton, dField, dFocus, dGhost, heading, money, nextDays, themeVars } from "./DemoParts";
 
 type Step = "service" | "time" | "details" | "done";
@@ -24,6 +27,10 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
   const bookRef = useRef<HTMLElement>(null);
   const h = heading(site);
   const isClinic = site.slug === "clinic";
+  // With real photos, the demo switches to a full-screen slideshow hero and a photo wall.
+  const realGallery = site.gallery.filter((p) => have.has(p.src));
+  const slides: Slide[] = [site.hero, ...realGallery].filter((p) => have.has(p.src)).slice(0, 6).map((photo) => ({ photo }));
+  const modern = slides.length >= 3;
   const price = (s: ServiceItem) => (s.price ? money(s.price) : "Insurance accepted");
 
   function pick(s: ServiceItem) {
@@ -87,6 +94,50 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
           </header>
 
           {/* Hero */}
+          {modern ? (
+            <section id="top" className="relative h-[calc(100svh-7.5rem)] min-h-[560px] max-h-[860px] text-white">
+              <HeroSlider slides={slides}>
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-black/55 to-transparent" />
+              </HeroSlider>
+              <div className="pointer-events-none relative z-20 mx-auto flex h-full max-w-6xl flex-col justify-end px-6 pb-24 md:pb-28">
+                <div className="pointer-events-auto max-w-2xl">
+                  <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-xs font-semibold uppercase tracking-[0.28em] text-white/80">
+                    {site.businessType} · Brooklyn
+                  </motion.p>
+                  <SplitHeadline text={site.tagline} className={`mt-4 text-[2.9rem] leading-[1] md:text-7xl ${h}`} />
+                  <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="mt-5 max-w-lg text-base leading-relaxed text-white/85 md:text-lg">
+                    {site.intro}
+                  </motion.p>
+                  <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.65 }} className="mt-7 flex flex-wrap items-center gap-3">
+                    <a href="#book" className={dButton}>
+                      {site.bookLabel} <ArrowRight size={16} aria-hidden="true" />
+                    </a>
+                    <a href="#gallery" className={`inline-flex items-center rounded-full border border-white/45 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20 ${dFocus}`}>
+                      {isClinic ? "Our clinic" : "See our work"}
+                    </a>
+                    <span className="ml-1 hidden items-center gap-2 text-sm text-white/85 sm:flex">
+                      <Stars /> <strong className="text-white">4.9</strong> · 230+ reviews
+                    </span>
+                  </motion.div>
+                </div>
+              </div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.9 }}
+                className="absolute right-6 top-8 z-20 hidden items-center gap-3 rounded-2xl bg-white/90 p-3.5 text-[var(--d-ink)] shadow-xl backdrop-blur lg:flex xl:right-[max(1.5rem,calc((100vw-72rem)/2))]"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--d-accent)] text-[var(--d-accent-ink)]">
+                  <Clock size={18} aria-hidden="true" />
+                </span>
+                <p className="text-sm leading-tight">
+                  <strong>Next opening: tomorrow, {site.times[1]}</strong>
+                  <span className="block text-[var(--d-muted)]">Book online in under a minute</span>
+                </p>
+              </motion.div>
+            </section>
+          ) : (
           <section id="top" className="px-6 pb-16 pt-12 md:pt-16">
             <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1.05fr_1fr]">
               <div>
@@ -122,6 +173,14 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
               </div>
             </div>
           </section>
+          )}
+
+          {modern && (
+            <DemoMarquee
+              items={site.services.flatMap((c) => c.items.map((i) => i.name))}
+              className={`border-y border-[var(--d-ink)]/10 bg-[var(--d-soft)] py-5 text-2xl md:py-7 md:text-4xl ${h}`}
+            />
+          )}
 
           {/* Services */}
           <section id="services" className="scroll-mt-28 bg-[var(--d-surface)] px-6 py-20">
@@ -144,11 +203,11 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
                   </button>
                 ))}
               </div>
-              <ul className="mt-8 grid gap-4 md:grid-cols-2">
+              <RevealGroup key={cat} className="mt-8 grid gap-4 md:grid-cols-2" stagger={0.06}>
                 {site.services
                   .find((c) => c.category === cat)!
                   .items.map((s) => (
-                    <li key={s.name} className="flex items-center justify-between gap-3 rounded-2xl border border-[var(--d-ink)]/10 bg-[var(--d-bg)] p-4 sm:gap-4 sm:p-5">
+                    <RevealItem key={s.name} className="flex items-center justify-between gap-3 rounded-2xl hover:shadow-[0_16px_40px_-28px_rgba(0,0,0,0.45)] border border-[var(--d-ink)]/10 bg-[var(--d-bg)] p-4 sm:gap-4 sm:p-5">
                       {s.photo && (
                         <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl sm:h-20 sm:w-20 md:h-24 md:w-24">
                           <DemoPhoto photo={{ src: `/demos/${site.slug}/${s.photo}`, alt: s.name }} tone={site.theme.soft} ink={site.theme.ink} label={false} />
@@ -167,9 +226,9 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
                       <button type="button" onClick={() => pick(s)} className={`${dGhost} shrink-0 px-3.5 py-2 sm:px-4`}>
                         Book
                       </button>
-                    </li>
+                    </RevealItem>
                   ))}
-              </ul>
+              </RevealGroup>
             </div>
           </section>
 
@@ -346,8 +405,18 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
           {/* Gallery */}
           <section id="gallery" className="scroll-mt-28 bg-[var(--d-surface)] px-6 py-20">
             <div className="mx-auto max-w-6xl">
-              <Eyebrow>Gallery</Eyebrow>
-              <h2 className={`mt-2 text-3xl md:text-4xl ${h}`}>{isClinic ? "Inside our clinic" : "Our work"}</h2>
+              <Reveal className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <Eyebrow>Gallery</Eyebrow>
+                  <h2 className={`mt-2 text-3xl md:text-5xl ${h}`}>{isClinic ? "Inside our clinic" : "Our work"}</h2>
+                </div>
+                {modern && <p className="text-sm text-[var(--d-muted)]">Tap a photo to see it bigger</p>}
+              </Reveal>
+              {realGallery.length > 4 ? (
+                <div className="mt-10">
+                  <PhotoWall photos={realGallery} />
+                </div>
+              ) : (
               <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
                 {site.gallery.map((p, i) => (
                   <figure key={p.src} className="group relative aspect-[4/5] overflow-hidden rounded-2xl">
@@ -360,6 +429,7 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
                   </figure>
                 ))}
               </div>
+              )}
             </div>
           </section>
 

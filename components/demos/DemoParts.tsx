@@ -2,6 +2,7 @@
 
 import { Clock, MapPin, Phone, Star } from "lucide-react";
 import type { DemoSite } from "@/lib/demo-sites";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 /** Theme colors as CSS variables, so every demo part can use bg-[var(--d-…)]. */
 export function themeVars(site: DemoSite): React.CSSProperties {
@@ -46,17 +47,21 @@ export function Reviews({ site }: { site: DemoSite }) {
   return (
     <section id="reviews" className="scroll-mt-28 px-6 py-20">
       <div className="mx-auto max-w-6xl">
-        <Eyebrow>Reviews</Eyebrow>
-        <h2 className={`mt-2 text-3xl md:text-4xl ${heading(site)}`}>What our clients say</h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <Reveal>
+          <Eyebrow>Reviews</Eyebrow>
+          <h2 className={`mt-2 text-3xl md:text-5xl ${heading(site)}`}>What our clients say</h2>
+        </Reveal>
+        <RevealGroup as="div" className="mt-10 grid gap-5 md:grid-cols-3">
           {site.reviews.map((r) => (
-            <figure key={r.name} className="rounded-2xl bg-[var(--d-surface)] p-6 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)]">
+            <RevealItem as="div" key={r.name}>
+            <figure className="h-full rounded-2xl bg-[var(--d-surface)] p-6 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)]">
               <Stars />
               <blockquote className="mt-4 text-[15px] leading-relaxed">“{r.text}”</blockquote>
               <figcaption className="mt-4 text-sm font-semibold text-[var(--d-muted)]">{r.name}</figcaption>
             </figure>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

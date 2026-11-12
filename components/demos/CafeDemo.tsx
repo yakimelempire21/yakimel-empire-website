@@ -1,10 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Check, Menu, Minus, Plus, ShoppingBag, X } from "lucide-react";
 import type { CafeSite, MenuItem } from "@/lib/demo-sites";
 import DemoShell from "./DemoShell";
 import DemoPhoto, { PhotoContext } from "./DemoPhoto";
+import { DemoMarquee, HeroSlider, PhotoWall, SplitHeadline, type Slide } from "./DemoSlider";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { DemoFooter, Eyebrow, Reviews, Stars, Visit, dButton, dField, dFocus, dGhost, heading, money, themeVars } from "./DemoParts";
 
 const PICKUP = ["As soon as possible (~10 min)", "In 20 minutes", "In 30 minutes", "In 45 minutes", "In 1 hour"];
@@ -30,6 +33,18 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
   // Two tagged favorites (new drink + house pastry) sit beside the hero photo.
   const featured = items.filter((i) => i.tag && i.photo).slice(-2);
   const pic = (i: MenuItem) => ({ src: `/demos/${site.slug}/${i.photo ?? "none.jpg"}`, alt: i.name });
+  // With real photos: a full-screen slideshow of favorites (each slide can be added to the order).
+  const slideItems = [items.find((i) => i.photo === "hero.jpg"), ...items.filter((i) => i.tag), ...items.filter((i) => ["Iced caramel latte", "Chokola", "Mango smoothie"].includes(i.name))]
+    .filter((i): i is MenuItem => Boolean(i && i.photo && have.has(pic(i).src)))
+    .filter((i, k, a) => a.indexOf(i) === k)
+    .slice(0, 6);
+  const slides: Slide[] = slideItems.map((i) => ({ photo: { src: pic(i).src, alt: `${i.name}${i.desc ? `: ${i.desc}` : ""}` } }));
+  const modern = slides.length >= 3;
+  const [slide, setSlide] = useState(0);
+  const wall = [...site.gallery.map((p) => p.src), ...items.map((i) => pic(i).src)]
+    .filter((src, k, a) => have.has(src) && a.indexOf(src) === k)
+    .slice(0, 8)
+    .map((src) => ({ src, alt: site.gallery.find((g) => g.src === src)?.alt ?? items.find((i) => pic(i).src === src)?.name ?? "" }));
   const add = (i: MenuItem, d = 1) => setCart((c) => ({ ...c, [i.name]: Math.max(0, (c[i.name] ?? 0) + d) }));
   const nav = [
     { label: "Menu", href: "#menu" },
@@ -180,6 +195,67 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
           </header>
 
           {/* Hero */}
+          {modern ? (
+            <section id="top" className="relative h-[calc(100svh-7.5rem)] min-h-[580px] max-h-[860px] text-white">
+              <HeroSlider slides={slides} onSlide={setSlide}>
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#1b0f08]/90 via-[#1b0f08]/35 to-transparent" />
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-[#1b0f08]/60 to-transparent" />
+              </HeroSlider>
+              <div className="pointer-events-none relative z-20 mx-auto flex h-full max-w-6xl flex-col justify-end px-6 pb-24 md:pb-28">
+                <div className="flex flex-wrap items-end justify-between gap-8">
+                  <div className="pointer-events-auto max-w-2xl">
+                    <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-xs font-semibold uppercase tracking-[0.28em] text-[#F3C9A8]">
+                      {site.businessType} · Brooklyn
+                    </motion.p>
+                    <SplitHeadline text={site.tagline} className={`mt-4 text-[2.9rem] leading-[1] md:text-7xl ${h}`} />
+                    <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="mt-5 max-w-lg text-base leading-relaxed text-white/85 md:text-lg">
+                      {site.intro}
+                    </motion.p>
+                    <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.65 }} className="mt-7 flex flex-wrap items-center gap-3">
+                      <a href="#menu" className={dButton}>
+                        Order ahead <ArrowRight size={16} aria-hidden="true" />
+                      </a>
+                      <span className="ml-1 hidden items-center gap-2 text-sm text-white/85 sm:flex">
+                        <Stars /> <strong className="text-white">4.8</strong> · 410 reviews
+                      </span>
+                    </motion.div>
+                  </div>
+                  <div className="pointer-events-auto hidden min-w-[250px] lg:block">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={slideItems[slide]?.name}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -12 }}
+                        transition={{ duration: 0.45 }}
+                        className="flex items-center gap-4 rounded-2xl bg-white/90 p-3 pr-4 text-[var(--d-ink)] shadow-xl backdrop-blur"
+                      >
+                        <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl">
+                          <DemoPhoto photo={pic(slideItems[slide])} tone={site.theme.soft} ink={site.theme.ink} label={false} />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--d-accent)]">On the menu</p>
+                          <p className="truncate font-semibold">{slideItems[slide]?.name}</p>
+                          <p className="text-sm text-[var(--d-muted)]">{money(slideItems[slide]?.price ?? 0)}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            add(slideItems[slide]);
+                            setPlaced(null);
+                          }}
+                          aria-label={`Add ${slideItems[slide]?.name} to order`}
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--d-accent)] text-[var(--d-accent-ink)] transition hover:brightness-110 ${dFocus}`}
+                        >
+                          <Plus size={18} aria-hidden="true" />
+                        </button>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : (
           <section id="top" className="relative overflow-hidden px-6 pb-16 pt-10 md:pb-20 md:pt-14">
             <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-[var(--d-soft)] blur-3xl" />
             <div className="relative mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[1fr_1.05fr]">
@@ -216,6 +292,14 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
               </div>
             </div>
           </section>
+          )}
+
+          {modern && (
+            <DemoMarquee
+              items={items.map((i) => i.name)}
+              className={`border-y border-[var(--d-ink)]/10 bg-[var(--d-soft)] py-5 text-2xl md:py-7 md:text-4xl ${h}`}
+            />
+          )}
 
           {/* Menu + order */}
           <section id="menu" className="scroll-mt-28 px-6 py-20">
@@ -239,11 +323,11 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
                     </button>
                   ))}
                 </div>
-                <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+                <RevealGroup key={cat} className="mt-8 grid gap-4 sm:grid-cols-2" stagger={0.06}>
                   {site.menu
                     .find((c) => c.category === cat)!
                     .items.map((i) => (
-                      <li key={i.name} className="group flex flex-col overflow-hidden rounded-2xl bg-[var(--d-surface)] shadow-[0_10px_30px_-24px_rgba(0,0,0,0.4)]">
+                      <RevealItem key={i.name} className="group flex flex-col overflow-hidden rounded-2xl bg-[var(--d-surface)] shadow-[0_10px_30px_-24px_rgba(0,0,0,0.4)]">
                         <div className="relative aspect-[4/3] overflow-hidden">
                           <DemoPhoto photo={pic(i)} tone={site.theme.soft} ink={site.theme.ink} label={false} className="transition duration-500 group-hover:scale-105" />
                           {i.tag && <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-[var(--d-accent)] shadow">{i.tag}</span>}
@@ -266,9 +350,9 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
                             <Plus size={18} aria-hidden="true" />
                           </button>
                         </div>
-                      </li>
+                      </RevealItem>
                     ))}
-                </ul>
+                </RevealGroup>
               </div>
               <aside aria-label="Your order" className="sticky top-32 hidden h-fit max-h-[calc(100vh-9rem)] overflow-hidden rounded-3xl bg-[var(--d-surface)] shadow-[0_24px_60px_-34px_rgba(0,0,0,0.45)] lg:flex lg:flex-col">
                 {bag}
@@ -296,15 +380,23 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
           {/* Gallery */}
           <section id="gallery" className="scroll-mt-28 bg-[var(--d-surface)] px-6 py-20">
             <div className="mx-auto max-w-6xl">
-              <Eyebrow>Gallery</Eyebrow>
-              <h2 className={`mt-2 text-3xl md:text-4xl ${h}`}>Made fresh every day</h2>
-              <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-                {site.gallery.map((p, i) => (
-                  <div key={p.src} className="aspect-[4/5] overflow-hidden rounded-2xl">
-                    <DemoPhoto photo={p} tone={i % 2 ? site.theme.soft : "#EAD7C3"} ink={site.theme.ink} />
-                  </div>
-                ))}
-              </div>
+              <Reveal>
+                <Eyebrow>Gallery</Eyebrow>
+                <h2 className={`mt-2 text-3xl md:text-5xl ${h}`}>Made fresh every day</h2>
+              </Reveal>
+              {wall.length > 4 ? (
+                <div className="mt-10">
+                  <PhotoWall photos={wall} />
+                </div>
+              ) : (
+                <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+                  {site.gallery.map((p, i) => (
+                    <div key={p.src} className="aspect-[4/5] overflow-hidden rounded-2xl">
+                      <DemoPhoto photo={p} tone={i % 2 ? site.theme.soft : "#EAD7C3"} ink={site.theme.ink} />
+                    </div>
+                  ))}
+                </div>
+              )}
               <div className="mt-12 flex flex-col items-start justify-between gap-4 rounded-3xl bg-[var(--d-soft)] p-7 md:flex-row md:items-center">
                 <div>
                   <p className={`text-2xl ${h}`}>Coffee for your office or event</p>
