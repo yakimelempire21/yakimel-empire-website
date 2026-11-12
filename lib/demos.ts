@@ -1,6 +1,7 @@
-// Slugs that have a real, built-in demo at /demo/<slug>.
-// Add a slug here and register its component in app/demo/[slug]/page.tsx.
-export const DEMO_SLUGS = ["aurum"] as const;
+// Slugs that have a real, built-in demo at /demo/<slug> (they hide the site's
+// Nav/Footer and use their own top bar). Configs live in lib/demo-sites.ts;
+// "aurum" is the hand-built restaurant demo.
+export const DEMO_SLUGS = ["aurum", "clinic", "cafe", "waxing", "lashes", "nails", "store"] as const;
 
 export type DemoSlug = (typeof DEMO_SLUGS)[number];
 

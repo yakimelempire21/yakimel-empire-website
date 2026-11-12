@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { openJobs } from "@/lib/careers";
+import { DEMO_SITES } from "@/lib/demo-sites";
 import { isExternal, products } from "@/lib/products";
 import { SITE } from "@/lib/site";
 
@@ -22,6 +23,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     page("/services", 0.9),
     page("/consultation", 0.8),
     page("/templates", 0.7),
+    page("/demo", 0.8),
+    ...["aurum", ...DEMO_SITES.map((d) => d.slug)].map((slug) => page(`/demo/${slug}`, 0.5)),
     page("/products", 0.7),
     page("/about", 0.6),
     page("/faq", 0.6),

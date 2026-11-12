@@ -29,7 +29,7 @@ export const SITE = {
 /** Main navigation, shared by the header and footer. */
 export const NAV_LINKS = [
   { label: "Services", href: "/services" },
-  { label: "Our Work", href: "/templates" },
+  { label: "Demos", href: "/demo" },
   { label: "Products", href: "/products" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },

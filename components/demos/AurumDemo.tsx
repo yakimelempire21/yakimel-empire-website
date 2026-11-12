@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import DemoShell, { DemoNote } from "@/components/demos/DemoShell";
+import { RESTAURANT_DEMO } from "@/lib/demo-sites";
 
 const GOLD = "#c9a45c";
 const serif = "font-serif";
@@ -81,7 +82,7 @@ export default function AurumDemo() {
   const field = `w-full border border-[#3a2e22] bg-[#150f0a] px-4 py-3 text-sm text-[#f3ece0] placeholder:text-[#6f6252] ${focus}`;
 
   return (
-    <DemoShell name="Aurum">
+    <DemoShell name="Aurum" service="AI Business Package" chat={RESTAURANT_DEMO.chat}>
       <div className="bg-[#0c0806] text-[#f3ece0]">
         {/* Site nav */}
         <header className="sticky top-11 z-50 border-b border-[#2a2018] bg-[#0c0806]/90 backdrop-blur">

@@ -27,6 +27,7 @@ type Plan = {
   delivery: string;
   features: string[];
   service: string;
+  demo?: { href: string; label: string };
   featured?: boolean;
 };
 
@@ -38,6 +39,7 @@ const PLANS: Plan[] = [
     monthly: "$199",
     delivery: "Live in 7 days",
     service: "AI Business Package",
+    demo: { href: "/demo", label: "Try 5 live demos" },
     featured: true,
     features: [
       "Professional 5-page website",
@@ -55,6 +57,7 @@ const PLANS: Plan[] = [
     monthly: "$399",
     delivery: "Live in 14 days",
     service: "Clinic Package",
+    demo: { href: "/demo/clinic", label: "Try the clinic demo" },
     features: [
       "Everything in AI Business",
       "Online appointment booking",
@@ -70,6 +73,7 @@ const PLANS: Plan[] = [
     monthly: "$149",
     delivery: "Live in 14 days",
     service: "Shopify Store Rebuild",
+    demo: { href: "/demo/store", label: "Try the store demo" },
     features: [
       "New mobile-first design for your Shopify store",
       "Products, collections and menus reorganized",
@@ -177,6 +181,11 @@ export default function PricingPage() {
               >
                 Get started <span aria-hidden="true">&nbsp;→</span>
               </Link>
+              {plan.demo && (
+                <Link href={plan.demo.href} className={`mt-3 text-center text-sm font-semibold text-brand underline-offset-4 hover:underline ${focus}`}>
+                  {plan.demo.label}
+                </Link>
+              )}
             </article>
           ))}
         </div>
