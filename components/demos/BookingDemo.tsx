@@ -148,18 +148,23 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
                 {site.services
                   .find((c) => c.category === cat)!
                   .items.map((s) => (
-                    <li key={s.name} className="flex items-center justify-between gap-4 rounded-2xl border border-[var(--d-ink)]/10 bg-[var(--d-bg)] p-5">
-                      <div className="min-w-0">
+                    <li key={s.name} className="flex items-center justify-between gap-3 rounded-2xl border border-[var(--d-ink)]/10 bg-[var(--d-bg)] p-4 sm:gap-4 sm:p-5">
+                      {s.photo && (
+                        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl sm:h-20 sm:w-20 md:h-24 md:w-24">
+                          <DemoPhoto photo={{ src: `/demos/${site.slug}/${s.photo}`, alt: s.name }} tone={site.theme.soft} ink={site.theme.ink} label={false} />
+                        </div>
+                      )}
+                      <div className="min-w-0 flex-1">
                         <p className="font-semibold">{s.name}</p>
                         {s.desc && <p className="mt-1 text-sm text-[var(--d-muted)]">{s.desc}</p>}
-                        <p className="mt-2 flex items-center gap-3 text-sm">
-                          <span className="inline-flex items-center gap-1 text-[var(--d-muted)]">
+                        <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                          <span className="inline-flex items-center gap-1 whitespace-nowrap text-[var(--d-muted)]">
                             <Clock size={14} aria-hidden="true" /> {s.duration}
                           </span>
                           <span className="font-semibold text-[var(--d-accent)]">{price(s)}</span>
                         </p>
                       </div>
-                      <button type="button" onClick={() => pick(s)} className={`${dGhost} shrink-0 px-4 py-2`}>
+                      <button type="button" onClick={() => pick(s)} className={`${dGhost} shrink-0 px-3.5 py-2 sm:px-4`}>
                         Book
                       </button>
                     </li>
@@ -345,9 +350,14 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
               <h2 className={`mt-2 text-3xl md:text-4xl ${h}`}>{isClinic ? "Inside our clinic" : "Our work"}</h2>
               <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
                 {site.gallery.map((p, i) => (
-                  <div key={p.src} className="aspect-[4/5] overflow-hidden rounded-2xl">
-                    <DemoPhoto photo={p} tone={i % 2 ? site.theme.soft : site.theme.bg} ink={site.theme.ink} />
-                  </div>
+                  <figure key={p.src} className="group relative aspect-[4/5] overflow-hidden rounded-2xl">
+                    <DemoPhoto photo={p} tone={i % 2 ? site.theme.soft : site.theme.bg} ink={site.theme.ink} className="transition duration-500 group-hover:scale-105" />
+                    {have.has(p.src) && (
+                      <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-3 pb-3 pt-10 text-xs font-medium text-white md:translate-y-2 md:opacity-0 md:transition md:group-hover:translate-y-0 md:group-hover:opacity-100">
+                        {p.alt}
+                      </figcaption>
+                    )}
+                  </figure>
                 ))}
               </div>
             </div>

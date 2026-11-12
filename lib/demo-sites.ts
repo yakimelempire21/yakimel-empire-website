@@ -44,7 +44,7 @@ type Base = {
   features: string[];
 };
 
-export type ServiceItem = { name: string; duration: string; price: number; desc?: string };
+export type ServiceItem = { name: string; duration: string; price: number; desc?: string; /** File name in public/demos/<slug>/ */ photo?: string };
 export type BookingSite = Base & {
   kind: "booking";
   bookLabel: string;
@@ -327,8 +327,21 @@ export const DEMO_SITES: DemoSite[] = [
     tagline: "Nails done right, every time.",
     intro: "Gel manicures, acrylic and Gel-X sets, custom nail art and spa pedicures. See our work, pick a style and book your chair.",
     theme: { bg: "#FFF7F8", surface: "#FFFFFF", ink: "#2A1418", muted: "#735259", accent: "#D14B6A", accentInk: "#FFFFFF", soft: "#FBE1E7", font: "sans" },
-    hero: photo("nails", "hero.jpg", "Hands with glossy pink gel nails"),
-    gallery: gallery("nails", ["French tips", "Chrome nails", "Custom nail art", "Spa pedicure"]),
+    hero: photo("nails", "hero.jpg", "Almond nails with brown polka dots and cream stripes"),
+    gallery: [
+      photo("nails", "tortoise-almond.jpg", "Tortoiseshell almond set with gold studs"),
+      photo("nails", "pink-hearts.jpg", "Pink French tips with hearts"),
+      photo("nails", "tropical-3d.jpg", "Tropical 3D flowers and shells"),
+      photo("nails", "gel-toes.jpg", "Lilac French toes with butterflies"),
+      photo("nails", "brown-swirl.jpg", "Brown and white swirl almond nails"),
+      photo("nails", "winter-bows.jpg", "Winter set with bows and snowflakes"),
+      photo("nails", "white-3d-flower.jpg", "White 3D flowers with gold beads"),
+      photo("nails", "toes-teal-star.jpg", "Teal cat-eye toes with gold stars"),
+      photo("nails", "fall-floral.jpg", "Fall florals with leopard tips"),
+      photo("nails", "tortoise-gold-cross.jpg", "Tortoise and gold chrome accents"),
+      photo("nails", "toes-butterfly-glitter.jpg", "Glitter toes with gold butterflies"),
+      photo("nails", "toes-white-gems.jpg", "Milky white toes with crystals"),
+    ],
     location: "1502 Rogers Ave, Brooklyn, NY",
     phone: "(718) 555-0167",
     hours: [
@@ -345,18 +358,18 @@ export const DEMO_SITES: DemoSite[] = [
       {
         category: "Hands",
         items: [
-          { name: "Gel manicure", duration: "45 min", price: 40 },
-          { name: "Gel-X full set", duration: "1 hr 30 min", price: 70 },
-          { name: "Acrylic full set", duration: "1 hr 30 min", price: 65 },
-          { name: "Nail art (per set)", duration: "+30 min", price: 20, desc: "Chrome, French, 3D, hand-painted" },
+          { name: "Gel manicure", duration: "45 min", price: 40, desc: "Clean, glossy and natural", photo: "gel-manicure.jpg" },
+          { name: "Gel-X full set", duration: "1 hr 30 min", price: 70, desc: "Soft gel extensions, any shape", photo: "gelx-hearts.jpg" },
+          { name: "Acrylic full set", duration: "1 hr 30 min", price: 65, desc: "Strong, long-lasting length", photo: "white-3d-flower.jpg" },
+          { name: "Nail art (per set)", duration: "+30 min", price: 20, desc: "Chrome, French, 3D, hand-painted", photo: "tropical-3d.jpg" },
         ],
       },
       {
         category: "Feet",
         items: [
-          { name: "Classic pedicure", duration: "45 min", price: 40 },
-          { name: "Spa pedicure", duration: "1 hr", price: 55, desc: "Scrub, mask and hot towel" },
-          { name: "Gel toes", duration: "40 min", price: 35 },
+          { name: "Classic pedicure", duration: "45 min", price: 40, desc: "Soak, shape, cuticles and polish", photo: "classic-pedicure.jpg" },
+          { name: "Spa pedicure", duration: "1 hr", price: 55, desc: "Scrub, mask and hot towel", photo: "spa-pedicure.jpg" },
+          { name: "Gel toes", duration: "40 min", price: 35, desc: "Gel color that lasts 3+ weeks", photo: "gel-toes.jpg" },
         ],
       },
     ],
