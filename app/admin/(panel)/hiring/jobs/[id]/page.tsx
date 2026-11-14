@@ -25,11 +25,9 @@ export default async function EditJobPage({ params, searchParams }: { params: Pr
         back={{ href: "/admin/hiring?tab=jobs", label: "Hiring" }}
         action={
           <div className="flex items-center gap-3">
-            {job.status === "OPEN" && (
-              <a href={`/careers/${job.slug}`} target="_blank" rel="noopener noreferrer" className="text-sm text-os-muted hover:text-os-ink">
-                View on website ↗
-              </a>
-            )}
+            <a href={`/careers/${job.slug}/preview`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-os-accent hover:underline">
+              See it on the website ↗
+            </a>
             <Badge tone={job.status === "OPEN" ? "green" : job.status === "DRAFT" ? "amber" : "gray"}>{humanize(job.status)}</Badge>
           </div>
         }

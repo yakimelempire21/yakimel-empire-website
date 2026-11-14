@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Clock, MapPin } from "lucide-react";
+import { ArrowRight, Clock, MapPin, Wallet } from "lucide-react";
 import { openJobs } from "@/lib/careers";
 import { SITE } from "@/lib/site";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
@@ -67,6 +67,11 @@ export default async function CareersPage() {
                       {job.employmentType && (
                         <span className="inline-flex items-center gap-1.5">
                           <Clock size={14} aria-hidden="true" /> {job.employmentType}
+                        </span>
+                      )}
+                      {job.compensation && (
+                        <span className="inline-flex items-center gap-1.5 font-medium text-brand">
+                          <Wallet size={14} aria-hidden="true" /> {job.compensation}
                         </span>
                       )}
                     </p>

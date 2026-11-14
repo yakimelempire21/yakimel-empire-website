@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { Card, EmptyState, PageHeader, primaryButton } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
@@ -20,9 +21,9 @@ export default async function NewApplicantPage({ searchParams }: { searchParams:
           title="Create a job first"
           body="Applicants are tracked per job."
           action={
-            <a href="/admin/hiring/jobs/new" className={primaryButton}>
+            <Link href="/admin/hiring/jobs/new" className={primaryButton}>
               New job
-            </a>
+            </Link>
           }
         />
       ) : (

@@ -21,7 +21,10 @@ const slugify = (s: string) =>
 
 function refreshCareers(slug?: string) {
   revalidatePath("/careers");
-  if (slug) revalidatePath(`/careers/${slug}`);
+  if (slug) {
+    revalidatePath(`/careers/${slug}`);
+    revalidatePath(`/careers/${slug}/preview`);
+  }
   revalidatePath("/admin/hiring");
 }
 
@@ -43,6 +46,7 @@ export async function saveJob(id: string | null, _prev: JobFormState, form: Form
     description,
     responsibilities: str(form, "responsibilities"),
     requirements: str(form, "requirements"),
+    policy: str(form, "policy"),
     status,
   };
 

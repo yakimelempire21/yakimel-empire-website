@@ -15,6 +15,7 @@ type Job = {
   description: string;
   responsibilities: string | null;
   requirements: string | null;
+  policy: string | null;
   status: string;
 };
 
@@ -39,13 +40,20 @@ export default function JobForm({ job }: { job?: Job }) {
         <Field label="Location" name="location" defaultValue={job?.location} placeholder="Remote (anywhere)" />
         <Field label="Type" name="employmentType" defaultValue={job?.employmentType} placeholder="Independent contractor · Flexible hours" />
       </div>
-      <Field label="Pay" name="compensation" defaultValue={job?.compensation} placeholder="Commission only — 15% of each client's first payment" />
+      <Field label="Pay" name="compensation" defaultValue={job?.compensation} placeholder="10% commission on each client's setup payment" />
       <Field label="Short summary (shown in the list)" name="summary" defaultValue={job?.summary} />
       <Area label="Description" name="description" rows={5} value={job?.description} required />
       <div className="grid gap-4 md:grid-cols-2">
         <Area label="What they'll do" name="responsibilities" rows={6} value={job?.responsibilities} hint="One item per line." />
         <Area label="What we're looking for" name="requirements" rows={6} value={job?.requirements} hint="One item per line." />
       </div>
+      <Area
+        label="Policies & terms"
+        name="policy"
+        rows={8}
+        value={job?.policy}
+        hint="One rule per line: commission %, when and how people get paid, conduct, confidentiality… Shown on the job page."
+      />
       <label className="block max-w-xs">
         <span className={labelClass}>Status</span>
         <select name="status" defaultValue={job?.status ?? "DRAFT"} className={inputClass}>

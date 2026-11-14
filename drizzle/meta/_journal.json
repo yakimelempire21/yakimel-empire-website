@@ -50,6 +50,13 @@
       "when": 1794253670606,
       "tag": "0006_hiring",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1794691738317,
+      "tag": "0007_job_policy",
+      "breakpoints": true
     }
   ]
 }

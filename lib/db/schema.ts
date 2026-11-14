@@ -712,6 +712,8 @@ export const jobs = pgTable("jobs", {
   description: text("description").notNull(),
   responsibilities: text("responsibilities"),
   requirements: text("requirements"),
+  /** Rules and terms for this role (pay, conduct, confidentiality…), one per line. */
+  policy: text("policy"),
   status: jobStatus("status").default("DRAFT").notNull(),
   publishedAt: timestamp("published_at", { withTimezone: true }),
   createdAt: createdAt(),

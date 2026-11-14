@@ -2,7 +2,7 @@ import Link from "next/link";
 import { count, desc, eq } from "drizzle-orm";
 import { Badge, Card, EmptyState, PageHeader, Table, primaryButton, secondaryButton } from "@/components/admin/ui";
 import { requireUser } from "@/lib/admin/auth";
-import { APPLICATION_STATUSES, APPLICATION_TONES, formatDate, humanize, timeAgo } from "@/lib/admin/format";
+import { APPLICATION_STATUSES, APPLICATION_TONES, humanize, timeAgo } from "@/lib/admin/format";
 import { db, tables as t } from "@/lib/db";
 import StageSelect from "./StageSelect";
 
@@ -90,7 +90,7 @@ export default async function HiringPage({ searchParams }: { searchParams: Promi
         jobs.length === 0 ? (
           <EmptyState title="No jobs yet" body="Create a job post. When it's Open, it appears on yakimelempire.com/careers." />
         ) : (
-          <Table head={["Job", "Status", "Applications", "Location", "Created"]}>
+          <Table head={["Job", "Status", "Applications", "Pay", "Website", ""]}>
             {jobs.map((j) => (
               <tr key={j.id} className="hover:bg-os-ink/[0.03]">
                 <td className="px-5 py-3.5">
@@ -107,8 +107,17 @@ export default async function HiringPage({ searchParams }: { searchParams: Promi
                     {counts.get(j.id) ?? 0}
                   </Link>
                 </td>
-                <td className="px-5 py-3.5 text-os-muted">{j.location ?? "—"}</td>
-                <td className="whitespace-nowrap px-5 py-3.5 text-os-muted">{formatDate(j.createdAt)}</td>
+                <td className="px-5 py-3.5 text-os-muted">{j.compensation ?? "—"}</td>
+                <td className="whitespace-nowrap px-5 py-3.5">
+                  <a href={`/careers/${j.slug}/preview`} target="_blank" rel="noopener noreferrer" className="text-os-accent hover:underline">
+                    See it ↗
+                  </a>
+                </td>
+                <td className="whitespace-nowrap px-5 py-3.5">
+                  <Link href={`/admin/hiring/jobs/${j.id}`} className="font-medium text-os-ink hover:text-os-accent">
+                    Edit
+                  </Link>
+                </td>
               </tr>
             ))}
           </Table>
