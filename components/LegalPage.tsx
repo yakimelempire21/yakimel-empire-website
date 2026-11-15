@@ -8,18 +8,21 @@ export default function LegalPage({
   title,
   intro,
   sections,
+  updated = SITE.legalUpdated,
 }: {
   eyebrow: string;
   title: string;
   intro: React.ReactNode;
   sections: LegalSection[];
+  /** Date shown as "Last updated" (defaults to SITE.legalUpdated). */
+  updated?: string;
 }) {
   return (
     <main className="min-h-screen bg-bg-dark px-6 pb-24 pt-32 text-ink-invert">
       <article className="mx-auto max-w-3xl">
         <p className="font-mono text-xs uppercase tracking-widest text-brand">{eyebrow}</p>
         <h1 className="mt-3 font-display text-4xl font-bold md:text-5xl">{title}</h1>
-        <p className="mt-4 font-mono text-xs text-dim-invert">Last updated: {SITE.legalUpdated}</p>
+        <p className="mt-4 font-mono text-xs text-dim-invert">Last updated: {updated}</p>
         <div className="mt-8 text-base leading-relaxed text-dim-invert">{intro}</div>
 
         <div className="mt-12 space-y-10">

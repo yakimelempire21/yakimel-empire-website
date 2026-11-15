@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Clock, MapPin, Wallet } from "lucide-react";
-import { openJobs } from "@/lib/careers";
+import { ArrowRight, Wallet } from "lucide-react";
+import { jobFacts, openJobs } from "@/lib/careers";
 import { SITE } from "@/lib/site";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 export const revalidate = 300;
+
+const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 
 const title = "Careers — Join Yakimel Empire";
 const description = "Open roles at Yakimel Empire LLC. Work remotely with a New York technology company building websites, apps and AI for small businesses.";
@@ -47,39 +49,38 @@ export default async function CareersPage() {
             </p>
           </div>
         ) : (
-          <RevealGroup className="mt-8 space-y-4">
+          <RevealGroup className="mt-8 space-y-5">
             {jobs.map((job) => (
               <RevealItem key={job.id}>
-                <Link
-                  href={`/careers/${job.slug}`}
-                  className="group flex flex-col gap-4 rounded-2xl border border-ink-invert/15 bg-surface/60 p-6 transition-colors hover:border-brand/60 sm:flex-row sm:items-center sm:justify-between md:p-8"
-                >
-                  <div>
-                    {job.team && <p className="font-mono text-xs uppercase tracking-widest text-brand">{job.team}</p>}
-                    <h3 className="mt-2 font-display text-xl font-semibold md:text-2xl">{job.title}</h3>
-                    {job.summary && <p className="mt-2 max-w-xl text-sm text-dim-invert">{job.summary}</p>}
-                    <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-dim-invert">
-                      {job.location && (
-                        <span className="inline-flex items-center gap-1.5">
-                          <MapPin size={14} aria-hidden="true" /> {job.location}
-                        </span>
-                      )}
-                      {job.employmentType && (
-                        <span className="inline-flex items-center gap-1.5">
-                          <Clock size={14} aria-hidden="true" /> {job.employmentType}
-                        </span>
-                      )}
-                      {job.compensation && (
-                        <span className="inline-flex items-center gap-1.5 font-medium text-brand">
-                          <Wallet size={14} aria-hidden="true" /> {job.compensation}
-                        </span>
-                      )}
+                <article className="rounded-2xl border border-ink-invert/15 bg-white p-6 shadow-[0_18px_40px_-32px_rgba(14,59,50,0.5)] md:p-8">
+                  {job.team && <p className="font-mono text-xs uppercase tracking-widest text-brand">{job.team}</p>}
+                  <h3 className="mt-2 text-balance break-words font-display text-xl font-semibold md:text-2xl">
+                    <Link href={`/careers/${job.slug}`} className={`rounded hover:text-brand ${focus}`}>
+                      {job.title}
+                    </Link>
+                  </h3>
+                  {job.summary && <p className="mt-3 max-w-2xl leading-relaxed text-ink-invert/85">{job.summary}</p>}
+                  <ul className="mt-4 flex flex-wrap gap-2 text-sm" aria-label="Role details">
+                    {jobFacts(job).map((fact) => (
+                      <li key={fact} className="rounded-full border border-ink-invert/15 bg-bg-dark/50 px-3.5 py-1 text-ink-invert">
+                        {fact}
+                      </li>
+                    ))}
+                  </ul>
+                  {job.compensation && (
+                    <p className="mt-4 flex items-start gap-2 font-semibold text-brand">
+                      <Wallet size={18} aria-hidden="true" className="mt-0.5 shrink-0" /> {job.compensation}
                     </p>
-                  </div>
-                  <span className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ink-invert">
-                    View role <ArrowRight size={16} aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
-                  </span>
-                </Link>
+                  )}
+                  <Link
+                    href={`/careers/${job.slug}`}
+                    aria-label={`View role and apply: ${job.title}`}
+                    className={`group mt-6 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark ${focus}`}
+                  >
+                    View Role &amp; Apply
+                    <ArrowRight size={16} aria-hidden="true" className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+                  </Link>
+                </article>
               </RevealItem>
             ))}
           </RevealGroup>

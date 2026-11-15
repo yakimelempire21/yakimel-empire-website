@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const job = await openJobBySlug((await params).slug);
   if (!job) return { title: "Careers | Yakimel Empire" };
   const title = `${job.title} — Careers at Yakimel Empire`;
-  return { title, description: job.summary ?? undefined, openGraph: { title, description: job.summary ?? undefined, siteName: SITE.name } };
+  return { title, description: job.summary ?? undefined, alternates: { canonical: `/careers/${job.slug}` }, openGraph: { title, description: job.summary ?? undefined, siteName: SITE.name } };
 }
 
 export default async function JobPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,7 +32,6 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
     employmentType: "CONTRACTOR",
     hiringOrganization: { "@type": "Organization", name: SITE.name, sameAs: SITE.url },
     jobLocationType: /remote/i.test(job.location ?? "") ? "TELECOMMUTE" : undefined,
-    applicantLocationRequirements: /remote/i.test(job.location ?? "") ? { "@type": "Country", name: "Worldwide" } : undefined,
   };
 
   return (

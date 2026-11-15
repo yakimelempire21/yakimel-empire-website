@@ -36,3 +36,19 @@ export const lines = (text: string | null | undefined) =>
     .filter(Boolean);
 
 export const RESUME_TYPES = /^(application\/pdf|application\/msword|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document)$/;
+
+/** FAQ text → [{ q, a }]: blocks separated by a blank line, first line is the question. */
+export const faqItems = (text: string | null | undefined) =>
+  (text ?? "")
+    .split(/\r?\n\s*\r?\n/)
+    .map((block) => block.split(/\r?\n/).map((l) => l.trim()).filter(Boolean))
+    .filter((b) => b.length >= 2)
+    .map(([q, ...a]) => ({ q, a: a.join(" ") }));
+
+/** Short facts shown as chips: location plus each "·"-separated part of the employment type. */
+export const jobFacts = (job: { location: string | null; employmentType: string | null }) =>
+  [job.location, ...(job.employmentType ?? "").split("·")].map((s) => s?.trim()).filter((s): s is string => Boolean(s));
+
+/** Applicant files we accept. Checked by extension, declared type and the file's first bytes. */
+export const RESUME_MAX_LABEL = "4 MB";
+export const RESUME_EXTENSIONS = /\.(pdf|docx?)$/i;

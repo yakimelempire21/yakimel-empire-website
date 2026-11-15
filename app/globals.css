@@ -34,8 +34,11 @@
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Smooth jumps to #anchors, except for people who ask for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Lenis smooth scrolling takes over from the browser's own. */

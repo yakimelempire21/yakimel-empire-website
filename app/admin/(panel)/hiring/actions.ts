@@ -47,6 +47,8 @@ export async function saveJob(id: string | null, _prev: JobFormState, form: Form
     responsibilities: str(form, "responsibilities"),
     requirements: str(form, "requirements"),
     policy: str(form, "policy"),
+    compensationDetails: str(form, "compensationDetails"),
+    faq: str(form, "faq"),
     status,
   };
 

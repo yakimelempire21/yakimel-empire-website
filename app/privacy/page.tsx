@@ -20,6 +20,7 @@ export default function PrivacyPage() {
     <LegalPage
       eyebrow="Legal"
       title="Privacy Policy"
+      updated="November 15, 2026"
       intro={
         <p>
           This Privacy Policy explains how {SITE.name} (&quot;we&quot;, &quot;us&quot;) handles
@@ -40,6 +41,11 @@ export default function PrivacyPage() {
                   project type, budget, timeline, project description and existing website.
                 </li>
                 <li>
+                  <strong>Job applications:</strong> your name, email, phone or WhatsApp number,
+                  city and country, any link you add, your answer to &quot;Why are you a good
+                  fit?&quot; and your résumé if you upload one.
+                </li>
+                <li>
                   <strong>Messages and chat:</strong> your name, email and message, including the
                   chat conversation if you ask the chat assistant to connect you with our team.
                 </li>
@@ -57,6 +63,10 @@ export default function PrivacyPage() {
           body: (
             <ul>
               <li>To reply to your request and discuss your project.</li>
+              <li>
+                To review job applications. Applications are seen only by our team, and résumés are
+                kept in private storage that is not publicly accessible.
+              </li>
               <li>To send you a confirmation and reference number for your request.</li>
               <li>To prepare quotes, proposals and agreements you ask for.</li>
               <li>To keep the Site secure and prevent spam or abuse.</li>
@@ -90,7 +100,8 @@ export default function PrivacyPage() {
           body: (
             <p>
               We keep project requests and messages for as long as needed to respond to you, carry
-              out any work we agree on, and meet our legal and accounting obligations.
+              out any work we agree on, and meet our legal and accounting obligations. We keep job
+              applications for as long as needed to review them and meet our legal obligations.
             </p>
           ),
         },

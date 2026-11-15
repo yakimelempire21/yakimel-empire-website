@@ -57,6 +57,13 @@
       "when": 1794691738317,
       "tag": "0007_job_policy",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1794761958053,
+      "tag": "0008_careers_v2",
+      "breakpoints": true
     }
   ]
 }

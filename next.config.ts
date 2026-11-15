@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        // The outreach role's earlier URL.
+        source: "/careers/marketing-sales-representative",
+        destination: "/careers/marketing-client-outreach-representative",
+        permanent: true,
+      },
+      {
         // EZNOB is no longer part of Yakimel Empire.
         source: "/eznob",
         destination: "/",

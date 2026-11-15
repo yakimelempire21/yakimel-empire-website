@@ -714,6 +714,10 @@ export const jobs = pgTable("jobs", {
   requirements: text("requirements"),
   /** Rules and terms for this role (pay, conduct, confidentiality…), one per line. */
   policy: text("policy"),
+  /** Compensation card on the job page: first line is the heading, then one sentence per line. */
+  compensationDetails: text("compensation_details"),
+  /** FAQ on the job page: blocks separated by a blank line; first line is the question. */
+  faq: text("faq"),
   status: jobStatus("status").default("DRAFT").notNull(),
   publishedAt: timestamp("published_at", { withTimezone: true }),
   createdAt: createdAt(),

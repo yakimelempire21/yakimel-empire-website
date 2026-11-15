@@ -16,6 +16,8 @@ type Job = {
   responsibilities: string | null;
   requirements: string | null;
   policy: string | null;
+  compensationDetails: string | null;
+  faq: string | null;
   status: string;
 };
 
@@ -40,7 +42,7 @@ export default function JobForm({ job }: { job?: Job }) {
         <Field label="Location" name="location" defaultValue={job?.location} placeholder="Remote (anywhere)" />
         <Field label="Type" name="employmentType" defaultValue={job?.employmentType} placeholder="Independent contractor · Flexible hours" />
       </div>
-      <Field label="Pay" name="compensation" defaultValue={job?.compensation} placeholder="10% commission on each client's setup payment" />
+      <Field label="Pay" name="compensation" defaultValue={job?.compensation} placeholder="Earn 15% of each referred client’s first payment." />
       <Field label="Short summary (shown in the list)" name="summary" defaultValue={job?.summary} />
       <Area label="Description" name="description" rows={5} value={job?.description} required />
       <div className="grid gap-4 md:grid-cols-2">
@@ -48,11 +50,25 @@ export default function JobForm({ job }: { job?: Job }) {
         <Area label="What we're looking for" name="requirements" rows={6} value={job?.requirements} hint="One item per line." />
       </div>
       <Area
+        label="Compensation card"
+        name="compensationDetails"
+        rows={5}
+        value={job?.compensationDetails}
+        hint="First line is the card's heading, then one sentence per line. A line starting with “Example” is highlighted."
+      />
+      <Area
         label="Policies & terms"
         name="policy"
         rows={8}
         value={job?.policy}
         hint="One rule per line: commission %, when and how people get paid, conduct, confidentiality… Shown on the job page."
+      />
+      <Area
+        label="FAQ"
+        name="faq"
+        rows={8}
+        value={job?.faq}
+        hint="Question on the first line, answer below it. Leave an empty line between questions. Only publish answers the business has approved."
       />
       <label className="block max-w-xs">
         <span className={labelClass}>Status</span>
