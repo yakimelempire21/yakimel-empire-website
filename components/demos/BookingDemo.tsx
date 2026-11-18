@@ -51,16 +51,12 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
     { label: "Visit", href: "#visit" },
   ];
   const chosenDay = days.find((d) => d.iso === day);
-  const reminder = site.reminder
-    .replace("{name}", client.name.split(" ")[0] || "there")
-    .replace("{service}", service?.name.toLowerCase() ?? "appointment")
-    .replace("{time}", time ?? "");
   // A couple of times look "taken" so the calendar feels real.
   const taken = (t: string, i: number) => (day ? (day.charCodeAt(day.length - 1) + i) % 4 === 0 : false) && t !== time;
 
   return (
     <PhotoContext.Provider value={have}>
-      <DemoShell name={site.name} service={site.pkg} chat={site.chat}>
+      <DemoShell name={site.name} service={site.pkg}>
         <div style={themeVars(site)} className="bg-[var(--d-bg)] text-[var(--d-ink)]">
           {/* Site nav */}
           <header className="sticky top-11 z-50 border-b border-[var(--d-ink)]/10 bg-[var(--d-bg)]/90 backdrop-blur">
@@ -238,7 +234,7 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
               <div className="text-center">
                 <Eyebrow>Online booking</Eyebrow>
                 <h2 className={`mt-2 text-3xl md:text-4xl ${h}`}>{site.bookLabel}</h2>
-                <p className="mt-3 text-[var(--d-muted)]">Pick a service, a day and a time. You&apos;ll get a reminder on WhatsApp.</p>
+                <p className="mt-3 text-[var(--d-muted)]">Pick a service, a day and a time. It takes under a minute.</p>
               </div>
 
               <div className="mt-10 overflow-hidden rounded-3xl bg-[var(--d-surface)] shadow-[0_24px_60px_-34px_rgba(0,0,0,0.45)]">
@@ -348,7 +344,7 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
                           <input required value={client.name} onChange={(e) => setClient({ ...client, name: e.target.value })} className={dField} placeholder="Your name" autoComplete="off" />
                         </label>
                         <label className="block">
-                          <span className="mb-1.5 block text-sm font-semibold">WhatsApp number</span>
+                          <span className="mb-1.5 block text-sm font-semibold">Phone number</span>
                           <input required value={client.phone} onChange={(e) => setClient({ ...client, phone: e.target.value })} className={dField} placeholder="+1 (555) 000-0000" inputMode="tel" autoComplete="off" />
                         </label>
                         {isClinic && (
@@ -379,10 +375,6 @@ export default function BookingDemo({ site, photos }: { site: BookingSite; photo
                       <p className="mt-2 text-[var(--d-muted)]">
                         {service.name} · {chosenDay?.day}, {chosenDay?.date} at {time}
                       </p>
-                      <div className="mx-auto mt-8 max-w-sm rounded-2xl bg-[#EFEAE2] p-4 text-left">
-                        <p className="mb-2 text-center text-[11px] font-semibold uppercase tracking-wider text-[#667781]">Reminder sent on WhatsApp the day before</p>
-                        <p className="rounded-xl rounded-tl-sm bg-white px-3 py-2 text-[13.5px] leading-snug text-[#111b21] shadow-sm">{reminder}</p>
-                      </div>
                       <p className="mt-6 text-xs text-[var(--d-muted)]">Demo only: no appointment was made and no message was sent.</p>
                       <button
                         type="button"

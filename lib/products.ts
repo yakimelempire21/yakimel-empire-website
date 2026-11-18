@@ -144,24 +144,6 @@ const allProducts: Product[] = [
     showOnProductsPage: false,
   },
   {
-    slug: "whatsapp-ai-assistant",
-    name: "WhatsApp AI Assistant",
-    type: "ai-app",
-    tabs: ["ai-app"],
-    industry: "Small Business",
-    categoryLabel: "AI Assistant",
-    description:
-      "An AI assistant on WhatsApp that answers customers and takes bookings and orders in English, French, Spanish and Haitian Creole.",
-    image: "/products/apps/whatsapp-ai-assistant.svg",
-    status: "live",
-    detailsUrl: "/products/whatsapp-ai-assistant",
-    primaryCta: {
-      label: "Get a Quote",
-      href: "/consultation?service=WhatsApp%20AI%20Assistant",
-    },
-    showOnProductsPage: false,
-  },
-  {
     slug: "health-hyr",
     name: "Health Hyr",
     type: "app",

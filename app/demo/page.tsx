@@ -3,14 +3,14 @@ import path from "node:path";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarCheck, MessageCircle, ShoppingBag, Smartphone } from "lucide-react";
+import { ArrowRight, CalendarCheck, ShoppingBag, Smartphone } from "lucide-react";
 import { DEMO_SITES, RESTAURANT_DEMO, type DemoSite } from "@/lib/demo-sites";
 import { SITE } from "@/lib/site";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 const title = "Live Demos — Try Your Future Website | Yakimel Empire";
 const description =
-  "Click through real demo websites for restaurants, cafés, clinics, nail techs, lash and waxing studios and online stores, with online booking and a 24/7 WhatsApp AI assistant.";
+  "Click through real demo websites for restaurants, cafés, clinics, nail techs, lash and waxing studios and online stores, with online booking, ordering and checkout.";
 
 export const metadata: Metadata = {
   title,
@@ -83,7 +83,7 @@ export default function DemosPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-ink/70">Live demos</p>
           <h1 className="mt-3 font-display text-4xl font-bold leading-tight md:text-6xl">Try your future website before you buy.</h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-ink/80">
-            Click around, book an appointment, place an order and chat with the WhatsApp AI assistant. This is exactly what your
+            Click around, book an appointment, place an order This is exactly what your
             customers will see, with your name, photos and prices.
           </p>
         </Reveal>
@@ -91,7 +91,6 @@ export default function DemosPage() {
           {[
             [CalendarCheck, "Online booking"],
             [ShoppingBag, "Order & checkout"],
-            [MessageCircle, "WhatsApp AI 24/7"],
             [Smartphone, "Perfect on phones"],
           ].map(([Icon, label]) => {
             const I = Icon as typeof CalendarCheck;
@@ -131,7 +130,7 @@ export default function DemosPage() {
                       Open demo <ArrowRight size={15} aria-hidden="true" />
                     </Link>
                     <Link
-                      href={`/consultation?service=${encodeURIComponent(c.site?.pkg ?? "AI Business Package")}`}
+                      href={`/consultation?service=${encodeURIComponent(c.site?.pkg ?? "Business Website Package")}`}
                       className={`text-sm font-semibold text-ink underline-offset-4 hover:underline ${focus}`}
                     >
                       I want this

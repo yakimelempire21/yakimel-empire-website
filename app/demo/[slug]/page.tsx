@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const name = site?.name ?? getProduct(slug)?.name;
   return {
     title: name ? `${name} — Live Demo | Yakimel Empire` : "Demo | Yakimel Empire",
-    description: site ? `Try a live ${site.businessType.toLowerCase()} website demo with online booking and a WhatsApp AI assistant, built by Yakimel Empire.` : undefined,
+    description: site ? `Try a live ${site.businessType.toLowerCase()} website demo, built by Yakimel Empire.` : undefined,
     alternates: { canonical: `/demo/${slug}` },
   };
 }

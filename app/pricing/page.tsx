@@ -8,7 +8,7 @@ export const revalidate = 600;
 
 const title = "Pricing — AI, Websites & Apps for Small Businesses | Yakimel Empire";
 const description =
-  "Clear packages for small businesses and clinics: a website with a 24/7 WhatsApp AI assistant, online booking, and custom apps. Delivered fast, supported every month.";
+  "Clear packages for small businesses and clinics: professional websites, Shopify stores and custom apps. Delivered fast, supported every month.";
 
 export const metadata: Metadata = {
   title,
@@ -33,20 +33,17 @@ type Plan = {
 
 const PLANS: Plan[] = [
   {
-    name: "AI Business",
+    name: "Business Website",
     forWho: "For restaurants, shops, salons and local services",
     setup: "$1,500",
     monthly: "$199",
     delivery: "Live in 7 days",
-    service: "AI Business Package",
+    service: "Business Website Package",
     demo: { href: "/demo", label: "Try 5 live demos" },
     featured: true,
     features: [
       "Professional 5-page website",
-      "WhatsApp AI assistant that answers customers 24/7",
-      "Replies in English, French, Spanish and Haitian Creole",
       "Google Business Profile set up",
-      "Every request lands in one dashboard",
       "Hosting, security, updates and small changes included",
     ],
   },
@@ -59,9 +56,8 @@ const PLANS: Plan[] = [
     service: "Clinic Package",
     demo: { href: "/demo/clinic", label: "Try the clinic demo" },
     features: [
-      "Everything in AI Business",
+      "Everything in Business Website",
       "Online appointment booking",
-      "Automatic WhatsApp reminders to cut no-shows",
       "Patient intake forms",
       "Priority support",
     ],
@@ -104,7 +100,7 @@ const PLANS: Plan[] = [
 const FAQ = [
   {
     q: "What does the monthly fee cover?",
-    a: "Hosting, security, backups, the AI assistant, software updates and small content changes. You never pay extra to keep your site or assistant running.",
+    a: "Hosting, security, backups, software updates and small content changes. You never pay extra to keep your site running.",
   },
   {
     q: "How do payments work?",

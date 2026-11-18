@@ -68,7 +68,7 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
           </span>
           <p className={`mt-4 text-2xl ${h}`}>Order #{placed.number} received!</p>
           <p className="mt-2 text-sm text-[var(--d-muted)]">
-            Thanks {placed.name}. Pickup: {placed.pickup.toLowerCase()}. We&apos;ll send you a WhatsApp message when it&apos;s ready.
+            Thanks {placed.name}. Pickup: {placed.pickup.toLowerCase()}. It will be ready at the counter.
           </p>
           <p className="mt-6 text-xs text-[var(--d-muted)]">Demo only: nothing was ordered or charged.</p>
           <button
@@ -158,7 +158,7 @@ export default function CafeDemo({ site, photos }: { site: CafeSite; photos: str
 
   return (
     <PhotoContext.Provider value={have}>
-      <DemoShell name={site.name} service={site.pkg} chat={site.chat}>
+      <DemoShell name={site.name} service={site.pkg}>
         <div style={themeVars(site)} className="bg-[var(--d-bg)] text-[var(--d-ink)]">
           <header className="sticky top-11 z-50 border-b border-[var(--d-ink)]/10 bg-[var(--d-bg)]/90 backdrop-blur">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">

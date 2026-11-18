@@ -84,10 +84,10 @@ export const services: Service[] = [
     title: "Business Website",
     priceLabel: "Starting at",
     price: "$1,500",
-    description: "5-page website with a WhatsApp AI assistant, Google Business Profile and a private dashboard. $199/month after launch.",
+    description: "Professional 5-page website with Google Business Profile set up. $199/month after launch for hosting, security and updates.",
     buttonLabel: "View Packages",
     image: "/services/business-website.jpg",
-    details: ["Professional 5-page website", "WhatsApp AI assistant, 24/7", "Google Business Profile set up", "Hosting, security and updates for $199/month"],
+    details: ["Professional 5-page website", "Mobile-friendly design", "Google Business Profile set up", "Hosting, security and updates for $199/month"],
     action: "modal",
   },
   {

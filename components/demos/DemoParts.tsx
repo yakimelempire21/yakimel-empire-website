@@ -109,7 +109,7 @@ export function DemoFooter({ site }: { site: DemoSite }) {
       <p className={`text-lg text-white ${heading(site)}`}>{site.name}</p>
       <p className="mt-2">{site.location}</p>
       <p className="mt-6 text-xs uppercase tracking-[0.2em] text-white/45">Demo preview · sample business · nothing is booked or charged</p>
-      <p className="mt-2 text-xs text-white/45">Website + AI assistant by Yakimel Empire</p>
+      <p className="mt-2 text-xs text-white/45">Website by Yakimel Empire</p>
     </footer>
   );
 }

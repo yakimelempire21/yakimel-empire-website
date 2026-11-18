@@ -12,7 +12,7 @@ import { SITE } from "@/lib/site";
 
 
 const SITE_DESCRIPTION =
-  "Yakimel Empire LLC designs and builds websites, online stores, apps and AI tools for small businesses, with clear starting prices and a private dashboard you control.";
+  "Yakimel Empire LLC designs and builds websites, online stores, apps and AI tools for small businesses, with clear starting prices.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),

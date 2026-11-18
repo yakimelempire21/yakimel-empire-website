@@ -13,7 +13,7 @@ export default function OrganizationSchema() {
     logo: `${SITE.url}/yakimel-logo.png`,
     image: `${SITE.url}/opengraph-image`,
     description:
-      "Yakimel Empire LLC designs and builds websites, Shopify stores, apps and WhatsApp AI assistants for small businesses in the United States, Haiti and the diaspora.",
+      "Yakimel Empire LLC designs and builds websites, Shopify stores, apps and AI tools for small businesses in the United States, Haiti and the diaspora.",
     email: SITE.email,
     ...(SITE.phone ? { telephone: SITE.phone } : {}),
     address: { "@type": "PostalAddress", addressLocality: "New York", addressRegion: "NY", addressCountry: "US" },
@@ -21,7 +21,7 @@ export default function OrganizationSchema() {
     knowsLanguage: ["en", "fr", "es", "ht"],
     priceRange: "$$",
     makesOffer: [
-      { "@type": "Offer", name: "AI Business package: website + WhatsApp AI assistant", price: "1500", priceCurrency: "USD" },
+      { "@type": "Offer", name: "Business Website package", price: "1500", priceCurrency: "USD" },
       { "@type": "Offer", name: "Shopify Store Rebuild", price: "2500", priceCurrency: "USD" },
     ],
     ...(sameAs.length ? { sameAs } : {}),

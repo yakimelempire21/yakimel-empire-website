@@ -19,7 +19,7 @@ const STEPS = [
   },
   {
     title: "Launch & grow",
-    body: "We launch, show you how to run your dashboard, and stay available for maintenance, updates and new features.",
+    body: "We launch, show you how everything works, and stay available for maintenance, updates and new features.",
   },
 ];
 

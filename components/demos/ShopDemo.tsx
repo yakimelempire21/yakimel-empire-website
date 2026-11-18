@@ -51,7 +51,7 @@ export default function ShopDemo({ site, photos }: { site: StoreSite; photos: st
 
   return (
     <PhotoContext.Provider value={have}>
-      <DemoShell name={site.name} service={site.pkg} chat={site.chat}>
+      <DemoShell name={site.name} service={site.pkg}>
         <div style={themeVars(site)} className="bg-[var(--d-bg)] text-[var(--d-ink)]">
           <p className="bg-[var(--d-ink)] px-4 py-2 text-center text-xs font-medium tracking-wide text-white">
             Free shipping on orders over {money(site.freeShipping)} · US & Canada
@@ -257,7 +257,7 @@ export default function ShopDemo({ site, photos }: { site: StoreSite; photos: st
                       <Check size={28} aria-hidden="true" />
                     </span>
                     <p className={`mt-4 text-2xl ${h}`}>Order #{orderNo} confirmed</p>
-                    <p className="mt-2 text-sm text-[var(--d-muted)]">A confirmation and tracking link are on their way by email and WhatsApp.</p>
+                    <p className="mt-2 text-sm text-[var(--d-muted)]">A confirmation and tracking link are on their way by email.</p>
                     <p className="mt-6 text-xs text-[var(--d-muted)]">Demo only: nothing was charged or shipped.</p>
                     <button
                       type="button"

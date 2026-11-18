@@ -37,12 +37,11 @@ export async function publishedReviews(limit = 6): Promise<PublicReview[]> {
 export const REVIEW_PAGES = ["/", "/pricing"];
 
 export const REVIEW_SERVICES = [
-  "AI Business Package",
+  "Business Website Package",
   "Clinic Package",
   "Shopify Store Rebuild",
   "Website",
   "Mobile or web app",
-  "WhatsApp AI Assistant",
   "EZNOB business services",
   "Other",
 ];

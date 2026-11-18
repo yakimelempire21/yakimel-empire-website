@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import HomeAbout from "@/components/home/HomeAbout";
-import Expertise from "@/components/Expertise";
 import HomeProducts from "@/components/home/HomeProducts";
 import HomeCTA from "@/components/home/HomeCTA";
 import { SITE } from "@/lib/site";
@@ -20,7 +19,6 @@ export default function AboutPage() {
   return (
     <main className="pt-20">
       <HomeAbout />
-      <Expertise />
       <HomeProducts />
       <HomeCTA />
     </main>

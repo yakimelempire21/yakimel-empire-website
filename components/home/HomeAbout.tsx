@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion/Reveal";
 const PILLARS = [
   { title: "Websites & stores", body: "Business sites, Shopify and e-commerce, redesigns." },
   { title: "Apps & software", body: "Web and mobile apps, marketplaces, custom platforms." },
-  { title: "AI & automation", body: "AI assistants, chatbots and automated workflows." },
+  { title: "AI & automation", body: "AI features and automated workflows, built per project." },
 ];
 
 export default function HomeAbout() {
@@ -19,8 +19,7 @@ export default function HomeAbout() {
           <div className="mt-6 space-y-4 leading-relaxed text-dim-invert">
             <p>
               Yakimel Empire LLC designs and builds digital products for small businesses,
-              entrepreneurs and organizations, and develops its own platforms such as DigiMarket
-              and our WhatsApp AI Assistant.
+              entrepreneurs and organizations, and develops its own platforms such as DigiMarket.
             </p>
             <p>
               We combine design, engineering and AI to turn ideas into tools that work: sites that

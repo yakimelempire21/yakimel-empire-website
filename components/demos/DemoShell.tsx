@@ -1,22 +1,16 @@
 import Link from "next/link";
-import type { ChatConfig } from "@/lib/demo-sites";
-import DemoChat from "./DemoChat";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2FB39A]";
 
-/** Slim Yakimel bar shown on top of every demo, plus the WhatsApp AI assistant. */
+/** Slim Yakimel bar shown on top of every demo. */
 export default function DemoShell({
   name,
   service,
-  chat,
-  chatAccent,
   children,
 }: {
   name: string;
   /** Package name passed to the consultation form. */
   service?: string;
-  chat?: ChatConfig;
-  chatAccent?: string;
   children: React.ReactNode;
 }) {
   const href = `/consultation?service=${encodeURIComponent(service ?? name)}`;
@@ -37,7 +31,6 @@ export default function DemoShell({
         </Link>
       </div>
       {children}
-      {chat && <DemoChat business={name} config={chat} accent={chatAccent} />}
     </>
   );
 }

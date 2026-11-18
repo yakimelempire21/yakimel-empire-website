@@ -5,14 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Bot, ChevronDown, Globe, Menu, ShoppingBag, Smartphone, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Globe, Menu, ShoppingBag, Smartphone, X } from "lucide-react";
 import { NAV_LINKS, whatsappUrl } from "@/lib/site";
 import { consultationHref } from "@/lib/services";
 
 const SERVICES = [
-  { icon: Globe, title: "Business Websites", body: "Website + AI assistant from $1,500", href: "/services" },
+  { icon: Globe, title: "Business Websites", body: "Professional website from $1,500", href: "/services" },
   { icon: ShoppingBag, title: "Shopify Stores", body: "New stores and full rebuilds", href: "/pricing" },
-  { icon: Bot, title: "WhatsApp AI Assistant", body: "Answers your customers 24/7", href: "/products/whatsapp-ai-assistant" },
   { icon: Smartphone, title: "Apps & AI Development", body: "Custom apps, dashboards, automation", href: consultationHref("App & AI Development") },
 ];
 

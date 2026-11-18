@@ -28,7 +28,7 @@ type Base = {
   name: string;
   businessType: string;
   /** Pricing package this demo sells (used for the "Get this" button). */
-  pkg: "AI Business Package" | "Clinic Package" | "Shopify Store Rebuild";
+  pkg: "Business Website Package" | "Clinic Package" | "Shopify Store Rebuild";
   pkgLabel: string;
   tagline: string;
   intro: string;
@@ -39,7 +39,6 @@ type Base = {
   phone: string;
   hours: [string, string][];
   reviews: { name: string; text: string }[];
-  chat: ChatConfig;
   /** Shown on the /demo hub card. */
   features: string[];
 };
@@ -50,7 +49,6 @@ export type BookingSite = Base & {
   bookLabel: string;
   services: { category: string; items: ServiceItem[] }[];
   times: string[];
-  reminder: string;
   policy: string;
 };
 
@@ -65,11 +63,6 @@ export type DemoSite = BookingSite | CafeSite | StoreSite;
 const photo = (slug: string, file: string, alt: string): Photo => ({ src: `/demos/${slug}/${file}`, alt });
 const gallery = (slug: string, alts: string[]) => alts.map((alt, i) => photo(slug, `${i + 1}.jpg`, alt));
 
-const MULTILINGUAL: ChatQA = {
-  q: "Èske nou pale Kreyòl?",
-  keywords: ["kreyol", "kreyòl", "creole", "français", "francais", "español", "espanol"],
-  a: "Wi! Mwen reponn an Kreyòl, Anglè, Fransè ak Panyòl, 24 sou 24. Ekri m nan lang ou pi alèz la. 😊",
-};
 
 export const DEMO_SITES: DemoSite[] = [
   {
@@ -81,7 +74,7 @@ export const DEMO_SITES: DemoSite[] = [
     pkgLabel: "Clinic · $3,000 + $399/mo",
     tagline: "Care for the whole family, close to home.",
     intro:
-      "Primary care, pediatrics and women's health in Brooklyn. Book online in under a minute, and get a reminder on WhatsApp the day before.",
+      "Primary care, pediatrics and women's health in Brooklyn. Book online in under a minute.",
     theme: { bg: "#F5FAFB", surface: "#FFFFFF", ink: "#0B2E3C", muted: "#4C6A75", accent: "#0E7C86", accentInk: "#FFFFFF", soft: "#DDF1F2", font: "sans" },
     hero: photo("clinic", "hero.jpg", "Doctor talking with a patient in a bright exam room"),
     gallery: gallery("clinic", ["Reception area", "Exam room", "Pediatric corner", "Our care team"]),
@@ -93,7 +86,7 @@ export const DEMO_SITES: DemoSite[] = [
       ["Sunday", "Closed"],
     ],
     reviews: [
-      { name: "Guerline P.", text: "Booked at 11 PM from my phone and got a reminder on WhatsApp. The doctor was patient and kind." },
+      { name: "Guerline P.", text: "Booked at 11 PM from my phone. The doctor was patient and kind." },
       { name: "Marcus T.", text: "Short wait, clean office, and they explained everything. My kids actually like coming here." },
       { name: "Rose-Anne J.", text: "They speak Kreyòl and French, which made my mother feel at home." },
     ],
@@ -117,26 +110,16 @@ export const DEMO_SITES: DemoSite[] = [
       },
     ],
     times: ["8:30 AM", "9:15 AM", "10:00 AM", "11:30 AM", "1:00 PM", "2:15 PM", "3:30 PM", "4:45 PM"],
-    reminder: "Hi {name}, this is Bonsante Family Clinic 👋 Reminder: your {service} is tomorrow at {time}. Reply 1 to confirm or 2 to reschedule.",
     policy: "Please bring your ID and insurance card. Arrive 10 minutes early for your first visit.",
-    chat: {
-      greeting: "Hello! I'm Bonsante's assistant. I can help you book a visit, check our hours or answer questions about insurance.",
-      qa: [
-        { q: "Do you take my insurance?", keywords: ["insurance", "medicaid", "medicare", "pay", "cost"], a: "We accept Medicaid, Medicare, Fidelis, Healthfirst, MetroPlus, Aetna and most major plans. Send me the name of your plan and I'll check it for you." },
-        { q: "Can I see a doctor today?", keywords: ["today", "urgent", "same day", "now"], a: "Yes, we keep same-day slots every morning. The next opening is today at 2:15 PM. Want me to book it?" },
-        { q: "What are your hours?", keywords: ["hours", "open", "close", "time"], a: "Mon – Fri 8 AM – 6 PM, Saturday 9 AM – 2 PM. Closed Sunday." },
-        MULTILINGUAL,
-      ],
-    },
-    features: ["Online booking", "WhatsApp reminders", "Patient intake", "AI assistant 24/7"],
+    features: ["Online booking", "Patient intake"],
   },
   {
     kind: "menu",
     slug: "cafe",
     name: "Lakay Coffee",
     businessType: "Coffee & drinks",
-    pkg: "AI Business Package",
-    pkgLabel: "AI Business · $1,500 + $199/mo",
+    pkg: "Business Website Package",
+    pkgLabel: "Business Website · $1,500 + $199/mo",
     tagline: "Haitian coffee, fresh juice and warm pastries.",
     intro: "Small-batch coffee from the mountains of Haiti, cold drinks made to order and pastries baked every morning. Order ahead and skip the line.",
     theme: { bg: "#FBF6EF", surface: "#FFFFFF", ink: "#2B1A10", muted: "#6E5646", accent: "#B4532A", accentInk: "#FFFFFF", soft: "#F3E3D3", font: "serif" },
@@ -190,26 +173,17 @@ export const DEMO_SITES: DemoSite[] = [
         ],
       },
     ],
-    chat: {
-      greeting: "Bonjou! Welcome to Lakay Coffee ☕ I can take your order, tell you what's popular or share our hours.",
-      qa: [
-        { q: "What's your most popular drink?", keywords: ["popular", "best", "recommend", "favorite"], a: "Our Haitian espresso and the iced caramel latte! If you like fruit, the passion fruit juice is a must." },
-        { q: "Can I order for pickup?", keywords: ["order", "pickup", "pick up", "ahead"], a: "Of course. Tell me what you'd like and when you'll pass by, and it will be ready at the counter. You can also order with the 'Order ahead' button." },
-        { q: "Do you cater events?", keywords: ["cater", "event", "party", "office"], a: "Yes! Coffee boxes and pastry trays for 10 to 100 people. Give me the date and the number of guests and I'll send a quote." },
-        MULTILINGUAL,
-      ],
-    },
-    features: ["Menu with prices", "Order ahead for pickup", "Catering requests", "AI assistant 24/7"],
+    features: ["Menu with prices", "Order ahead for pickup", "Catering requests"],
   },
   {
     kind: "booking",
     slug: "waxing",
     name: "Silk Wax Bar",
     businessType: "Waxing studio",
-    pkg: "AI Business Package",
-    pkgLabel: "AI Business · $1,500 + $199/mo",
+    pkg: "Business Website Package",
+    pkgLabel: "Business Website · $1,500 + $199/mo",
     tagline: "Smooth skin. Quick, clean, comfortable.",
-    intro: "Professional waxing for women and men, with gentle hard wax for sensitive skin. Book in seconds and get a WhatsApp reminder before your visit.",
+    intro: "Professional waxing for women and men, with gentle hard wax for sensitive skin. Book online in seconds.",
     theme: { bg: "#FFF8F4", surface: "#FFFFFF", ink: "#3A1F1A", muted: "#7A5A52", accent: "#C0705A", accentInk: "#FFFFFF", soft: "#F8E2D8", font: "serif" },
     hero: photo("waxing", "hero.jpg", "Calm, softly lit waxing room"),
     gallery: gallery("waxing", ["Treatment room", "Our products", "Front desk", "Aftercare kit"]),
@@ -223,7 +197,7 @@ export const DEMO_SITES: DemoSite[] = [
     reviews: [
       { name: "Tamara B.", text: "Fastest Brazilian I've ever had and barely any pain. Super clean studio." },
       { name: "Kervens A.", text: "First time getting my back waxed. Very professional and made me comfortable." },
-      { name: "Lisa M.", text: "Booking online is so easy, and I love the reminder text." },
+      { name: "Lisa M.", text: "Booking online is so easy, I do it in a minute." },
     ],
     bookLabel: "Book now",
     services: [
@@ -247,26 +221,16 @@ export const DEMO_SITES: DemoSite[] = [
       },
     ],
     times: ["10:00 AM", "10:45 AM", "11:30 AM", "1:00 PM", "2:30 PM", "4:00 PM", "5:15 PM", "6:30 PM"],
-    reminder: "Hi {name}! See you tomorrow at {time} for your {service} at Silk Wax Bar ✨ Tip: no lotion on the area that day. Reply 1 to confirm.",
     policy: "Hair should be at least ¼ inch long. Please give 24 hours notice to cancel.",
-    chat: {
-      greeting: "Hi! I'm Silk's assistant ✨ Ask me about prices, prep tips or open times.",
-      qa: [
-        { q: "How much is a Brazilian?", keywords: ["brazilian", "price", "cost", "how much"], a: "A Brazilian is $60 and takes about 30 minutes. We use hard wax, which is gentler on sensitive skin." },
-        { q: "Does it hurt the first time?", keywords: ["hurt", "pain", "first time"], a: "A little, but it's quick! Our hard wax grips the hair, not the skin. Tip: avoid caffeine before your visit and exfoliate 2 days before." },
-        { q: "Any openings Saturday?", keywords: ["saturday", "opening", "available", "appointment"], a: "Yes, Saturday at 10:45 AM and 2:30 PM are still open. Want me to hold one for you?" },
-        MULTILINGUAL,
-      ],
-    },
-    features: ["Service menu with prices", "Online booking", "WhatsApp reminders", "AI assistant 24/7"],
+    features: ["Service menu with prices", "Online booking"],
   },
   {
     kind: "booking",
     slug: "lashes",
     name: "Velvet Lash Studio",
     businessType: "Eyelash studio",
-    pkg: "AI Business Package",
-    pkgLabel: "AI Business · $1,500 + $199/mo",
+    pkg: "Business Website Package",
+    pkgLabel: "Business Website · $1,500 + $199/mo",
     tagline: "Lashes that wake up with you.",
     intro: "Classic, hybrid and volume lash extensions, plus lifts and tints, by certified lash artists. Pick your set, choose a time, done.",
     theme: { bg: "#FBF7FA", surface: "#FFFFFF", ink: "#24141F", muted: "#6B5465", accent: "#8E3B6E", accentInk: "#FFFFFF", soft: "#F1E1EB", font: "serif" },
@@ -304,26 +268,16 @@ export const DEMO_SITES: DemoSite[] = [
       },
     ],
     times: ["9:00 AM", "11:30 AM", "12:00 PM", "2:00 PM", "3:30 PM", "4:30 PM"],
-    reminder: "Hi {name} 💕 Your {service} at Velvet Lash Studio is tomorrow at {time}. Please come with clean lashes, no mascara. Reply 1 to confirm.",
     policy: "A $30 deposit holds your spot and goes toward your service. Fills need at least 40% of lashes remaining.",
-    chat: {
-      greeting: "Hi love! I'm Velvet's assistant 💕 I can help you pick a set, check openings or explain aftercare.",
-      qa: [
-        { q: "Which set looks most natural?", keywords: ["natural", "which", "set", "difference"], a: "Classic is the most natural: one extension per lash. Hybrid adds a little more fullness, and volume is the most dramatic." },
-        { q: "How long do they last?", keywords: ["last", "long", "fill", "weeks"], a: "With good aftercare, 3 to 4 weeks. We recommend a fill every 2 to 3 weeks to keep them full." },
-        { q: "Do I need a deposit?", keywords: ["deposit", "pay", "cancel"], a: "Yes, a $30 deposit holds your appointment and goes toward your service. You can pay it right when you book." },
-        MULTILINGUAL,
-      ],
-    },
-    features: ["Lash menu with prices", "Online booking + deposit", "WhatsApp reminders", "AI assistant 24/7"],
+    features: ["Lash menu with prices", "Online booking + deposit"],
   },
   {
     kind: "booking",
     slug: "nails",
     name: "Gloss & Co. Nail Bar",
     businessType: "Nail tech",
-    pkg: "AI Business Package",
-    pkgLabel: "AI Business · $1,500 + $199/mo",
+    pkg: "Business Website Package",
+    pkgLabel: "Business Website · $1,500 + $199/mo",
     tagline: "Nails done right, every time.",
     intro: "Gel manicures, acrylic and Gel-X sets, custom nail art and spa pedicures. See our work, pick a style and book your chair.",
     theme: { bg: "#FFF7F8", surface: "#FFFFFF", ink: "#2A1418", muted: "#735259", accent: "#D14B6A", accentInk: "#FFFFFF", soft: "#FBE1E7", font: "sans" },
@@ -374,18 +328,8 @@ export const DEMO_SITES: DemoSite[] = [
       },
     ],
     times: ["10:00 AM", "11:00 AM", "12:30 PM", "2:00 PM", "3:30 PM", "5:00 PM", "6:30 PM"],
-    reminder: "Hey {name} 💅 Your {service} at Gloss & Co. is tomorrow at {time}. Bring your inspo pics! Reply 1 to confirm.",
     policy: "Please arrive on time; we hold your chair for 10 minutes. Soak-off of another salon's work is $10.",
-    chat: {
-      greeting: "Hey! 💅 I'm the Gloss & Co. assistant. Ask about prices, nail art or the next open chair.",
-      qa: [
-        { q: "How much for a Gel-X set with art?", keywords: ["gel-x", "gelx", "art", "price", "how much", "set"], a: "A Gel-X full set is $70, and nail art is $20 per set. So $90 total, about 2 hours. Send me your inspo pic and I'll confirm!" },
-        { q: "Can I book today?", keywords: ["today", "walk", "now", "available"], a: "Today we have a chair open at 3:30 PM and 6:30 PM. Want me to book one?" },
-        { q: "Do you do pedicures for men?", keywords: ["men", "man", "male", "pedicure"], a: "Absolutely! Our classic pedicure ($40) and spa pedicure ($55) are for everyone." },
-        MULTILINGUAL,
-      ],
-    },
-    features: ["Gallery of your work", "Online booking", "WhatsApp reminders", "AI assistant 24/7"],
+    features: ["Gallery of your work", "Online booking"],
   },
   {
     kind: "store",
@@ -419,37 +363,19 @@ export const DEMO_SITES: DemoSite[] = [
       { id: "lip-balm", name: "Mango Lip Balm Duo", price: 12, category: "Face", desc: "Soft, glossy, never sticky.", tone: "#F0A07A" },
     ],
     freeShipping: 50,
-    chat: {
-      greeting: "Hi! I'm Velora's beauty assistant 🌿 I can help you choose products, track an order or answer shipping questions.",
-      qa: [
-        { q: "What helps with dark spots?", keywords: ["dark spot", "spots", "hyperpigmentation", "even"], a: "Our Glow Vitamin C Serum ($34) is our best seller for dark spots. Use it every morning with sunscreen; most people see results in 4 to 6 weeks." },
-        { q: "Where is my order?", keywords: ["order", "track", "where", "shipping"], a: "Send me your order number (like #1042) and I'll give you the tracking link right away." },
-        { q: "Do you ship to Canada?", keywords: ["canada", "ship", "international", "haiti"], a: "Yes! We ship to the US and Canada. Shipping is free on orders over $50." },
-        MULTILINGUAL,
-      ],
-    },
-    features: ["Product pages", "Cart & checkout", "Free-shipping bar", "AI assistant 24/7"],
+    features: ["Product pages", "Cart & checkout", "Free-shipping bar"],
   },
 ];
 
-/** The restaurant demo (Aurum) has its own hand-built page; this is its hub card + chat. */
+/** The restaurant demo (Aurum) has its own hand-built page; this is its hub card. */
 export const RESTAURANT_DEMO = {
   slug: "aurum",
   name: "Aurum",
   businessType: "Restaurant",
-  pkgLabel: "AI Business · $1,500 + $199/mo",
+  pkgLabel: "Business Website · $1,500 + $199/mo",
   tagline: "Fine dining with online reservations.",
   image: "/products/templates/aurum-hero.jpg",
-  features: ["Menu by course", "Table reservations", "Private dining", "AI assistant 24/7"],
-  chat: {
-    greeting: "Good evening! I'm Aurum's assistant. I can book a table, share the menu or help plan a private dinner.",
-    qa: [
-      { q: "Table for 4 on Friday?", keywords: ["table", "friday", "reserve", "reservation", "book"], a: "Friday we have 6:30 PM and 8:30 PM for 4 guests. Which one should I hold for you?" },
-      { q: "Do you have vegetarian dishes?", keywords: ["vegetarian", "vegan", "allerg", "gluten"], a: "Yes: the roasted heirloom beets, the wild mushroom velouté and our wild mushroom risotto. The chef can adapt the tasting menu too." },
-      { q: "Can we book a private party?", keywords: ["private", "party", "event", "birthday"], a: "Our private salon seats up to 24 guests. Tell me the date and number of guests and I'll send you the options." },
-      MULTILINGUAL,
-    ],
-  } satisfies ChatConfig,
+  features: ["Menu by course", "Table reservations", "Private dining"],
 };
 
 /** Old product slugs that now open one of these demos. */

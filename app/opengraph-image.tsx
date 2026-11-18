@@ -25,7 +25,7 @@ export default function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 104, fontWeight: 800, letterSpacing: -4, lineHeight: 1 }}>Your business, online.</div>
           <div style={{ marginTop: 28, fontSize: 36, color: "#2E4C46", maxWidth: 900 }}>
-            Websites, Shopify stores, apps and AI assistants for small businesses.
+            Websites, Shopify stores, apps and AI tools for small businesses.
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 28 }}>

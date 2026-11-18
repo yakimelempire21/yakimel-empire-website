@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 const QUESTIONS = [
   {
     q: "How much does a website cost?",
-    a: "Business websites start at $1,500 (with a WhatsApp AI assistant), Shopify stores at $599 and dropshipping stores at $799. Apps and AI tools are quoted per project. You get a written quote before any work starts.",
+    a: "Business websites start at $1,500, Shopify stores at $599 and dropshipping stores at $799. Apps and AI tools are quoted per project. You get a written quote before any work starts.",
   },
   {
     q: "Are there other costs?",
@@ -12,7 +12,7 @@ const QUESTIONS = [
   },
   {
     q: "Can I update my website myself?",
-    a: "Yes. Every website we build comes with a private admin dashboard where you can manage products or menus, update prices and track orders without touching code.",
+    a: "Small content changes are included in the monthly plan: send us what you want changed and we update it for you. Shopify stores come with Shopify's own admin, where you manage products, prices and orders yourself.",
   },
   {
     q: "What happens after launch?",

@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        // The WhatsApp AI Assistant is not offered for now (temporary, so it can come back).
+        source: "/products/whatsapp-ai-assistant",
+        destination: "/products",
+        permanent: false,
+      },
+      {
         // The outreach role's earlier URL.
         source: "/careers/marketing-sales-representative",
         destination: "/careers/marketing-client-outreach-representative",
